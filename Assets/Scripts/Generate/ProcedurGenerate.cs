@@ -59,8 +59,13 @@ public class ProcedurGenerate : MonoBehaviour
     */
 
 
+    private void Start()
+    {
+        StartCoroutine(GenerateHexGrid());
+    }
+
     [ContextMenu("CreateLevel")]
-    private void GenerateHexGrid()
+    private IEnumerator GenerateHexGrid()
     {
         int randomHex = Random.Range(0, _hexPrefabs.Length);
 
@@ -84,6 +89,7 @@ public class ProcedurGenerate : MonoBehaviour
                 randomHex = Random.Range(0, _hexPrefabs.Length);
                 Vector3 hexPosition = HexToWorldPosition(q, r, hexWidth, hexHeight);
                 Instantiate(_hexPrefabs[randomHex], hexPosition, Quaternion.identity, transform);   
+                yield return new WaitForSeconds(0.1f);
             }
         }
     }

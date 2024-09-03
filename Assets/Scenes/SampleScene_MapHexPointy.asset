@@ -17,16 +17,18 @@ MonoBehaviour:
   RotationType: 0
   Edge: 1
   MapMask:
-    serializedVersion: 2
     m_Bits: 0
   BorderSize: 0.025
   CellMaterial: {fileID: 2100000, guid: 48097669abeecd047ac9c7d0c9302e74, type: 2}
-  Rules:
-    IsMovable: {fileID: 11400000, guid: ce303506d48d89d44abd552e9c465edb, type: 2}
+  Rules: {IsMovable: {fileID: 11400000, guid: ce303506d48d89d44abd552e9c465edb, type: 2}}
   Presets:
   - Type: Ground
     Id: ed768055e9b88d1488477e55c22d7749
-    MapColor: {r: 1, g: 1, b: 1, a: 0.5}
+    MapColor:
+      r: 1
+      g: 1
+      b: 1
+      a: 0.5
     Prefab: {fileID: 0}
     GridOffset: 1
     Tags: []
@@ -660,3 +662,4 @@ MonoBehaviour:
     - 0
     - 0
     - 0
+  DefaultTileTypeName: Ground

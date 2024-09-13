@@ -9,7 +9,7 @@ public class HexMesh : MonoBehaviour
     List<Vector3> vertices;
     List<int> triangles;
 
-    void Awake()
+    public void Init()
     {
         GetComponent<MeshFilter>().mesh = hexMesh = new Mesh();
         hexMesh.name = "Hex Mesh";

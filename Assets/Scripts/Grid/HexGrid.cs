@@ -19,7 +19,24 @@ public class HexGrid : MonoBehaviour
 
     HexMesh hexMesh;
 
-    void Awake()
+    //void Awake()
+    //{
+    //    gridCanvas = GetComponentInChildren<Canvas>();
+    //    hexMesh = GetComponentInChildren<HexMesh>();
+
+    //    cells = new HexCell[height * width];
+
+    //    for (int z = 0, i = 0; z < height; z++)
+    //    {
+    //        for (int x = 0; x < width; x++)
+    //        {
+    //            CreateCell(x, z, i++);
+    //        }
+    //    }
+    //}
+
+    [ContextMenu("Create Grid")]
+    private void CreateGrid()
     {
         gridCanvas = GetComponentInChildren<Canvas>();
         hexMesh = GetComponentInChildren<HexMesh>();
@@ -33,6 +50,8 @@ public class HexGrid : MonoBehaviour
                 CreateCell(x, z, i++);
             }
         }
+        hexMesh.Init();
+        hexMesh.Triangulate(cells);
     }
 
     void Start()

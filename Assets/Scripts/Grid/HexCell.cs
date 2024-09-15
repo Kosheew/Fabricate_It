@@ -6,5 +6,9 @@ public class HexCell : MonoBehaviour
 {
     public HexCoordinates coordinates;
 
-
+    private void Awake()
+    {
+        
+        Debug.Log(coordinates.ToStringOnSeparateLines());
+    }
 }

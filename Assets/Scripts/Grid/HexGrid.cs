@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.Searcher.SearcherWindow.Alignment;
 
 public class HexGrid : MonoBehaviour
 {
@@ -19,21 +18,21 @@ public class HexGrid : MonoBehaviour
 
     HexMesh hexMesh;
 
-    //void Awake()
-    //{
-    //    gridCanvas = GetComponentInChildren<Canvas>();
-    //    hexMesh = GetComponentInChildren<HexMesh>();
+    void Awake()
+    {
+        gridCanvas = GetComponentInChildren<Canvas>();
+        hexMesh = GetComponentInChildren<HexMesh>();
 
-    //    cells = new HexCell[height * width];
+        cells = new HexCell[height * width];
 
-    //    for (int z = 0, i = 0; z < height; z++)
-    //    {
-    //        for (int x = 0; x < width; x++)
-    //        {
-    //            CreateCell(x, z, i++);
-    //        }
-    //    }
-    //}
+        for (int z = 0, i = 0; z < height; z++)
+        {
+            for (int x = 0; x < width; x++)
+            {
+                CreateCell(x, z, i++);
+            }
+        }
+    }
 
     [ContextMenu("Create Grid")]
     private void CreateGrid()
@@ -56,6 +55,7 @@ public class HexGrid : MonoBehaviour
 
     void Start()
     {
+        hexMesh.Init();
         hexMesh.Triangulate(cells);
     }
 

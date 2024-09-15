@@ -17,11 +17,11 @@ public class CameraController : MonoBehaviour
     {
         Ray ray = _camera.ScreenPointToRay(Input.mousePosition);
 
-        if(Physics.Raycast(ray, out hit))
+        if(Physics.Raycast(ray, out hit) && Input.GetMouseButtonDown(0))
         {
             if(hit.collider.TryGetComponent(out HexCell hex))
             {
-                Debug.Log($"X: {hex.coordinates.X}, Z: {hex.coordinates.Z}");
+                Debug.Log(hex.coordinates.ToStringOnSeparateLines());
             }
         }
     }

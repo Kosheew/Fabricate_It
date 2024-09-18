@@ -1,3 +1,4 @@
+using Game.CameraControllers;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,11 @@ namespace Game
     public class Game : MonoBehaviour
     {
         private BinarySaveSystem _saveSystem;
+        [SerializeField] private CameraZooming _cameraZooming;
+        [SerializeField] private CameraMovement _cameraMovement;
+
+
+        [Header("Save Data")]
         public GameData _gameData;
 
         private void Awake()
@@ -26,8 +32,14 @@ namespace Game
                     }
                 };
             }
+            Init();
         }
 
+        private void Init()
+        {
+            _cameraZooming.Init();
+            _cameraMovement.Init();
+        }
 
         private void OnApplicationPause(bool pause)
         {

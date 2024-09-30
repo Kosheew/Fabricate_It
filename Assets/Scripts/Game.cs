@@ -11,6 +11,7 @@ namespace Game
         [SerializeField] private CameraZooming _cameraZooming;
         [SerializeField] private CameraMovement _cameraMovement;
 
+        [SerializeField] private GameView _gameView;
 
         [Header("Save Data")]
         public GameData _gameData;
@@ -32,6 +33,9 @@ namespace Game
                     }
                 };
             }
+
+            _gameView.UpdateCoins(_gameData.CurrencyData.Coins);
+            _gameView.UpdateBonds(_gameData.CurrencyData.Bonds);
             Init();
         }
 

@@ -10,16 +10,16 @@ public class PlayerUIView : View
     {
         _button.onClick.AddListener(() =>
         {
-            _presenter.OnDisplayHealth();
+           // _presenter.OnDisplayHealth();
         });
     }
-    public override void SetHealth(int health)
+    public void SetHealth(int health)
     {
         healthSlider.maxValue = health;
         healthSlider.value = health; 
     }
 
-    public override void UpdateHealth(int health)
+    public void UpdateHealth(int health)
     {
         healthSlider.value = health;
     }

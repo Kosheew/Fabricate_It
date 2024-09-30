@@ -7,10 +7,5 @@ public abstract class View : MonoBehaviour
     {
         _presenter = presenter; 
     }
-
-    public abstract void SetHealth(int value);
-    
-    public abstract void UpdateHealth(int value);
-
 }
 

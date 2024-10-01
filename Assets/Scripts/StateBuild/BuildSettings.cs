@@ -1,18 +1,38 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
-public class BuildSettings : MonoBehaviour
+[CreateAssetMenu(fileName ="Build", menuName = "ScriptableObjects/Build")]
+public class BuildSettings : ScriptableObject
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private float _timeBuilding;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [Header("Mesh Building")]
+    [SerializeField] private Mesh _meshUnderConstruction;
+    [SerializeField] private Mesh _meshBuilding;
+    [SerializeField] private Mesh _meshDestroyed;
+
+    [Header("Cost Building Construction")]
+    [SerializeField] private BuildCost[] _costPriceLevel;
+    [SerializeField] private BuildResources[] _buildResources;
+    public Mesh MeshUnderConstrucrion => _meshUnderConstruction;
+    public Mesh MeshBuilding => _meshBuilding;
+    public Mesh MeshDestroyed => _meshDestroyed;
+
+    public float TimeBuilding => _timeBuilding;
+}
+
+[Serializable]
+public class BuildCost
+{
+    public int Coins;
+    public int Bonds;
+}
+
+[Serializable]
+public class BuildResources
+{
+    public int Oil;
+    public int Ñoal;
+    public int Ore;
+    public int Tree;
 }

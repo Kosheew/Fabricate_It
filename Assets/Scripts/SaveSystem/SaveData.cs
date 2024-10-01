@@ -8,6 +8,7 @@ public class GameData
     public Resurces ResurcesData;
     public ProductionResources ProductionResourcesData;
     public UniqueResources UniqueResourcesData;
+    public List<BuildData> BuildsData;
 }
 
 [Serializable]
@@ -54,4 +55,15 @@ public class UniqueResources
     public int Lamp;
     public int Kerasinka;
     public int Pump;
+}
+
+[Serializable]
+public class BuildData
+{
+    public int IdBuilding;
+    public string StartTimeBuilding;
+    public string EndTimeBuilding;
+    public int LevelBuild;
+
+    public SerializableVector3 BuildPosition;
 }

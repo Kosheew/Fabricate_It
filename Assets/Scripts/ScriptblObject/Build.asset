@@ -16,3 +16,17 @@ MonoBehaviour:
   _meshUnderConstruction: {fileID: 0}
   _meshBuilding: {fileID: 0}
   _meshDestroyed: {fileID: 0}
+  _costPriceLevel:
+  - Coins: 0
+    Bonds: 0
+  - Coins: 0
+    Bonds: 0
+  _buildResources:
+  - Oil: 0
+    "\u0421oal": 0
+    Ore: 0
+    Tree: 0
+  - Oil: 0
+    "\u0421oal": 0
+    Ore: 0
+    Tree: 0

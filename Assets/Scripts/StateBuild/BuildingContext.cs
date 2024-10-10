@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -8,21 +9,27 @@ public class BuildingContext : MonoBehaviour
     public float TimeBuilding {  get; private set; }
     public BuildView BuildView { get; private set; }
 
-    
+    public string StartTime { get; private set; }
+    public string EndTime { get; private set; }
+
     private IBuildingState _currentState;
 
     public IBuildingState BuiltState { get; private set; }
     public IBuildingState DestroyedState { get; private set; }
     public IBuildingState UnderConstructionState { get; private set; }
 
-    public void Awake()
+    public void Init(BuildData data)
     {
+        TimeBuilding = data.TimeBuilding;
+        StartTime = data.StartTimeBuilding;
+        EndTime = data.EndTimeBuilding;
+
         BuiltState = new BuiltState();
         DestroyedState = new DestroyedState();
         UnderConstructionState = new UnderConstructionState();
 
         BuildView = GetComponent<BuildView>();
-        TimeBuilding = 6660;
+
         BuildView.SetTimeBuilding(TimeBuilding);
 
         // Початковий стан

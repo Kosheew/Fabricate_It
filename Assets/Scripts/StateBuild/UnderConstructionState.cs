@@ -2,12 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Unity.VisualScripting;
 
 public class UnderConstructionState : IBuildingState
 {
     private Coroutine _constructionCoroutine;
     private DateTime _startTime; // Час початку будівництва
     private DateTime _endTime;   // Час завершення будівництва
+
+    public void SetDateTime(string start, string end)
+    {
+        _startTime = DateTime.Parse(start);
+        _endTime = DateTime.Parse(end);
+    }
 
     public void Enter(BuildingContext context)
     {
@@ -17,18 +24,15 @@ public class UnderConstructionState : IBuildingState
 
         float buildDuration = context.TimeBuilding;
 
-        if (PlayerPrefs.HasKey("StartTime") && PlayerPrefs.HasKey("EndTime"))
-        {
-            _startTime = DateTime.Parse(PlayerPrefs.GetString("StartTime"));
-            _endTime = DateTime.Parse(PlayerPrefs.GetString("EndTime"));
-        }
-        else
+        _startTime = DateTime.Parse(context.StartTime);
+        _endTime = DateTime.Parse(context.EndTime);
+
+        if (_startTime == null)
         {
             _startTime = DateTime.Now;
             _endTime = _startTime.AddSeconds(buildDuration);
-            PlayerPrefs.SetString("StartTime", _startTime.ToString());
-            PlayerPrefs.SetString("EndTime", _endTime.ToString());
         }
+
         CheckElapsedTime(context);       
     }
 

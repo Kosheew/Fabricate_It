@@ -61,6 +61,7 @@ public class UniqueResources
 public class BuildData
 {
     public int IdBuilding;
+    public int TimeBuilding;
     public string StartTimeBuilding;
     public string EndTimeBuilding;
     public int LevelBuild;

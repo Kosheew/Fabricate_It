@@ -13,6 +13,8 @@ namespace Game
 
         [SerializeField] private GameView _gameView;
 
+        [SerializeField] private BuildingContext _buildingContext;
+
         [Header("Save Data")]
         public GameData _gameData;
 
@@ -30,12 +32,22 @@ namespace Game
                     {
                         Bonds = 100,
                         Coins = 100,
+                    },
+                    BuildsData = new List<BuildData>()
+                    {
+                        new BuildData()
+                        {
+                            TimeBuilding = 200
+                        }
                     }
                 };
             }
 
+
+
             _gameView.UpdateCoins(_gameData.CurrencyData.Coins);
             _gameView.UpdateBonds(_gameData.CurrencyData.Bonds);
+            
             Init();
         }
 
@@ -43,6 +55,7 @@ namespace Game
         {
             _cameraZooming.Init();
             _cameraMovement.Init();
+            _buildingContext.Init(_gameData.BuildsData[0]);
         }
 
         private void OnApplicationPause(bool pause)

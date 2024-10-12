@@ -6,6 +6,10 @@ using UnityEngine;
 
 public class BuildingContext : MonoBehaviour
 {
+    public bool NeedsUpgrade { get; private set; }
+    public bool NeedsRepair { get; private set; }
+    public IBuildingState CurrentState => _currentState;
+
     public float TimeBuilding {  get; private set; }
     public BuildView BuildView { get; private set; }
 
@@ -18,8 +22,11 @@ public class BuildingContext : MonoBehaviour
     public IBuildingState DestroyedState { get; private set; }
     public IBuildingState UnderConstructionState { get; private set; }
 
+    public BuildData BuildData;
+
     public void Init(BuildData data)
     {
+        BuildData = data;   
         TimeBuilding = data.TimeBuilding;
         StartTime = data.StartTimeBuilding;
         EndTime = data.EndTimeBuilding;
@@ -38,6 +45,16 @@ public class BuildingContext : MonoBehaviour
         StartCoroutine(UpdateState());
     }
 
+    public void ReduceBuildTime(float seconds)
+    {
+        // «меншуЇмо час буд≥вництва
+        TimeBuilding -= seconds;
+        if (TimeBuilding <= 0)
+        {
+            TransitionToState(BuiltState);
+        }
+    }
+
     private IEnumerator UpdateState()
     {
         while (true)
@@ -47,6 +64,15 @@ public class BuildingContext : MonoBehaviour
         }
     }
 
+    public void SetUpgradeFlag(bool value)
+    {
+        NeedsUpgrade = value;
+    }
+
+    public void SetRepairFlag(bool value)
+    {
+        NeedsRepair = value;
+    }
 
     public void TransitionToState(IBuildingState newState)
     {

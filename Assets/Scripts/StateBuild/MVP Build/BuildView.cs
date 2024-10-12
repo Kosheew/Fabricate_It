@@ -11,6 +11,26 @@ public class BuildView : MonoBehaviour
 
     private float _progressValue;
 
+    public Button upgradeButton;
+    public Button speedUpButton;
+
+    private BuiltPresenter _presenter;
+
+    private void Start()
+    {
+        _presenter = new BuiltPresenter(this, GetComponent<BuildingContext>());
+
+        upgradeButton.onClick.AddListener(() => _presenter.OnUpgradeButtonPressed());
+        speedUpButton.onClick.AddListener(() =>
+        {
+            // Запуск команди прискорення
+            SpeedUpCommand command = new SpeedUpCommand(GetComponent<BuildingContext>(), 5);
+            CommandInvoker invoker = new CommandInvoker();
+            invoker.SetCommand(command);
+            invoker.ExecuteCommands();
+        });
+    }
+
     public void SetTimeBuilding(float timeBuilding)
     {
         _progressValue = timeBuilding;

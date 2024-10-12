@@ -24,12 +24,14 @@ public class UnderConstructionState : IBuildingState
 
         float buildDuration = context.TimeBuilding;
 
-        _startTime = DateTime.Parse(context.StartTime);
-        _endTime = DateTime.Parse(context.EndTime);
-
-        if (_startTime == null)
+        try
         {
-            _startTime = DateTime.Now;
+            _startTime = DateTime.Parse(context.StartTime);
+            _endTime = DateTime.Parse(context.EndTime);
+        }
+        catch
+        {
+             _startTime = DateTime.Now;
             _endTime = _startTime.AddSeconds(buildDuration);
         }
 

@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using BuildingState;
+using Buildings;
+using Command.Build;
+using Command;
 
 public class BuildView : MonoBehaviour
 {
@@ -24,7 +28,7 @@ public class BuildView : MonoBehaviour
         speedUpButton.onClick.AddListener(() =>
         {
             // Запуск команди прискорення
-            SpeedUpCommand command = new SpeedUpCommand(GetComponent<BuildingContext>(), 5);
+            SpeedUpCommand command = new SpeedUpCommand(GetComponent<BuildingContext>(), 50000);
             CommandInvoker invoker = new CommandInvoker();
             invoker.SetCommand(command);
             invoker.ExecuteCommands();

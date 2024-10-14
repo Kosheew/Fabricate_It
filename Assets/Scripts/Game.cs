@@ -2,6 +2,7 @@ using Game.CameraControllers;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Buildings;
 
 namespace Game
 {
@@ -23,27 +24,7 @@ namespace Game
             _saveSystem = new BinarySaveSystem();   
             _gameData = _saveSystem.Load<GameData>();
 
-            if (_gameData == null)
-            {
-                Debug.Log("Load");
-                _gameData = new GameData()
-                {
-                    CurrencyData = new Currency()
-                    {
-                        Bonds = 100,
-                        Coins = 100,
-                    },
-                    BuildsData = new List<BuildData>()
-                    {
-                        new BuildData()
-                        {
-                            TimeBuilding = 200
-                        }
-                    }
-                };
-            }
-
-
+            LoadGameData();
 
             _gameView.UpdateCoins(_gameData.CurrencyData.Coins);
             _gameView.UpdateBonds(_gameData.CurrencyData.Bonds);
@@ -69,5 +50,20 @@ namespace Game
             _saveSystem.Save(_gameData);
         }
 
+
+        private void LoadGameData()
+        {
+            _gameData = _saveSystem.Load<GameData>() ?? CreateNewGameData();
+        }
+
+        private GameData CreateNewGameData()
+        {
+            Debug.Log("Creating new game data");
+            return new GameData
+            {
+                CurrencyData = new Currency { Bonds = 100, Coins = 100 },
+                BuildsData = new List<BuildData> { new BuildData { TimeBuilding = 200 } }
+            };
+        }
     }
 }

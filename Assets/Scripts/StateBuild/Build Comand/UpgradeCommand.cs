@@ -1,27 +1,32 @@
 using UnityEngine;
+using Buildings;
+using BuildingState;
 /// <summary>
 /// Команда для апгрейду будівлі.
 /// </summary>
-public class UpgradeCommand : ICommand
+namespace Command.Build
 {
-    private BuildingContext _context;
-
-    public UpgradeCommand(BuildingContext context)
+    public class UpgradeCommand : ICommand
     {
-        _context = context;
-    }
+        private BuildingContext _context;
 
-    public void Execute()
-    {
-        // Логіка для апгрейду будівлі
-        if (_context.CurrentState is BuiltState)
+        public UpgradeCommand(BuildingContext context)
         {
-            Debug.Log("Upgrading the building.");
-            // Додаємо логіку для зміни стану чи інших дій
+            _context = context;
         }
-        else
+
+        public void Execute()
         {
-            Debug.Log("Building cannot be upgraded in the current state.");
+            // Логіка для апгрейду будівлі
+            if (_context.CurrentState is BuiltState)
+            {
+                Debug.Log("Upgrading the building.");
+                // Додаємо логіку для зміни стану чи інших дій
+            }
+            else
+            {
+                Debug.Log("Building cannot be upgraded in the current state.");
+            }
         }
     }
 }

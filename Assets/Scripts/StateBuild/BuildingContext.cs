@@ -1,83 +1,83 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
+using Command;
+using Command.Build;
+using BuildingState;
 
-public class BuildingContext : MonoBehaviour
+namespace Buildings
 {
-    public bool NeedsUpgrade { get; private set; }
-    public bool NeedsRepair { get; private set; }
-    public IBuildingState CurrentState => _currentState;
-
-    public float TimeBuilding {  get; private set; }
-    public BuildView BuildView { get; private set; }
-
-    public string StartTime { get; private set; }
-    public string EndTime { get; private set; }
-
-    private IBuildingState _currentState;
-
-    public IBuildingState BuiltState { get; private set; }
-    public IBuildingState DestroyedState { get; private set; }
-    public IBuildingState UnderConstructionState { get; private set; }
-
-    public BuildData BuildData;
-
-    public void Init(BuildData data)
+    public class BuildingContext : MonoBehaviour
     {
-        BuildData = data;   
-        TimeBuilding = data.TimeBuilding;
-        StartTime = data.StartTimeBuilding;
-        EndTime = data.EndTimeBuilding;
+        public bool NeedsUpgrade { get; private set; }
+        public bool NeedsRepair { get; private set; }
 
-        BuiltState = new BuiltState();
-        DestroyedState = new DestroyedState();
-        UnderConstructionState = new UnderConstructionState();
+        public float TimeBuilding { get; private set; }
+        public BuildView BuildView { get; private set; }
 
-        BuildView = GetComponent<BuildView>();
+        public string EndTime { get; private set; }
 
-        BuildView.SetTimeBuilding(TimeBuilding);
+        public IBuildingState CurrentState { get; private set; }
 
-        // Початковий стан
-        TransitionToState(UnderConstructionState);
+        public IBuildingState BuiltState { get; private set; }
+        public IBuildingState DestroyedState { get; private set; }
+        public IBuildingState UnderConstructionState { get; private set; }
 
-        StartCoroutine(UpdateState());
-    }
+        public BuildData BuildData;
 
-    public void ReduceBuildTime(float seconds)
-    {
-        // Зменшуємо час будівництва
-        TimeBuilding -= seconds;
-        if (TimeBuilding <= 0)
+        public void Init(BuildData data)
         {
-            TransitionToState(BuiltState);
-        }
-    }
+            BuildData = data;
+            TimeBuilding = data.TimeBuilding;
+            EndTime = data.EndTimeBuilding;
 
-    private IEnumerator UpdateState()
-    {
-        while (true)
+            BuiltState = new BuiltState();
+            DestroyedState = new DestroyedState();
+            UnderConstructionState = new UnderConstructionState();
+
+            BuildView = GetComponent<BuildView>();
+
+            BuildView.SetTimeBuilding(TimeBuilding);
+
+            // Початковий стан
+            TransitionToState(UnderConstructionState);
+
+            StartCoroutine(UpdateState());
+        }
+
+        public void ReduceBuildTime(float seconds)
         {
-            _currentState?.Update(this);
-            yield return new WaitForSeconds(1);
+            // Зменшуємо час будівництва
+            TimeBuilding -= seconds;
+            if (TimeBuilding <= 0)
+            {
+                TransitionToState(BuiltState);
+            }
         }
-    }
 
-    public void SetUpgradeFlag(bool value)
-    {
-        NeedsUpgrade = value;
-    }
+        private IEnumerator UpdateState()
+        {
+            while (true)
+            {
+                CurrentState?.Update(this);
+                yield return new WaitForSeconds(1);
+            }
+        }
 
-    public void SetRepairFlag(bool value)
-    {
-        NeedsRepair = value;
-    }
+        public void SetUpgradeFlag(bool value)
+        {
+            NeedsUpgrade = value;
+        }
 
-    public void TransitionToState(IBuildingState newState)
-    {
-        _currentState?.Exit(this);
-        _currentState = newState;
-        _currentState.Enter(this);
+        public void SetRepairFlag(bool value)
+        {
+            NeedsRepair = value;
+        }
+
+        public void TransitionToState(IBuildingState newState)
+        {
+            CurrentState?.Exit(this);
+            CurrentState = newState;
+            CurrentState.Enter(this);
+        }
     }
 }

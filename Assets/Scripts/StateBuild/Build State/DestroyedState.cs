@@ -1,31 +1,35 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using Command;
+using Command.Build;
+using Buildings;
 
-public class DestroyedState : IBuildingState
+namespace BuildingState
 {
-    private ICommand _repairCommand;
-
-    public void Enter(BuildingContext context)
+    public class DestroyedState : IBuildingState
     {
-        // Логіка входження в стан "Зруйнована"
-        Debug.Log("Building is now Destroyed.");
+        private ICommand _repairCommand;
 
-        // Ініціалізація команди для відновлення
-        _repairCommand = new RepairCommand(context);
-    }
-
-    public void Exit(BuildingContext context)
-    {
-        // Логіка виходу з стану "Зруйнована"
-    }
-
-    public void Update(BuildingContext context)
-    {
-        // Логіка оновлення в стані "Зруйнована"
-        if (context.NeedsRepair)
+        public void Enter(BuildingContext context)
         {
-            _repairCommand.Execute();
+            // Логіка входження в стан "Зруйнована"
+            Debug.Log("Building is now Destroyed.");
+
+            // Ініціалізація команди для відновлення
+            _repairCommand = new RepairCommand(context);
+        }
+
+        public void Exit(BuildingContext context)
+        {
+            // Логіка виходу з стану "Зруйнована"
+        }
+
+        public void Update(BuildingContext context)
+        {
+            // Логіка оновлення в стані "Зруйнована"
+            if (context.NeedsRepair)
+            {
+                _repairCommand.Execute();
+            }
         }
     }
 }

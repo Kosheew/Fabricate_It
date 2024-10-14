@@ -1,6 +1,11 @@
-public interface IBuildingState
+using Buildings;
+
+namespace BuildingState
 {
-    void Enter(BuildingContext context);
-    void Exit(BuildingContext context);
-    void Update(BuildingContext context);
+    public interface IBuildingState
+    {
+        void Enter(BuildingContext context);
+        void Exit(BuildingContext context);
+        void Update(BuildingContext context);
+    }
 }

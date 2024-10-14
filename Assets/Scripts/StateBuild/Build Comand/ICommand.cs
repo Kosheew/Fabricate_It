@@ -1,7 +1,12 @@
 /// <summary>
 /// Інтерфейс для команд, що керують станом будівництва.
 /// </summary>
-public interface ICommand
+/// 
+
+namespace Command
 {
-    void Execute();
+    public interface ICommand
+    {
+        void Execute();
+    }
 }

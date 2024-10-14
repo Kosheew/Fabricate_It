@@ -1,31 +1,36 @@
 using UnityEngine;
+using Buildings;
+using BuildingState;
 /// <summary>
 /// Команда для прискорення будівництва за допомогою кристалів.
 /// </summary>
-public class SpeedUpCommand : ICommand
+namespace Command.Build
 {
-    private BuildingContext _context;
-    private int _crystals;
-
-    public SpeedUpCommand(BuildingContext context, int crystals)
+    public class SpeedUpCommand : ICommand
     {
-        _context = context;
-        _crystals = crystals;
-    }
+        private BuildingContext _context;
+        private int _crystals;
 
-    public void Execute()
-    {
-        // Логіка для прискорення будівництва
-        if (_context.CurrentState is UnderConstructionState)
+        public SpeedUpCommand(BuildingContext context, int crystals)
         {
-            Debug.Log("Speeding up construction.");
-            // Наприклад, скорочуємо час будівництва залежно від кількості кристалів
-            float reduction = _crystals * 10f; // 10 секунд на кожен кристал
-            _context.ReduceBuildTime(reduction);
+            _context = context;
+            _crystals = crystals;
         }
-        else
+
+        public void Execute()
         {
-            Debug.Log("Building cannot be sped up in the current state.");
+            // Логіка для прискорення будівництва
+            if (_context.CurrentState is UnderConstructionState)
+            {
+                Debug.Log("Speeding up construction.");
+                // Наприклад, скорочуємо час будівництва залежно від кількості кристалів
+                float reduction = _crystals * 10f; // 10 секунд на кожен кристал
+                _context.ReduceBuildTime(reduction);
+            }
+            else
+            {
+                Debug.Log("Building cannot be sped up in the current state.");
+            }
         }
     }
 }

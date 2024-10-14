@@ -3,21 +3,25 @@ using System.Collections.Generic;
 /// <summary>
 /// Клас, який відповідає за виклик команд.
 /// </summary>
-public class CommandInvoker
+
+namespace Command
 {
-    private List<ICommand> _commands = new List<ICommand>();
-
-    public void SetCommand(ICommand command)
+    public class CommandInvoker
     {
-        _commands.Add(command);
-    }
+        private List<ICommand> _commands = new List<ICommand>();
 
-    public void ExecuteCommands()
-    {
-        foreach (var command in _commands)
+        public void SetCommand(ICommand command)
         {
-            command.Execute();
+            _commands.Add(command);
         }
-        _commands.Clear();
+
+        public void ExecuteCommands()
+        {
+            foreach (var command in _commands)
+            {
+                command.Execute();
+            }
+            _commands.Clear();
+        }
     }
 }

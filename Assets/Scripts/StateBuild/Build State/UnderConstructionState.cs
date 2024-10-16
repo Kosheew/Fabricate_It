@@ -13,6 +13,7 @@ namespace BuildingState
 
         public void Enter(BuildingContext context)
         {
+            context.MeshBuild.mesh = context.BuildSettings.MeshUnderConstrucrion;
             Debug.Log("Building is now Under Construction.");
 
             float buildDuration = context.TimeBuilding;
@@ -36,6 +37,8 @@ namespace BuildingState
         public void Exit(BuildingContext context)
         {
             context.BuildData.LevelBuild++;
+
+            context.MeshBuild.mesh = context.BuildSettings.MeshBuilding;
 
             context.BuildView.EndBuilding();
         }

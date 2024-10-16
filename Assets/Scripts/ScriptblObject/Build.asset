@@ -13,9 +13,12 @@ MonoBehaviour:
   m_Name: Build
   m_EditorClassIdentifier: 
   _timeBuilding: 0
-  _meshUnderConstruction: {fileID: 0}
-  _meshBuilding: {fileID: 0}
-  _meshDestroyed: {fileID: 0}
+  _meshUnderConstruction: {fileID: 3299788846712481772, guid: 719627c1fd6ed2845b6b6c8ac11a3b81,
+    type: 3}
+  _meshBuilding: {fileID: -5495902117074765545, guid: 9f7aa2686a76bfa4897d433ae6724b2b,
+    type: 3}
+  _meshDestroyed: {fileID: 4692989581047829285, guid: 8a690b64e896aba4f9b70e5fc5f85e63,
+    type: 3}
   _costPriceLevel:
   - Coins: 0
     Bonds: 0

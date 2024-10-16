@@ -8,6 +8,11 @@ namespace Buildings
 {
     public class BuildingContext : MonoBehaviour
     {
+        [SerializeField] private BuildSettings _buildSettings;
+        [SerializeField] private MeshFilter _meshBuild;
+
+        public MeshFilter MeshBuild => _meshBuild;
+        public BuildSettings BuildSettings => _buildSettings;
         public bool NeedsUpgrade { get; private set; }
         public bool NeedsRepair { get; private set; }
 

@@ -21,7 +21,8 @@ namespace Command.Build
             if (_context.CurrentState is BuiltState)
             {
                 Debug.Log("Upgrading the building.");
-                // Додаємо логіку для зміни стану чи інших дій
+                _context.SetUpgradeFlag(true);
+                _context.TransitionToState(_context.UnderConstructionState);
             }
             else
             {

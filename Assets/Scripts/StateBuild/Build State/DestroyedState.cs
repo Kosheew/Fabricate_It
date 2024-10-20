@@ -23,6 +23,11 @@ namespace BuildingState
             // Логіка виходу з стану "Зруйнована"
         }
 
+        public void ShowPanel(BuildingContext context)
+        {
+            context.RestoreBuildingView.ShowStatePanel();
+        }
+
         public void Update(BuildingContext context)
         {
             // Логіка оновлення в стані "Зруйнована"

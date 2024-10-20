@@ -31,6 +31,7 @@ namespace BuildingState
                 _endTime = DateTime.Parse(context.EndTime);
             }
 
+            context.ConstructionProgressView.SetTimeBuilding(buildDuration);
             CheckElapsedTime(context);
         }
 
@@ -40,7 +41,12 @@ namespace BuildingState
 
             context.MeshBuild.mesh = context.BuildSettings.MeshBuilding;
 
-            context.BuildView.EndBuilding();
+            context.ConstructionProgressView.EndBuilding();
+        }
+
+        public void ShowPanel(BuildingContext context)
+        {
+            context.ConstructionProgressView.ShowStatePanel();
         }
 
         public void Update(BuildingContext context)
@@ -64,10 +70,6 @@ namespace BuildingState
                 TimeSpan timeElapsed = currentTime - _startTime;
                 float remainingTime = (float)(_endTime - currentTime).TotalSeconds;
 
-                // Оновлюємо прогрес на UI
-                context.BuildView.UpdateProgres(remainingTime);
-
-                // Запускаємо корутину для завершення
                 _constructionCoroutine = context.StartCoroutine(ConstructionProcess(context, remainingTime));
             }
         }
@@ -79,7 +81,7 @@ namespace BuildingState
                 if (timeRemaining <= 0) timeRemaining = 0;
 
                 // Оновлюємо в'ю з прогресом
-                context.BuildView.UpdateProgres(timeRemaining);
+                context.ConstructionProgressView.UpdateProgress(timeRemaining);
 
                 yield return new WaitForSeconds(1);
             }

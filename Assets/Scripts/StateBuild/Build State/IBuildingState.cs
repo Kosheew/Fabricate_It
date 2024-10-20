@@ -7,5 +7,7 @@ namespace BuildingState
         void Enter(BuildingContext context);
         void Exit(BuildingContext context);
         void Update(BuildingContext context);
+
+        void ShowPanel(BuildingContext context);
     }
 }

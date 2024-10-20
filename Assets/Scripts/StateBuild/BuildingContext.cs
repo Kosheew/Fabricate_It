@@ -3,6 +3,7 @@ using UnityEngine;
 using Command;
 using Command.Build;
 using BuildingState;
+using ViewBuildings;
 
 namespace Buildings
 {
@@ -15,10 +16,7 @@ namespace Buildings
         public BuildSettings BuildSettings => _buildSettings;
         public bool NeedsUpgrade { get; private set; }
         public bool NeedsRepair { get; private set; }
-
         public float TimeBuilding { get; private set; }
-        public BuildView BuildView { get; private set; }
-
         public string EndTime { get; private set; }
 
         public IBuildingState CurrentState { get; private set; }
@@ -28,6 +26,10 @@ namespace Buildings
         public IBuildingState UnderConstructionState { get; private set; }
 
         public BuildData BuildData;
+
+        public UpgradeOrViewBuildingView UpgradeOrViewBuildingView { get; private set; }
+        public RestoreBuildingView RestoreBuildingView { get; private set; }
+        public ConstructionProgressView ConstructionProgressView { get; private set; }
 
         public void Init(BuildData data)
         {
@@ -39,9 +41,9 @@ namespace Buildings
             DestroyedState = new DestroyedState();
             UnderConstructionState = new UnderConstructionState();
 
-            BuildView = GetComponent<BuildView>();
-
-            BuildView.SetTimeBuilding(TimeBuilding);
+            UpgradeOrViewBuildingView = GetComponent<UpgradeOrViewBuildingView>();
+            RestoreBuildingView = GetComponent<RestoreBuildingView>();
+            ConstructionProgressView = GetComponent<ConstructionProgressView>();
 
             // Початковий стан
             TransitionToState(UnderConstructionState);
@@ -83,6 +85,12 @@ namespace Buildings
             CurrentState?.Exit(this);
             CurrentState = newState;
             CurrentState.Enter(this);
+        }
+
+        private void OnMouseDown()
+        {
+            CurrentState.ShowPanel(this);
+            Debug.Log("Down");
         }
     }
 }

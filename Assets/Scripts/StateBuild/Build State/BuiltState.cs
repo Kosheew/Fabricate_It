@@ -23,6 +23,11 @@ namespace BuildingState
             // Логіка виходу з стану "Побудована"
         }
 
+        public void ShowPanel(BuildingContext context)
+        {
+            context.UpgradeOrViewBuildingView.ShowStatePanel();
+        }
+
         public void Update(BuildingContext context)
         {
             // Логіка оновлення в стані "Побудована"

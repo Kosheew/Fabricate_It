@@ -12,7 +12,7 @@ namespace ViewBuildings
         public override void Init()
         {
             _presenter = new UpgradePresenter(this, GetComponent<BuildingContext>());
-         //   upgradeButton.onClick.AddListener(() => _presenter.OnUpgradeButtonPressed());
+            upgradeButton.onClick.AddListener(() => _presenter.ButtonPressed());
         }
     }
 }

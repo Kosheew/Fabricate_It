@@ -12,7 +12,7 @@ namespace ViewBuildings
         public override void Init()
         {
             _presenter = new RestorePresenter(this, GetComponent<BuildingContext>());
-         //   restoreButton.onClick.AddListener(() => _presenter.OnRestoreButtonPressed());
+            restoreButton.onClick.AddListener(() => _presenter.ButtonPressed());
         }
     }
 }

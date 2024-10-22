@@ -17,7 +17,7 @@ namespace ViewBuildings
         public override void Init()
         {
             _presenter = new ConstructionProgressPresenter(this, GetComponent<BuildingContext>());
-            // speedUpButton.onClick.AddListener(() => _presenter.OnSpeedUpButtonPressed());
+            speedUpButton.onClick.AddListener(() => _presenter.ButtonPressed());
         }
 
         public void SetTimeBuilding(float timeBuilding)

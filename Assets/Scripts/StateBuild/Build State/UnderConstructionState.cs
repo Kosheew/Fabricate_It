@@ -13,6 +13,10 @@ namespace BuildingState
 
         public void Enter(BuildingContext context)
         {
+            context.BuildData.Bought = true;
+            context.gameObject.SetActive(true);
+            context.gameObject.transform.position = context.BuildData.BuildPosition.ToVector3();
+
             context.MeshBuild.mesh = context.BuildSettings.MeshUnderConstrucrion;
             Debug.Log("Building is now Under Construction.");
 

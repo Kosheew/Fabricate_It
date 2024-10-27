@@ -45,10 +45,17 @@ namespace Buildings
             RestoreBuildingView = GetComponent<RestoreBuildingView>();
             ConstructionProgressView = GetComponent<ConstructionProgressView>();
 
-            // Початковий стан
-            TransitionToState(UnderConstructionState);
-
-            StartCoroutine(UpdateState());
+            if (data.Bought)
+            {
+                transform.position = data.BuildPosition.ToVector3();
+                // Початковий стан
+                TransitionToState(UnderConstructionState);
+                StartCoroutine(UpdateState());
+            }
+            else
+            {
+                gameObject.SetActive(false);
+            }
         }
 
         public void ReduceBuildTime(float seconds)

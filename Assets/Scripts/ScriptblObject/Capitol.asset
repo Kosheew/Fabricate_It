@@ -10,9 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b48bc57a18c8c5f46a5de0e478360f1d, type: 3}
-  m_Name: Build
+  m_Name: Capitol
   m_EditorClassIdentifier: 
-  _timeBuilding: 0
   _meshUnderConstruction: {fileID: 3299788846712481772, guid: 719627c1fd6ed2845b6b6c8ac11a3b81,
     type: 3}
   _meshBuilding: {fileID: -5495902117074765545, guid: 9f7aa2686a76bfa4897d433ae6724b2b,
@@ -20,16 +19,25 @@ MonoBehaviour:
   _meshDestroyed: {fileID: 4692989581047829285, guid: 8a690b64e896aba4f9b70e5fc5f85e63,
     type: 3}
   _costPriceLevel:
-  - Coins: 0
+  - TimeBuild: 15
+    Coins: 250
     Bonds: 0
-  - Coins: 0
+  - TimeBuild: 3600
+    Coins: 0
+    Bonds: 0
+  - TimeBuild: 14400
+    Coins: 0
     Bonds: 0
   _buildResources:
   - Oil: 0
-    "\u0421oal": 0
+    Coal: 0
+    Ore: 50
+    Tree: 50
+  - Oil: 0
+    Coal: 0
     Ore: 0
     Tree: 0
   - Oil: 0
-    "\u0421oal": 0
+    Coal: 0
     Ore: 0
     Tree: 0

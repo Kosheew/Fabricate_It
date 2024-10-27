@@ -12,7 +12,7 @@ namespace Game
         [SerializeField] private CameraZooming _cameraZooming;
         [SerializeField] private CameraMovement _cameraMovement;
 
-        [SerializeField] private GameView _gameView;
+        [SerializeField] private ResourceView _resourceView;
 
         [SerializeField] private BuildingContext _buildingContext;
 
@@ -26,8 +26,12 @@ namespace Game
 
             LoadGameData();
 
-            _gameView.UpdateCoins(_gameData.CurrencyData.Coins);
-            _gameView.UpdateBonds(_gameData.CurrencyData.Bonds);
+            _resourceView.UpdateCoins(_gameData.CurrencyData.Coins);
+            _resourceView.UpdateBonds(_gameData.CurrencyData.Bonds);
+
+            _resourceView.UpdateCoal(_gameData.ResurcesData.Coal);
+            _resourceView.UpdateOre(_gameData.ResurcesData.Ore);
+            _resourceView.UpdateTree(_gameData.ResurcesData.Tree);
             
             Init();
         }
@@ -37,6 +41,7 @@ namespace Game
             _cameraZooming.Init();
             _cameraMovement.Init();
             _buildingContext.Init(_gameData.BuildsData[0]);
+            _buildingContext.enabled = false;
         }
 
         private void OnApplicationPause(bool pause)

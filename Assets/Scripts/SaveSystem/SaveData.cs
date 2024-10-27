@@ -22,7 +22,7 @@ public class Currency
 public class Resurces
 {
     public int Oil;
-    public int Ñoal;
+    public int Coal;
     public int Ore;
     public int Tree;
 }
@@ -66,6 +66,8 @@ public class BuildData
     public string CurrentState;
 
     public int LevelBuild;
+
+    public bool Bought;
 
     public SerializableVector3 BuildPosition;
 }

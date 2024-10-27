@@ -12,10 +12,12 @@ namespace PresenterBuildings
     {
         protected View _view;
         protected BuildingContext _context;
+        protected CommandInvoker _invoker;
         public Presenter(View view, BuildingContext context)
         {
             _view = view;
             _context = context;
+            _invoker = new CommandInvoker();
         }
 
         public abstract void ButtonPressed();
@@ -28,9 +30,8 @@ namespace PresenterBuildings
         public override void ButtonPressed()
         {
             ICommand speedUpCommand = new SpeedUpCommand(_context, 50000);
-            CommandInvoker invoker = new CommandInvoker();
-            invoker.SetCommand(speedUpCommand);
-            invoker.ExecuteCommands();
+            _invoker.SetCommand(speedUpCommand);
+            _invoker.ExecuteCommands();
         }
     }
 
@@ -41,9 +42,8 @@ namespace PresenterBuildings
         public override void ButtonPressed()
         {
             ICommand upgradeCommand = new UpgradeCommand(_context);
-            CommandInvoker invoker = new CommandInvoker();
-            invoker.SetCommand(upgradeCommand);
-            invoker.ExecuteCommands();
+            _invoker.SetCommand(upgradeCommand);
+            _invoker.ExecuteCommands();
         }
     }
 
@@ -54,9 +54,8 @@ namespace PresenterBuildings
         public override void ButtonPressed()
         {
             ICommand restoreCommand = new RepairCommand(_context);
-            CommandInvoker invoker = new CommandInvoker();
-            invoker.SetCommand(restoreCommand);
-            invoker.ExecuteCommands();
+            _invoker.SetCommand(restoreCommand);
+            _invoker.ExecuteCommands();
         }
     }
 

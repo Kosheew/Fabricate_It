@@ -4,8 +4,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName ="Build", menuName = "ScriptableObjects/Build")]
 public class BuildSettings : ScriptableObject
 {
-    [SerializeField] private float _timeBuilding;
-
     [Header("Mesh Building")]
     [SerializeField] private Mesh _meshUnderConstruction;
     [SerializeField] private Mesh _meshBuilding;
@@ -17,22 +15,23 @@ public class BuildSettings : ScriptableObject
     public Mesh MeshUnderConstrucrion => _meshUnderConstruction;
     public Mesh MeshBuilding => _meshBuilding;
     public Mesh MeshDestroyed => _meshDestroyed;
-
-    public float TimeBuilding => _timeBuilding;
+    public BuildCost[] CostPriceLevel => _costPriceLevel;
+    public BuildResources[] BuildResources => _buildResources;
 }
 
 [Serializable]
 public class BuildCost
 {
+    public float TimeBuild;
     public int Coins;
     public int Bonds;
 }
 
 [Serializable]
 public class BuildResources
-{
+{  
     public int Oil;
-    public int Ñoal;
+    public int Coal;
     public int Ore;
     public int Tree;
 }

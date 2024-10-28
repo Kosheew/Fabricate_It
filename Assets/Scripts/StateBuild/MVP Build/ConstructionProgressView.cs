@@ -40,5 +40,10 @@ namespace ViewBuildings
         {
             _progressPanel.SetActive(false);
         }
+
+        public void StartBuilding()
+        {
+            _progressPanel.SetActive(true);
+        }
     }
 }

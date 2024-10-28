@@ -31,8 +31,11 @@ namespace Buildings
         public RestoreBuildingView RestoreBuildingView { get; private set; }
         public ConstructionProgressView ConstructionProgressView { get; private set; }
 
+        public Collider Collider { get; private set; }
+
         public void Init(BuildData data)
         {
+           
             BuildData = data;
             TimeBuilding = data.TimeBuilding;
             EndTime = data.EndTimeBuilding;
@@ -44,6 +47,9 @@ namespace Buildings
             UpgradeOrViewBuildingView = GetComponent<UpgradeOrViewBuildingView>();
             RestoreBuildingView = GetComponent<RestoreBuildingView>();
             ConstructionProgressView = GetComponent<ConstructionProgressView>();
+
+            Collider = GetComponent<Collider>();
+            Collider.enabled = false;
 
             if (data.Bought)
             {

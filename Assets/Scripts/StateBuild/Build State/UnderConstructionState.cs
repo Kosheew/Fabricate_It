@@ -13,6 +13,8 @@ namespace BuildingState
 
         public void Enter(BuildingContext context)
         {
+            context.Collider.enabled = true;
+
             context.BuildData.Bought = true;
             context.gameObject.SetActive(true);
             context.gameObject.transform.position = context.BuildData.BuildPosition.ToVector3();
@@ -34,14 +36,14 @@ namespace BuildingState
             {
                 _endTime = DateTime.Parse(context.EndTime);
             }
-
+            context.ConstructionProgressView.StartBuilding();
             context.ConstructionProgressView.SetTimeBuilding(buildDuration);
             CheckElapsedTime(context);
         }
 
         public void Exit(BuildingContext context)
         {
-            context.BuildData.LevelBuild++;
+            
 
             context.MeshBuild.mesh = context.BuildSettings.MeshBuilding;
 
@@ -90,6 +92,7 @@ namespace BuildingState
                 yield return new WaitForSeconds(1);
             }
 
+            context.BuildData.LevelBuild++;
             // Будівництво завершене
             context.TransitionToState(context.BuiltState);
             _constructionCoroutine = null;

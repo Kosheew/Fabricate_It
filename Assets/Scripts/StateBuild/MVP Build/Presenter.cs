@@ -21,6 +21,14 @@ namespace PresenterBuildings
         }
 
         public abstract void ButtonPressed();
+
+        public void ButtonMove()
+        {
+            ICommand moveBuild = new MoveCommand(_context);
+            _invoker.SetCommand(moveBuild);
+            _invoker.ExecuteCommands();
+
+        }
     }
 
     public class ConstructionProgressPresenter : Presenter

@@ -12,7 +12,12 @@ namespace Game
         [SerializeField] private CameraZooming _cameraZooming;
         [SerializeField] private CameraMovement _cameraMovement;
 
-        [SerializeField] private ResourceView _resourceView;
+        [Header("Resource View")]
+        [SerializeField] private ResourceView _coinsView;
+        [SerializeField] private ResourceView _bondsView;
+        [SerializeField] private ResourceView _oreView;
+        [SerializeField] private ResourceView _coalView;
+        [SerializeField] private ResourceView _woodView;
 
         [SerializeField] private BuildingContext _buildingContext;
 
@@ -26,12 +31,13 @@ namespace Game
 
             LoadGameData();
 
-            _resourceView.UpdateCoins(_gameData.CurrencyData.Coins);
-            _resourceView.UpdateBonds(_gameData.CurrencyData.Bonds);
+            _bondsView.UpdateResouce(_gameData.CurrencyData.Bonds);
+            _coinsView.UpdateResouce(_gameData.CurrencyData.Coins);
 
-            _resourceView.UpdateCoal(_gameData.ResurcesData.Coal);
-            _resourceView.UpdateOre(_gameData.ResurcesData.Ore);
-            _resourceView.UpdateTree(_gameData.ResurcesData.Tree);
+            _oreView.UpdateResouce(_gameData.ResurcesData.Ore);
+            _coalView.UpdateResouce(_gameData.ResurcesData.Coal);
+            _woodView.UpdateResouce(_gameData.ResurcesData.Wood);
+
             
             Init();
         }

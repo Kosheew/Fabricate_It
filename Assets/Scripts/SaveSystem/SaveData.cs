@@ -24,7 +24,7 @@ public class Resurces
     public int Oil;
     public int Coal;
     public int Ore;
-    public int Tree;
+    public int Wood;
 }
 
 [Serializable]

@@ -11,7 +11,7 @@ namespace ViewBuildings
         [SerializeField] private Text _timeText;
         [SerializeField] private Slider _progressSlider;
         [SerializeField] private Button speedUpButton;
-        
+
         private float _progressValue;
 
         public override void Init()

@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7d80ad4870c52a429d4bcb54ce27b54, type: 3}
   m_Name: Capitol Level 3
   m_EditorClassIdentifier: 
-  _temeBuild: 0
-  _coins: 0
+  _temeBuild: 14400
+  _coins: 6000
   _bonds: 0
   _oil: 0
-  _coal: 0
-  _ore: 0
-  _wood: 0
+  _coal: 900
+  _ore: 1700
+  _wood: 1500
+  _income: 0

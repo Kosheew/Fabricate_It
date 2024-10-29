@@ -10,13 +10,12 @@ public class BuildSettings : ScriptableObject
     [SerializeField] private Mesh _meshDestroyed;
 
     [Header("Cost Building Construction")]
-    [SerializeField] private BuildCost[] _costPriceLevel;
-    [SerializeField] private BuildResources[] _buildResources;
+    [SerializeField] private UpgradeResource[] _leveResources;
     public Mesh MeshUnderConstrucrion => _meshUnderConstruction;
     public Mesh MeshBuilding => _meshBuilding;
     public Mesh MeshDestroyed => _meshDestroyed;
-    public BuildCost[] CostPriceLevel => _costPriceLevel;
-    public BuildResources[] BuildResources => _buildResources;
+    
+    public UpgradeResource[] LeveResources => _leveResources;
 }
 
 [Serializable]

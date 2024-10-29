@@ -18,26 +18,7 @@ MonoBehaviour:
     type: 3}
   _meshDestroyed: {fileID: 4692989581047829285, guid: 8a690b64e896aba4f9b70e5fc5f85e63,
     type: 3}
-  _costPriceLevel:
-  - TimeBuild: 15
-    Coins: 250
-    Bonds: 0
-  - TimeBuild: 3600
-    Coins: 0
-    Bonds: 0
-  - TimeBuild: 14400
-    Coins: 0
-    Bonds: 0
-  _buildResources:
-  - Oil: 0
-    Coal: 0
-    Ore: 50
-    Tree: 50
-  - Oil: 0
-    Coal: 0
-    Ore: 0
-    Tree: 0
-  - Oil: 0
-    Coal: 0
-    Ore: 0
-    Tree: 0
+  _leveResources:
+  - {fileID: 11400000, guid: f7bf0dd3b0848654e840a9fbd9a2e071, type: 2}
+  - {fileID: 11400000, guid: fe6bab7e4856db84f95400f25959d885, type: 2}
+  - {fileID: 11400000, guid: d96225acc8287944f911ebcc4f3a87e3, type: 2}

@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7d80ad4870c52a429d4bcb54ce27b54, type: 3}
+  m_Name: Capitol Level 2
+  m_EditorClassIdentifier: 
+  _temeBuild: 0
+  _coins: 0
+  _bonds: 0
+  _oil: 0
+  _coal: 0
+  _ore: 0
+  _wood: 0

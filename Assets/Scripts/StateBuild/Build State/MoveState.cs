@@ -9,22 +9,22 @@ namespace BuildingState
     {
         public void Enter(BuildingContext context)
         {
-            throw new System.NotImplementedException();
+            Debug.Log("Start Move");
         }
 
         public void Exit(BuildingContext context)
         {
-            throw new System.NotImplementedException();
+           
         }
 
         public void ShowPanel(BuildingContext context)
         {
-            throw new System.NotImplementedException();
+            
         }
 
         public void Update(BuildingContext context)
         {
-            throw new System.NotImplementedException();
+            
         }
 
        

@@ -1,7 +1,5 @@
-using UnityEngine;
 using Buildings;
-using BuildingState;
-
+using UnityEngine;
 namespace Command.Build
 {
     public class MoveCommand : ICommand
@@ -15,7 +13,8 @@ namespace Command.Build
 
         public void Execute()
         {
-
+            _context.StartMove();
+            Debug.Log("Execute command Move");
         }
     }
 }

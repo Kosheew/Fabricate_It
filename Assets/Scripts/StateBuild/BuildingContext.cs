@@ -14,6 +14,7 @@ namespace Buildings
 
         public MeshFilter MeshBuild => _meshBuild;
         public BuildSettings BuildSettings => _buildSettings;
+       
         public bool NeedsUpgrade { get; private set; }
         public bool NeedsRepair { get; private set; }
         public float TimeBuilding { get; private set; }
@@ -24,6 +25,7 @@ namespace Buildings
         public IBuildingState BuiltState { get; private set; }
         public IBuildingState DestroyedState { get; private set; }
         public IBuildingState UnderConstructionState { get; private set; }
+        public IBuildingState MoveBuildState { get; private set; }
 
         public BuildData BuildData;
 
@@ -32,6 +34,8 @@ namespace Buildings
         public ConstructionProgressView ConstructionProgressView { get; private set; }
 
         public Collider Collider { get; private set; }
+
+        private bool _isMoving = false;
 
         public void Init(BuildData data)
         {
@@ -43,6 +47,7 @@ namespace Buildings
             BuiltState = new BuiltState();
             DestroyedState = new DestroyedState();
             UnderConstructionState = new UnderConstructionState();
+            MoveBuildState = new MoveState();
 
             UpgradeOrViewBuildingView = GetComponent<UpgradeOrViewBuildingView>();
             RestoreBuildingView = GetComponent<RestoreBuildingView>();
@@ -56,7 +61,7 @@ namespace Buildings
                 transform.position = data.BuildPosition.ToVector3();
                 // Початковий стан
                 TransitionToState(UnderConstructionState);
-                StartCoroutine(UpdateState());
+                //StartCoroutine(UpdateState());
             }
             else
             {
@@ -74,12 +79,16 @@ namespace Buildings
             }
         }
 
-        private IEnumerator UpdateState()
+        private void Update()
         {
-            while (true)
+            //while (true)
             {
                 CurrentState?.Update(this);
-                yield return new WaitForSeconds(1);
+                if (_isMoving)
+                {
+                    MoveBuildState?.Update(this);
+                }
+                
             }
         }
 
@@ -98,6 +107,24 @@ namespace Buildings
             CurrentState?.Exit(this);
             CurrentState = newState;
             CurrentState.Enter(this);
+        }
+
+        public void StartMove()
+        {
+            if (!_isMoving)
+            {
+                _isMoving = true;
+                MoveBuildState?.Enter(this);
+            }
+        }
+
+        public void EndMove()
+        {
+            if (_isMoving)
+            {
+                _isMoving = false;
+                MoveBuildState?.Exit(this);
+            }
         }
 
         private void OnMouseDown()

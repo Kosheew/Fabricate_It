@@ -22,9 +22,9 @@ namespace PresenterBuildings
 
         public abstract void ButtonPressed();
 
-        public void ButtonMove()
+        public virtual void PlainningButton()
         {
-            ICommand moveBuild = new StartMoveCommand(_context);
+            ICommand moveBuild = new StartPlacmentCommand(_context);
             _invoker.SetCommand(moveBuild);
             _invoker.ExecuteCommands();
             Debug.Log("Button Pressed");
@@ -72,7 +72,25 @@ namespace PresenterBuildings
         public MovePresenter(View view, BuildingContext context) : base(view, context) { }
         public override void ButtonPressed()
         {
-            ICommand moveCommand = new EndMoveCommand(_context);
+            ICommand moveCommand = new EndPlacmentCommand(_context);
+            _invoker.SetCommand(moveCommand);
+            _invoker.ExecuteCommands();
+        }
+    }
+
+    public class PlainningPresenter : Presenter
+    {
+        public PlainningPresenter(View view, BuildingContext context) : base(view, context) { }
+        public override void ButtonPressed()
+        {
+            ICommand moveCommand = new RefuceBuildBuy(_context);
+            _invoker.SetCommand(moveCommand);
+            _invoker.ExecuteCommands();
+        }
+
+        public override void PlainningButton()
+        {
+            ICommand moveCommand = new BuildBuy(_context);
             _invoker.SetCommand(moveCommand);
             _invoker.ExecuteCommands();
         }

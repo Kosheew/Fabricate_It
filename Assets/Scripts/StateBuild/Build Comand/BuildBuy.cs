@@ -16,6 +16,7 @@ namespace Command.Build
             if (!_context.BuildData.Bought)
             {
                 _context.SetUpgradeFlag(true);
+                _context.BuildData.Bought = true;
                 _context.TransitionToState(_context.UnderConstructionState);
             }
         }

@@ -11,6 +11,8 @@ namespace BuildingState
 
         public void Enter(BuildingContext context)
         {
+            context.MeshBuild.mesh = context.BuildSettings.MeshBuilding;
+
             // Логіка входження в стан "Побудована"
             Debug.Log("Building is now Built.");
 

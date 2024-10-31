@@ -14,7 +14,6 @@ namespace BuildingState
             // Логіка входження в стан "Зруйнована"
             Debug.Log("Building is now Destroyed.");
 
-            // Ініціалізація команди для відновлення
             _repairCommand = new RepairCommand(context);
         }
 

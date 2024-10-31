@@ -14,7 +14,7 @@ namespace ViewBuildings
         {
             _presenter = new UpgradePresenter(this, GetComponent<BuildingContext>());
             upgradeButton.onClick.AddListener(() => _presenter.ButtonPressed());
-            _buttonMove.onClick.AddListener(() => _presenter.ButtonMove());
+            _buttonMove.onClick.AddListener(() => _presenter.PlainningButton());
         }
     }
 }

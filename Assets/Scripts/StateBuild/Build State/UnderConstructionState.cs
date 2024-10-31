@@ -13,14 +13,10 @@ namespace BuildingState
 
         public void Enter(BuildingContext context)
         {
-            context.Collider.enabled = true;
-
-            context.BuildData.Bought = true;
-            context.gameObject.SetActive(true);
-            context.gameObject.transform.position = context.BuildData.BuildPosition.ToVector3();
+           
 
             context.MeshBuild.mesh = context.BuildSettings.MeshUnderConstrucrion;
-            Debug.Log("Building is now Under Construction.");
+            // Debug.Log("Building is now Under Construction.");
 
             float buildDuration = context.TimeBuilding;
 
@@ -36,6 +32,7 @@ namespace BuildingState
             {
                 _endTime = DateTime.Parse(context.EndTime);
             }
+
             context.ConstructionProgressView.StartBuilding();
             context.ConstructionProgressView.SetTimeBuilding(buildDuration);
             CheckElapsedTime(context);
@@ -43,10 +40,7 @@ namespace BuildingState
 
         public void Exit(BuildingContext context)
         {
-            
-
-            context.MeshBuild.mesh = context.BuildSettings.MeshBuilding;
-
+            context.BuildData.LevelBuild++;
             context.ConstructionProgressView.EndBuilding();
         }
 

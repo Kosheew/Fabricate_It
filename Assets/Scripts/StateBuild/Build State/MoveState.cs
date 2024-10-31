@@ -1,10 +1,6 @@
 using Buildings;
-using BuildingState;
-using Command.Build;
-using Command;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using ViewBuildings;
 
 namespace BuildingState
 {
@@ -15,22 +11,27 @@ namespace BuildingState
 
         public void Enter(BuildingContext context)
         {
-            Debug.Log("Start Move");
+            context.gameObject.SetActive(true);
+
             _camera = Camera.main;
 
-            context.CurrentState.ShowPanel(context);
+            context.IsMoving = true;
+
             ShowPanel(context);
 
         }
 
         public void Exit(BuildingContext context)
-        {
-           
+        {   
+            context.gameObject.transform.position = context.BuildData.BuildPosition.ToVector3();
+            context.IsMoving = false;
+            ShowPanel(context);
         }
 
         public void ShowPanel(BuildingContext context)
         {
-            context.MoveBuildView.ShowStatePanel();   
+            if (context.CurrentState is not PlanningBuildState)
+                context.MoveBuildView.ShowStatePanel();   
         }
 
         public void Update(BuildingContext context)
@@ -42,7 +43,7 @@ namespace BuildingState
                 switch (touch.phase)
                 {
                     case TouchPhase.Began:
-                        StartDragging();
+                        _isDragging = true;
                         break;
 
                     case TouchPhase.Moved:
@@ -50,45 +51,29 @@ namespace BuildingState
                         break;
 
                     case TouchPhase.Ended:
-                        EndDragging();
+                        _isDragging = false;
                         break;
                 }
             }
         }
 
-        private void StartDragging()
-        {
-            _isDragging = true;
-
-        }
-
-        private void EndDragging()
-        {
-            _isDragging = false;
-            
-        }
-
         public void MoveBuilding(BuildingContext go)
         {
-            if (!_isDragging) return;
+            if (_isDragging)
+            { 
+                Ray ray = _camera.ScreenPointToRay(Input.GetTouch(0).position);
+                RaycastHit hit;
 
-            Ray ray = _camera.ScreenPointToRay(Input.GetTouch(0).position);
-            RaycastHit hit;
-
-            if (Physics.Raycast(ray, out hit))
-            {
-                if (hit.collider.TryGetComponent(out HexCell hex))
+                if (Physics.Raycast(ray, out hit))
                 {
-                    go.transform.position = hex.transform.position;
+                    if (hit.collider.TryGetComponent(out HexCell hex))
+                    {
+                        go.transform.position = hex.transform.position;
 
-                    go.BuildData.BuildPosition = new SerializableVector3(hex.transform.position);
-
-                    
-
+                        go.BuildData.BuildPosition = new SerializableVector3(hex.transform.position);
+                    }
                 }
             }
-        }
-
-       
+        }    
     }
 }

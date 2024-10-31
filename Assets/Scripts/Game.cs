@@ -47,7 +47,7 @@ namespace Game
             _cameraZooming.Init();
             _cameraMovement.Init();
             _buildingContext.Init(_gameData.BuildsData[0]);
-            _buildingContext.enabled = false;
+            _buildingContext.gameObject.SetActive(false);
         }
 
         private void OnApplicationPause(bool pause)

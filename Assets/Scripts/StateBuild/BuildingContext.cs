@@ -9,38 +9,46 @@ namespace Buildings
 {
     public class BuildingContext : MonoBehaviour
     {
-        [SerializeField] private BuildSettings _buildSettings;
-        [SerializeField] private MeshFilter _meshBuild;
-
-        public MeshFilter MeshBuild => _meshBuild;
-        public BuildSettings BuildSettings => _buildSettings;
-       
-        public bool NeedsUpgrade { get; private set; }
-        public bool NeedsRepair { get; private set; }
-        public float TimeBuilding { get; private set; }
-        public string EndTime { get; private set; }
-
+        /// <summary>
+        /// State Building
+        /// </summary>
         public IBuildingState CurrentState { get; private set; }
-
         public IBuildingState BuiltState { get; private set; }
         public IBuildingState DestroyedState { get; private set; }
         public IBuildingState UnderConstructionState { get; private set; }
         public IBuildingState MoveBuildState { get; private set; }
+        public IBuildingState PlanningBuildState { get; private set; }
+
+        /// <summary>
+        /// View Build
+        /// </summary>
+        public View UpgradeOrViewBuildingView { get; private set; }
+        public View RestoreBuildingView { get; private set; }
+        public ConstructionProgressView ConstructionProgressView { get; private set; }
+        public View MoveBuildView { get; private set; }
+        public View PlainningBuildView { get; private set; }
+
+        public CommandInvoker Invoker { get; private set; }
+
+
+        [SerializeField] private BuildSettings _buildSettings;
+
+        public MeshFilter MeshBuild { get; private set; }
+        public BuildSettings BuildSettings => _buildSettings;
 
         public BuildData BuildData;
 
-        public UpgradeOrViewBuildingView UpgradeOrViewBuildingView { get; private set; }
-        public RestoreBuildingView RestoreBuildingView { get; private set; }
-        public ConstructionProgressView ConstructionProgressView { get; private set; }
-        public View MoveBuildView { get; private set; }
-
-        public Collider Collider { get; private set; }
-
-        private bool _isMoving = false;
+        public bool NeedsUpgrade { get; private set; }
+        public bool NeedsRepair { get; private set; }
+        public float TimeBuilding { get; private set; }
+        public string EndTime { get; private set; }
+       
+        public bool IsMoving = false;
 
         public void Init(BuildData data)
         {
-           
+            MeshBuild = GetComponentInChildren<MeshFilter>();
+
             BuildData = data;
             TimeBuilding = data.TimeBuilding;
             EndTime = data.EndTimeBuilding;
@@ -49,6 +57,7 @@ namespace Buildings
             DestroyedState = new DestroyedState();
             UnderConstructionState = new UnderConstructionState();
             MoveBuildState = new MoveState();
+            PlanningBuildState = new PlanningBuildState();  
 
             UpgradeOrViewBuildingView = GetComponent<UpgradeOrViewBuildingView>();
             UpgradeOrViewBuildingView.Init();
@@ -62,25 +71,22 @@ namespace Buildings
             MoveBuildView = GetComponent<MoveBuildView>();
             MoveBuildView.Init();
 
-            Collider = GetComponent<Collider>();
-            Collider.enabled = false;
+            PlainningBuildView = GetComponent<PlainningBuildView>();
+            PlainningBuildView.Init();
 
             if (data.Bought)
             {
                 transform.position = data.BuildPosition.ToVector3();
+                gameObject.SetActive(true);
                 // Початковий стан
                 TransitionToState(UnderConstructionState);
                 //StartCoroutine(UpdateState());
             }
-            else
-            {
-                gameObject.SetActive(false);
-            }
+          
         }
 
         public void ReduceBuildTime(float seconds)
         {
-            // Зменшуємо час будівництва
             TimeBuilding -= seconds;
             if (TimeBuilding <= 0)
             {
@@ -90,15 +96,10 @@ namespace Buildings
 
         private void Update()
         {
-            //while (true)
+            CurrentState?.Update(this);
+            if (IsMoving)
             {
-                CurrentState?.Update(this);
-                if (_isMoving)
-                {
-                    MoveBuildState?.Update(this);
-                    Debug.Log("UpdateMove");
-                }
-                
+                MoveBuildState?.Update(this);  
             }
         }
 
@@ -119,35 +120,10 @@ namespace Buildings
             CurrentState.Enter(this);
         }
 
-        public void StartMove()
-        {
-            if (!_isMoving)
-            {
-                _isMoving = true;
-                MoveBuildState?.Enter(this);
-            }
-        }
-
-        public void EndMove()
-        {
-            if (_isMoving)
-            {
-                _isMoving = false;
-                MoveBuildState?.Exit(this);
-            }
-        }
-
         private void OnMouseDown()
         {
-            if (!_isMoving)
-            {
+            if (!IsMoving)
                 CurrentState.ShowPanel(this);
-            }
-            else
-            {
-                MoveBuildState.ShowPanel(this);
-            }
-            Debug.Log("Down");
         }
     }
 }

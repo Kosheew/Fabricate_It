@@ -32,6 +32,7 @@ namespace Buildings
         public UpgradeOrViewBuildingView UpgradeOrViewBuildingView { get; private set; }
         public RestoreBuildingView RestoreBuildingView { get; private set; }
         public ConstructionProgressView ConstructionProgressView { get; private set; }
+        public View MoveBuildView { get; private set; }
 
         public Collider Collider { get; private set; }
 
@@ -50,8 +51,16 @@ namespace Buildings
             MoveBuildState = new MoveState();
 
             UpgradeOrViewBuildingView = GetComponent<UpgradeOrViewBuildingView>();
+            UpgradeOrViewBuildingView.Init();
+
             RestoreBuildingView = GetComponent<RestoreBuildingView>();
+            RestoreBuildingView.Init();
+
             ConstructionProgressView = GetComponent<ConstructionProgressView>();
+            ConstructionProgressView.Init();
+
+            MoveBuildView = GetComponent<MoveBuildView>();
+            MoveBuildView.Init();
 
             Collider = GetComponent<Collider>();
             Collider.enabled = false;
@@ -87,6 +96,7 @@ namespace Buildings
                 if (_isMoving)
                 {
                     MoveBuildState?.Update(this);
+                    Debug.Log("UpdateMove");
                 }
                 
             }
@@ -129,7 +139,14 @@ namespace Buildings
 
         private void OnMouseDown()
         {
-            CurrentState.ShowPanel(this);
+            if (!_isMoving)
+            {
+                CurrentState.ShowPanel(this);
+            }
+            else
+            {
+                MoveBuildState.ShowPanel(this);
+            }
             Debug.Log("Down");
         }
     }

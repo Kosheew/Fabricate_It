@@ -24,7 +24,7 @@ namespace PresenterBuildings
 
         public void ButtonMove()
         {
-            ICommand moveBuild = new MoveCommand(_context);
+            ICommand moveBuild = new StartMoveCommand(_context);
             _invoker.SetCommand(moveBuild);
             _invoker.ExecuteCommands();
             Debug.Log("Button Pressed");
@@ -63,6 +63,17 @@ namespace PresenterBuildings
         {
             ICommand restoreCommand = new RepairCommand(_context);
             _invoker.SetCommand(restoreCommand);
+            _invoker.ExecuteCommands();
+        }
+    }
+
+    public class MovePresenter : Presenter
+    {
+        public MovePresenter(View view, BuildingContext context) : base(view, context) { }
+        public override void ButtonPressed()
+        {
+            ICommand moveCommand = new EndMoveCommand(_context);
+            _invoker.SetCommand(moveCommand);
             _invoker.ExecuteCommands();
         }
     }

@@ -15,7 +15,12 @@ namespace ViewBuildings
 
         public void ShowStatePanel()
         {
-            _statePanel.SetActive(true);
+            _statePanel.SetActive(!_statePanel.activeSelf);
+        }
+
+        public void HideStatePanel()
+        {
+            _statePanel.SetActive(false);
         }
     }
 }

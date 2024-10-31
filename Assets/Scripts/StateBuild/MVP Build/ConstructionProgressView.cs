@@ -18,6 +18,7 @@ namespace ViewBuildings
         {
             _presenter = new ConstructionProgressPresenter(this, GetComponent<BuildingContext>());
             speedUpButton.onClick.AddListener(() => _presenter.ButtonPressed());
+            _buttonMove.onClick.AddListener(() => _presenter.ButtonMove());
         }
 
         public void SetTimeBuilding(float timeBuilding)

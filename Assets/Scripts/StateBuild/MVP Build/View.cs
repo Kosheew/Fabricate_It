@@ -7,7 +7,7 @@ namespace ViewBuildings
     public abstract class View : MonoBehaviour
     {
         [SerializeField] private GameObject _statePanel;
-        [SerializeField] private Button _buttonMove;
+        [SerializeField] protected Button _buttonMove;
 
         protected Presenter _presenter;
 

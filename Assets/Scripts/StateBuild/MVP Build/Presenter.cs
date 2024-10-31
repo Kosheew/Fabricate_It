@@ -27,7 +27,7 @@ namespace PresenterBuildings
             ICommand moveBuild = new MoveCommand(_context);
             _invoker.SetCommand(moveBuild);
             _invoker.ExecuteCommands();
-
+            Debug.Log("Button Pressed");
         }
     }
 

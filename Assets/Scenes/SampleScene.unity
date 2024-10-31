@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3841,8 +3841,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _statePanel: {fileID: 394549811}
-  _buttonMove: {fileID: 0}
-  upgradeButton: {fileID: 0}
+  _buttonMove: {fileID: 208279777}
+  upgradeButton: {fileID: 877584026}
 --- !u!114 &320429498
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3871,11 +3871,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _statePanel: {fileID: 669484822}
-  _buttonMove: {fileID: 0}
+  _buttonMove: {fileID: 614681876}
   _progressPanel: {fileID: 1316444652}
   _timeText: {fileID: 850802183}
   _progressSlider: {fileID: 592576528}
-  speedUpButton: {fileID: 0}
+  speedUpButton: {fileID: 1112165930}
 --- !u!65 &320429500
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4168,7 +4168,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c80f799f6463d2d41acf846fff9327e9, type: 3}
   m_Name: 

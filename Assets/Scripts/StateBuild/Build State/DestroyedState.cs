@@ -7,7 +7,7 @@ namespace BuildingState
     {
         public void Enter(BuildingContext context)
         {
-            // Логіка входження в стан "Зруйнована"
+            context.BuildData.CurrentState = nameof(DestroyedState);
             Debug.Log("Building is now Destroyed.");
 
         }
@@ -19,7 +19,7 @@ namespace BuildingState
 
         public void ShowPanel(BuildingContext context)
         {
-           // context.RestoreBuildingView.ShowStatePanel();
+            context.RepairBuildView.ShowStatePanel();
         }
 
         public void Update(BuildingContext context)

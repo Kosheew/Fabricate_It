@@ -4,23 +4,17 @@ using System.Collections.Generic;
 [Serializable] 
 public class GameData
 {
-    public Currency CurrencyData;
-    public Resurces ResurcesData;
+    public GameResources ResorcesData;
     public ProductionResources ProductionResourcesData;
     public UniqueResources UniqueResourcesData;
     public List<BuildData> BuildsData;
 }
 
-[Serializable]
-public class Currency
+[Serializable] 
+public class GameResources
 {
     public int Bonds;
     public int Coins;
-}
-
-[Serializable] 
-public class Resurces
-{
     public int Oil;
     public int Coal;
     public int Ore;

@@ -45,6 +45,8 @@ namespace Buildings
        
         public bool IsMoving = false;
 
+        public DateTime EndTimeBuilding;
+
         public CommandBuildFabric CommandBuildFabric { get; private set; }
 
         public void Init(BuildData data, CommandBuildFabric commandBuildFabric)
@@ -82,14 +84,6 @@ namespace Buildings
                 TransitionToState(stateInstance);
             }
         }
-        public void ReduceBuildTime(float seconds)
-        {
-            TimeBuilding -= seconds;
-            if (TimeBuilding <= 0)
-            {
-                TransitionToState(BuiltState);
-            }
-        }
 
         private void Update()
         {
@@ -120,7 +114,7 @@ namespace Buildings
         public void ShowPanel()
         {
             if (!IsMoving)
-                CurrentState.ShowPanel(this);
+                CurrentState?.ShowPanel(this);
         }
     }
 }

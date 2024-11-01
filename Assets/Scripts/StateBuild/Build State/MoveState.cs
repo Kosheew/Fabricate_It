@@ -14,11 +14,11 @@ namespace BuildingState
 
             _camera = Camera.main;
 
+            context.ShowPanel();
+            context.BuildView.ShowMovePanel();
             context.IsMoving = true;
 
-            ShowPanel(context);
-
-            context.BuildView.ShowMovePanel();
+            ShowPanel(context);       
         }
 
         public void Exit(BuildingContext context)

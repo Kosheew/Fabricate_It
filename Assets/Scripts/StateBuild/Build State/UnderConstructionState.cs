@@ -22,12 +22,14 @@ namespace BuildingState
             {
                 _startTime = DateTime.Now;
                 _endTime = _startTime.AddSeconds(buildDuration);
+                context.EndTimeBuilding = _endTime;
                 context.BuildData.EndTimeBuilding = _endTime.ToString("o");
                 context.BuildData.CurrentState = nameof(UnderConstructionState);
             }
             else
             {
                 _endTime = DateTime.Parse(context.EndTime);
+                context.EndTimeBuilding = _endTime;
             }
 
             context.BuildView.StartBuilding();
@@ -64,7 +66,7 @@ namespace BuildingState
             else
             {
                 // якщо ще не завершено, продовжуЇмо будувати
-                TimeSpan timeElapsed = currentTime - _startTime;
+               // TimeSpan timeElapsed = currentTime - _startTime;
                 float remainingTime = (float)(_endTime - currentTime).TotalSeconds;
 
                 _constructionCoroutine = context.StartCoroutine(ConstructionProcess(context, remainingTime));

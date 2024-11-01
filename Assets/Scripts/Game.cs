@@ -9,9 +9,10 @@ namespace Game
 {
     public class Game : MonoBehaviour
     {
-        private BinarySaveSystem _saveSystem;
+        [Header("Camera Controllers")]
         [SerializeField] private CameraZooming _cameraZooming;
         [SerializeField] private CameraMovement _cameraMovement;
+        [SerializeField] private InputController _inputController;
 
         [Header("Resource View")]
         [SerializeField] private ResourceView _coinsView;
@@ -27,23 +28,24 @@ namespace Game
         [SerializeField] private View PlainningBuildView;
         [SerializeField] private View SpeedUpView;
 
-        [SerializeField] private Shop _shop;
-        [SerializeField] private InputController _inputController;
-
+        [SerializeField] private Shop _shop;    
         [SerializeField] private BuildingContext[] _buildingsContext;
 
         [Header("Save Data")]
         public GameData _gameData;
 
+        private BinarySaveSystem _saveSystem;
         private CommandBuildFabric _buildFabric;
+        private CommandInvoker _commandInvoker;
 
         private void Awake()
         {
             _saveSystem = new BinarySaveSystem();   
             _gameData = _saveSystem.Load<GameData>();
 
+            _commandInvoker = new CommandInvoker();
             _buildFabric = new CommandBuildFabric();
-            _buildFabric.Init();
+            _buildFabric.Init(_commandInvoker, _gameData.ResorcesData);
 
             _inputController.Init(_buildFabric);
 
@@ -56,11 +58,11 @@ namespace Game
 
         private void InitView()
         {
-            _bondsView.UpdateResouce(_gameData.CurrencyData.Bonds);
-            _coinsView.UpdateResouce(_gameData.CurrencyData.Coins);
-            _oreView.UpdateResouce(_gameData.ResurcesData.Ore);
-            _coalView.UpdateResouce(_gameData.ResurcesData.Coal);
-            _woodView.UpdateResouce(_gameData.ResurcesData.Wood);
+            _bondsView.UpdateResouce(_gameData.ResorcesData.Bonds);
+            _coinsView.UpdateResouce(_gameData.ResorcesData.Coins);
+            _oreView.UpdateResouce(_gameData.ResorcesData.Ore);
+            _coalView.UpdateResouce(_gameData.ResorcesData.Coal);
+            _woodView.UpdateResouce(_gameData.ResorcesData.Wood);
 
             StateBuildingView.Init(_buildFabric);
             RepairBuildingView.Init(_buildFabric);
@@ -106,7 +108,7 @@ namespace Game
             Debug.Log("Creating new game data");
             return new GameData
             {
-                CurrencyData = new Currency { Bonds = 100, Coins = 100 },
+                ResorcesData = new GameResources { Bonds = 100, Coins = 100 },
                 BuildsData = new List<BuildData> { new BuildData { TimeBuilding = 200 } }
             };
         }

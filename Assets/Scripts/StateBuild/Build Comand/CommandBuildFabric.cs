@@ -1,5 +1,4 @@
 using Buildings;
-using CommandBuild;
 using CommandBuild.Build;
 
 public class CommandBuildFabric
@@ -8,9 +7,12 @@ public class CommandBuildFabric
 
     private BuildingContext _buildingContext;
 
-    public void Init()
+    private GameResources _gameResources;
+
+    public void Init(CommandInvoker invoker, GameResources gameResources)
     {
-        _commandInvoker = new CommandInvoker();
+        _commandInvoker = invoker;
+        _gameResources = gameResources;
     }
 
     public void SetBuild(BuildingContext context)
@@ -34,7 +36,7 @@ public class CommandBuildFabric
 
     public void CreateSpeedUpCommand()
     {
-        Command speedUpCommand = new SpeedUpCommand(_buildingContext, 50000);
+        Command speedUpCommand = new SpeedUpCommand(_buildingContext, _gameResources);
         _commandInvoker.SetCommand(speedUpCommand);
         _commandInvoker.ExecuteCommands();
     }

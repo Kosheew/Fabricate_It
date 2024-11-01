@@ -16,7 +16,7 @@ public class InputController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.touchCount == 1)
+        if (Input.GetButtonDown("Fire1"))
         {
             Ray ray = _camera.ScreenPointToRay(Input.GetTouch(0).position);
             RaycastHit hit;

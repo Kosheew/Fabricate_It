@@ -1,15 +1,15 @@
 using UnityEngine;
 
-public class SteampunkBuildings : BuildingFactory
+public class SteampunkBuildings // : BuildingFactory
 {
-    public override FactoryBuildings CreateFactory()
-    {
-        var prefab = Resources.Load<GameObject>("Prefabs/DragonRed");
-        var onj = GameObject.Instantiate(prefab);
-        var dragon = onj.AddComponent<FactoryBuildings>();
+    //public override FactoryBuildings CreateFactory()
+    //{
+    //    var prefab = Resources.Load<GameObject>("Prefabs/DragonRed");
+    //    var onj = GameObject.Instantiate(prefab);
+    //    var dragon = onj.AddComponent<FactoryBuildings>();
 
-        return dragon;
-    }
+    //    return dragon;
+    //}
 
     //public override Goblin CreateGoblin()
     //{

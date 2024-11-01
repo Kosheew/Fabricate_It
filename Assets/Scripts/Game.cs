@@ -21,8 +21,6 @@ namespace Game
         [SerializeField] private ResourceView _coalView;
         [SerializeField] private ResourceView _woodView;
 
-
-
         [Header("Build View")]
         [SerializeField] private View StateBuildingView;
         [SerializeField] private View RepairBuildingView;

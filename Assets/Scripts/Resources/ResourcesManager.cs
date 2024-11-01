@@ -15,6 +15,5 @@ public class ResourcesManager : MonoBehaviour
     {
         _gameResources.Coins -= value;
         _view.UpdateResouce(_gameResources.Coins);
-    }
-    
+    }   
 }

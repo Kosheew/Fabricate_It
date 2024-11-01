@@ -17806,6 +17806,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8869992175151197992, guid: 719627c1fd6ed2845b6b6c8ac11a3b81,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b8fdea36fda1a9c469a53bebe6e23727, type: 2}
     - target: {fileID: -8679921383154817045, guid: 719627c1fd6ed2845b6b6c8ac11a3b81,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -17856,6 +17861,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 299663757630204158, guid: 719627c1fd6ed2845b6b6c8ac11a3b81,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b8fdea36fda1a9c469a53bebe6e23727, type: 2}
     - target: {fileID: 919132149155446097, guid: 719627c1fd6ed2845b6b6c8ac11a3b81,
         type: 3}
       propertyPath: m_Name
@@ -19040,6 +19050,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _cameraZooming: {fileID: 330585549}
   _cameraMovement: {fileID: 330585550}
+  _inputController: {fileID: 330585551}
   _coinsView: {fileID: 140463241}
   _bondsView: {fileID: 1384770704}
   _oreView: {fileID: 868323040}
@@ -19051,14 +19062,12 @@ MonoBehaviour:
   PlainningBuildView: {fileID: 955294368}
   SpeedUpView: {fileID: 886324562}
   _shop: {fileID: 1704219401}
-  _inputController: {fileID: 330585551}
   _buildingsContext:
   - {fileID: 320429493}
   _gameData:
-    CurrencyData:
+    ResorcesData:
       Bonds: 0
       Coins: 0
-    ResurcesData:
       Oil: 0
       Coal: 0
       Ore: 0
@@ -32941,6 +32950,84 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2140891558}
   m_CullTransparentMesh: 1
+--- !u!1001 &2146109967
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 9f7aa2686a76bfa4897d433ae6724b2b,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 40152
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9f7aa2686a76bfa4897d433ae6724b2b,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9f7aa2686a76bfa4897d433ae6724b2b,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9f7aa2686a76bfa4897d433ae6724b2b,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9f7aa2686a76bfa4897d433ae6724b2b,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9f7aa2686a76bfa4897d433ae6724b2b,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9f7aa2686a76bfa4897d433ae6724b2b,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9f7aa2686a76bfa4897d433ae6724b2b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9f7aa2686a76bfa4897d433ae6724b2b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 9f7aa2686a76bfa4897d433ae6724b2b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4683669308469848369, guid: 9f7aa2686a76bfa4897d433ae6724b2b,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 872958a55bf857d4b842443966066331, type: 2}
+    - target: {fileID: -1239800531487340523, guid: 9f7aa2686a76bfa4897d433ae6724b2b,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 872958a55bf857d4b842443966066331, type: 2}
+    - target: {fileID: 919132149155446097, guid: 9f7aa2686a76bfa4897d433ae6724b2b,
+        type: 3}
+      propertyPath: m_Name
+      value: Capitoli (2)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9f7aa2686a76bfa4897d433ae6724b2b, type: 3}
 --- !u!1 &2146965833
 GameObject:
   m_ObjectHideFlags: 0
@@ -33250,3 +33337,4 @@ SceneRoots:
   - {fileID: 1210069690}
   - {fileID: 1553261179}
   - {fileID: 1704219402}
+  - {fileID: 2146109967}

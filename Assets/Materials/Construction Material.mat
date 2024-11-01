@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Shader Graphs_New Shader Graph
+  m_Name: Construction Material
   m_Shader: {fileID: -6465566751694194690, guid: 742b83ae21923e14d950d2d4579fdfd6,
     type: 3}
   m_Parent: {fileID: 0}
@@ -24,6 +24,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _Alpha_Texture:
+        m_Texture: {fileID: 2800000, guid: c269558379167f34a91dbf8c2132dcca, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_c9ca7335030a49e6b1604911da33005d_Texture_1_Texture2D:
         m_Texture: {fileID: 2800000, guid: c269558379167f34a91dbf8c2132dcca, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -44,7 +48,8 @@ Material:
     m_Floats:
     - _QueueControl: 0
     - _QueueOffset: 0
-    m_Colors: []
+    m_Colors:
+    - _Base_Color: {r: 1, g: 1, b: 1, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &5388514229004232392
 MonoBehaviour:

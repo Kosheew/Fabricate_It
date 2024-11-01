@@ -4,11 +4,15 @@ using CommandBuild;
 using CommandBuild.Build;
 using BuildingState;
 using ViewBuildings;
+using System.Security.Cryptography.X509Certificates;
+using System;
 
 namespace Buildings
 {
     public class BuildingContext : MonoBehaviour
     {
+        [SerializeField] private BuildSettings _buildSettings;
+
         /// <summary>
         /// State Building
         /// </summary>
@@ -22,9 +26,12 @@ namespace Buildings
         /// <summary>
         /// View Build
         /// </summary>
-        public ConstructionProgressView ConstructionProgressView { get; private set; }
-
-        [SerializeField] private BuildSettings _buildSettings;
+        public BuildView BuildView { get; private set; }
+        public View MoveBuildView { get; private set; }
+        public View PlanningBuildView { get; private set; }
+        public View RepairBuildView { get; private set; }
+        public View SpeedUpView { get; private set; }
+        public View StateBuildView { get; private set; }
 
         public MeshFilter MeshBuild { get; private set; }
         public BuildSettings BuildSettings => _buildSettings;
@@ -55,19 +62,26 @@ namespace Buildings
             MoveBuildState = new MoveState();
             PlanningBuildState = new PlanningBuildState();  
 
-            ConstructionProgressView = GetComponent<ConstructionProgressView>();
+            BuildView = GetComponent<BuildView>();
+
+            MoveBuildView = FindAnyObjectByType<MoveBuildView>();
+            PlanningBuildView = FindAnyObjectByType<PlanningBuildView>();
+            RepairBuildView = FindAnyObjectByType<RepairBuildingView>();
+            SpeedUpView = FindAnyObjectByType<SpeedUpView>();
+            StateBuildView = FindAnyObjectByType<StateBuildingView>();
 
             if (data.Bought)
             {
-                transform.position = data.BuildPosition.ToVector3();
                 gameObject.SetActive(true);
-                // Початковий стан
-                TransitionToState(UnderConstructionState);
-                //StartCoroutine(UpdateState());
-            }
-          
-        }
+                transform.position = data.BuildPosition.ToVector3();  
+                
+                Type stateType = Type.GetType("BuildingState." + data.CurrentState);
 
+                IBuildingState stateInstance = (IBuildingState)Activator.CreateInstance(stateType);
+
+                TransitionToState(stateInstance);
+            }
+        }
         public void ReduceBuildTime(float seconds)
         {
             TimeBuilding -= seconds;

@@ -21,26 +21,29 @@ namespace Game
         [SerializeField] private ResourceView _woodView;
 
         [Header("Build View")]
-        [SerializeField] private View UpgradeOrViewBuildingView;
-        [SerializeField] private View RestoreBuildingView;
+        [SerializeField] private View StateBuildingView;
+        [SerializeField] private View RepairBuildingView;
         [SerializeField] private View MoveBuildView;
         [SerializeField] private View PlainningBuildView;
+        [SerializeField] private View SpeedUpView;
 
+        [SerializeField] private Shop _shop;
+        [SerializeField] private InputController _inputController;
 
-        [SerializeField] private BuildingContext _buildingContext;
+        [SerializeField] private BuildingContext[] _buildingsContext;
 
         [Header("Save Data")]
         public GameData _gameData;
 
         private CommandBuildFabric _buildFabric;
 
-        [SerializeField] InputController _inputController;
-
         private void Awake()
         {
             _saveSystem = new BinarySaveSystem();   
             _gameData = _saveSystem.Load<GameData>();
+
             _buildFabric = new CommandBuildFabric();
+            _buildFabric.Init();
 
             _inputController.Init(_buildFabric);
 
@@ -59,19 +62,27 @@ namespace Game
             _coalView.UpdateResouce(_gameData.ResurcesData.Coal);
             _woodView.UpdateResouce(_gameData.ResurcesData.Wood);
 
-            UpgradeOrViewBuildingView.Init(_buildFabric);
-            RestoreBuildingView.Init(_buildFabric);
+            StateBuildingView.Init(_buildFabric);
+            RepairBuildingView.Init(_buildFabric);
             MoveBuildView.Init(_buildFabric);
             PlainningBuildView.Init(_buildFabric);
+            SpeedUpView.Init(_buildFabric);
         }
-
 
         private void Init()
         {
             _cameraZooming.Init();
             _cameraMovement.Init();
-            _buildingContext.Init(_gameData.BuildsData[0], _buildFabric);
-            _buildingContext.gameObject.SetActive(false);
+
+            _shop.Init(_buildFabric);
+
+            for(int i = 0; i < _buildingsContext.Length; i++) 
+            {
+                _buildingsContext[i].Init(_gameData.BuildsData[i], _buildFabric);
+
+                if (!_gameData.BuildsData[i].Bought)
+                    _buildingsContext[i].gameObject.SetActive(false);
+            }
         }
 
         private void OnApplicationPause(bool pause)
@@ -84,7 +95,6 @@ namespace Game
         {
             _saveSystem.Save(_gameData);
         }
-
 
         private void LoadGameData()
         {

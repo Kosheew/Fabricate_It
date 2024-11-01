@@ -13,6 +13,8 @@ namespace BuildingState
         {
             context.MeshBuild.mesh = context.BuildSettings.MeshBuilding;
 
+            context.BuildData.CurrentState = nameof(BuiltState);
+
             // Логіка входження в стан "Побудована"
             Debug.Log("Building is now Built.");
 
@@ -27,7 +29,7 @@ namespace BuildingState
 
         public void ShowPanel(BuildingContext context)
         {
-            //context.UpgradeOrViewBuildingView.ShowStatePanel();
+            context.StateBuildView.ShowStatePanel();
         }
 
         public void Update(BuildingContext context)

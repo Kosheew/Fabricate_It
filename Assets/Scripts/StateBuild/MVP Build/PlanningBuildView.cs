@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace ViewBuildings
 {
-    public class PlainningBuildView : View 
+    public class PlanningBuildView : View 
     {
         [SerializeField] private Button _refuceButton;
         [SerializeField] private Button _buyButton;

@@ -1,7 +1,6 @@
 using Buildings;
 using CommandBuild;
 using CommandBuild.Build;
-using UnityEngine;
 
 public class CommandBuildFabric
 {
@@ -65,6 +64,13 @@ public class CommandBuildFabric
     {
         Command moveCommand = new RefuceBuildBuy(_buildingContext);
         _commandInvoker.SetCommand(moveCommand);
+        _commandInvoker.ExecuteCommands();
+    }
+
+    public void CreatePlanningBuildCommand(BuildingContext buildingContext)
+    {
+        Command planningCommand = new PlanningBuildCommand(buildingContext);
+        _commandInvoker.SetCommand(planningCommand);
         _commandInvoker.ExecuteCommands();
     }
 

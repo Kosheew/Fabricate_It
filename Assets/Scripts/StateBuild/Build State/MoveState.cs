@@ -1,6 +1,5 @@
 using Buildings;
 using UnityEngine;
-using ViewBuildings;
 
 namespace BuildingState
 {
@@ -19,6 +18,7 @@ namespace BuildingState
 
             ShowPanel(context);
 
+            context.BuildView.ShowMovePanel();
         }
 
         public void Exit(BuildingContext context)
@@ -26,12 +26,13 @@ namespace BuildingState
             context.gameObject.transform.position = context.BuildData.BuildPosition.ToVector3();
             context.IsMoving = false;
             ShowPanel(context);
+            context.BuildView.ShowMovePanel();
         }
 
         public void ShowPanel(BuildingContext context)
         {
-          //  if (context.CurrentState is not PlanningBuildState)
-          //      context.MoveBuildView.ShowStatePanel();   
+            if (context.CurrentState is not PlanningBuildState)
+                context.MoveBuildView.ShowStatePanel();   
         }
 
         public void Update(BuildingContext context)

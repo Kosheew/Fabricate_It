@@ -5,8 +5,9 @@ using Buildings;
 
 namespace ViewBuildings
 {
-    public class ConstructionProgressView : MonoBehaviour
+    public class BuildView : MonoBehaviour
     {
+        [SerializeField] private GameObject _movePanel;
         [SerializeField] private GameObject _progressPanel;
         [SerializeField] private Text _timeText;
         [SerializeField] private Slider _progressSlider;
@@ -37,6 +38,11 @@ namespace ViewBuildings
         public void StartBuilding()
         {
             _progressPanel.SetActive(true);
+        }
+
+        public void ShowMovePanel()
+        {
+            _movePanel.SetActive(!_movePanel.activeSelf);
         }
     }
 }

@@ -13,13 +13,10 @@ namespace BuildingState
 
         public void Enter(BuildingContext context)
         {
-           
-
             context.MeshBuild.mesh = context.BuildSettings.MeshUnderConstrucrion;
-            // Debug.Log("Building is now Under Construction.");
+            Debug.Log("Building is now Under Construction.");
 
             float buildDuration = context.TimeBuilding;
-
 
             if (!DateTime.TryParse(context.EndTime, out _endTime))
             {
@@ -33,20 +30,20 @@ namespace BuildingState
                 _endTime = DateTime.Parse(context.EndTime);
             }
 
-            context.ConstructionProgressView.StartBuilding();
-            context.ConstructionProgressView.SetTimeBuilding(buildDuration);
+            context.BuildView.StartBuilding();
+            context.BuildView.SetTimeBuilding(buildDuration);
             CheckElapsedTime(context);
         }
 
         public void Exit(BuildingContext context)
         {
             context.BuildData.LevelBuild++;
-            context.ConstructionProgressView.EndBuilding();
+            context.BuildView.EndBuilding();
         }
 
         public void ShowPanel(BuildingContext context)
         {
-            
+            context.SpeedUpView.ShowStatePanel();
         }
 
         public void Update(BuildingContext context)
@@ -81,7 +78,7 @@ namespace BuildingState
                 if (timeRemaining <= 0) timeRemaining = 0;
 
                 // Оновлюємо в'ю з прогресом
-                context.ConstructionProgressView.UpdateProgress(timeRemaining);
+                context.BuildView.UpdateProgress(timeRemaining);
 
                 yield return new WaitForSeconds(1);
             }

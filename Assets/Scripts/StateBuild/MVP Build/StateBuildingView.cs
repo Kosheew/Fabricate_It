@@ -1,11 +1,10 @@
 using UnityEngine;
 using UnityEngine.UI;
 using PresenterBuildings;
-using Buildings;
 
 namespace ViewBuildings
 {
-    public class UpgradeOrViewBuildingView : View
+    public class StateBuildingView : View
     {
         [SerializeField] private Button _upgradeButton;
         [SerializeField] private Button _buttonMove;

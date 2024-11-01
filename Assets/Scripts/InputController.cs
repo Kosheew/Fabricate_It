@@ -16,15 +16,18 @@ public class InputController : MonoBehaviour
 
     private void Update()
     {
-        Ray ray = _camera.ScreenPointToRay(Input.GetTouch(0).position);
-        RaycastHit hit;
-
-        if (Physics.Raycast(ray, out hit))
+        if (Input.touchCount == 1)
         {
-            if(hit.collider.TryGetComponent(out BuildingContext context))
+            Ray ray = _camera.ScreenPointToRay(Input.GetTouch(0).position);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit))
             {
-                _commandBuildFabric.SetBuild(context);
-                context.ShowPanel();
+                if (hit.collider.TryGetComponent(out BuildingContext context))
+                {
+                    _commandBuildFabric.SetBuild(context);
+                    context.ShowPanel();
+                }
             }
         }
     }

@@ -1,33 +1,22 @@
 using Buildings;
 using UnityEngine;
-using CommandBuild.Build;
-using CommandBuild;
 
 public class Shop : MonoBehaviour
 {
-    [SerializeField] private BuildingContext _capitoliy;
+    [SerializeField] private GameObject _panelShop;
+    [SerializeField] private BuildingContext[] _buildingsContext;
 
-    private CommandInvoker _invoker;
+    private CommandBuildFabric _commandFabric;
 
-    private Command _plainningBuilCommand;
-
-
-
-    private void Start()
+    public void Init(CommandBuildFabric commandFabric)
     {
-        _invoker = new CommandInvoker();
-
-        _plainningBuilCommand = new PlanningBuildCommand(_capitoliy);
-
+        _commandFabric = commandFabric;
     }
-
-
 
     public void ChooseBuild()
     {
-        _invoker.SetCommand(_plainningBuilCommand);
-        _invoker.ExecuteCommands();
-    }
-
-   
+        _commandFabric.SetBuild(_buildingsContext[0]);
+        _commandFabric.CreatePlanningBuildCommand(_buildingsContext[0]);
+        _panelShop.SetActive(false);
+    }  
 }

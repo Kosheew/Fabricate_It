@@ -4,9 +4,9 @@ using BuildingState;
 /// <summary>
 /// Команда для апгрейду будівлі.
 /// </summary>
-namespace Command.Build
+namespace CommandBuild.Build
 {
-    public class UpgradeCommand : ICommand
+    public class UpgradeCommand : Command
     {
         private BuildingContext _context;
 
@@ -15,7 +15,7 @@ namespace Command.Build
             _context = context;
         }
 
-        public void Execute()
+        public override void Execute()
         {
             // Логіка для апгрейду будівлі
             if (_context.CurrentState is BuiltState)

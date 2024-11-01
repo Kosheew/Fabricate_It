@@ -1,19 +1,18 @@
 using UnityEngine;
 using UnityEngine.UI;
 using PresenterBuildings;
-using Buildings;
 
 namespace ViewBuildings
 {
-    public class UpgradeOrViewBuildingView : View
+    public class RepairBuildingView : View
     {
-        [SerializeField] private Button _upgradeButton;
+        [SerializeField] private Button _repairButton;
         [SerializeField] private Button _buttonMove;
 
         public override void Init(CommandBuildFabric commandBuild)
         {
-            _presenter = new UpgradePresenter(this, commandBuild);
-            _upgradeButton.onClick.AddListener(() => _presenter.ButtonPressed1());
+            _presenter = new RepairPresenter(this, commandBuild);
+            _repairButton.onClick.AddListener(() => _presenter.ButtonPressed1());
             _buttonMove.onClick.AddListener(() => _presenter.ButtonPressed2());
         }
     }

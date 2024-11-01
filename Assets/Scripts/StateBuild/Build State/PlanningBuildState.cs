@@ -1,6 +1,6 @@
 using Buildings;
-using Command;
-using Command.Build;
+using CommandBuild;
+using CommandBuild.Build;
 using BuildingState;
 using System.Diagnostics;
 using UnityEngine;
@@ -9,7 +9,7 @@ namespace BuildingState
 {
     public class PlanningBuildState : IBuildingState
     {
-        private ICommand _placmentCommand;
+        private CommandBuild.Command _placmentCommand;
 
         public void Enter(BuildingContext context)
         {
@@ -26,7 +26,7 @@ namespace BuildingState
 
         public void ShowPanel(BuildingContext context)
         {
-            context.PlainningBuildView.ShowStatePanel();
+          //  context.PlainningBuildView.ShowStatePanel();
        
         }
 

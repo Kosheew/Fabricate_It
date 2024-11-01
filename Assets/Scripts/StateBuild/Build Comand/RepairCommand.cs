@@ -5,9 +5,9 @@ using BuildingState;
 /// Команда для ремонту зруйнованої будівлі.
 /// </summary>
 
-namespace Command.Build
+namespace CommandBuild.Build
 {
-    public class RepairCommand : ICommand
+    public class RepairCommand : Command
     {
         private BuildingContext _context;
 
@@ -16,7 +16,7 @@ namespace Command.Build
             _context = context;
         }
 
-        public void Execute()
+        public override void Execute()
         {
             // Логіка для ремонту будівлі
             if (_context.CurrentState is DestroyedState)

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Buildings;
+using ViewBuildings;
 
 namespace Game
 {
@@ -19,34 +20,57 @@ namespace Game
         [SerializeField] private ResourceView _coalView;
         [SerializeField] private ResourceView _woodView;
 
+        [Header("Build View")]
+        [SerializeField] private View UpgradeOrViewBuildingView;
+        [SerializeField] private View RestoreBuildingView;
+        [SerializeField] private View MoveBuildView;
+        [SerializeField] private View PlainningBuildView;
+
+
         [SerializeField] private BuildingContext _buildingContext;
 
         [Header("Save Data")]
         public GameData _gameData;
 
+        private CommandBuildFabric _buildFabric;
+
+        [SerializeField] InputController _inputController;
+
         private void Awake()
         {
             _saveSystem = new BinarySaveSystem();   
             _gameData = _saveSystem.Load<GameData>();
+            _buildFabric = new CommandBuildFabric();
+
+            _inputController.Init(_buildFabric);
 
             LoadGameData();
+            
+            InitView();
 
+            Init();
+        }
+
+        private void InitView()
+        {
             _bondsView.UpdateResouce(_gameData.CurrencyData.Bonds);
             _coinsView.UpdateResouce(_gameData.CurrencyData.Coins);
-
             _oreView.UpdateResouce(_gameData.ResurcesData.Ore);
             _coalView.UpdateResouce(_gameData.ResurcesData.Coal);
             _woodView.UpdateResouce(_gameData.ResurcesData.Wood);
 
-            
-            Init();
+            UpgradeOrViewBuildingView.Init(_buildFabric);
+            RestoreBuildingView.Init(_buildFabric);
+            MoveBuildView.Init(_buildFabric);
+            PlainningBuildView.Init(_buildFabric);
         }
+
 
         private void Init()
         {
             _cameraZooming.Init();
             _cameraMovement.Init();
-            _buildingContext.Init(_gameData.BuildsData[0]);
+            _buildingContext.Init(_gameData.BuildsData[0], _buildFabric);
             _buildingContext.gameObject.SetActive(false);
         }
 

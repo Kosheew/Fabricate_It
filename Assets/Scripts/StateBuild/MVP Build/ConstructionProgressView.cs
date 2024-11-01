@@ -1,25 +1,17 @@
-using UnityEngine;
+ using UnityEngine;
 using UnityEngine.UI;
 using PresenterBuildings;
 using Buildings;
 
 namespace ViewBuildings
 {
-    public class ConstructionProgressView : View
+    public class ConstructionProgressView : MonoBehaviour
     {
         [SerializeField] private GameObject _progressPanel;
         [SerializeField] private Text _timeText;
         [SerializeField] private Slider _progressSlider;
-        [SerializeField] private Button speedUpButton;
 
         private float _progressValue;
-
-        public override void Init()
-        {
-            _presenter = new ConstructionProgressPresenter(this, GetComponent<BuildingContext>());
-            speedUpButton.onClick.AddListener(() => _presenter.ButtonPressed());
-            _buttonMove.onClick.AddListener(() => _presenter.PlainningButton());
-        }
 
         public void SetTimeBuilding(float timeBuilding)
         {

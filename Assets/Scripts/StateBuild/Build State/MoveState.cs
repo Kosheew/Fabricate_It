@@ -30,8 +30,8 @@ namespace BuildingState
 
         public void ShowPanel(BuildingContext context)
         {
-            if (context.CurrentState is not PlanningBuildState)
-                context.MoveBuildView.ShowStatePanel();   
+          //  if (context.CurrentState is not PlanningBuildState)
+          //      context.MoveBuildView.ShowStatePanel();   
         }
 
         public void Update(BuildingContext context)

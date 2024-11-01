@@ -4,9 +4,9 @@ using BuildingState;
 /// <summary>
 /// Команда для прискорення будівництва за допомогою кристалів.
 /// </summary>
-namespace Command.Build
+namespace CommandBuild.Build
 {
-    public class SpeedUpCommand : ICommand
+    public class SpeedUpCommand : Command
     {
         private BuildingContext _context;
         private int _crystals;
@@ -17,7 +17,7 @@ namespace Command.Build
             _crystals = crystals;
         }
 
-        public void Execute()
+        public override void Execute()
         {
             // Логіка для прискорення будівництва
             if (_context.CurrentState is UnderConstructionState)

@@ -4,13 +4,13 @@ using System.Collections.Generic;
 /// Клас, який відповідає за виклик команд.
 /// </summary>
 
-namespace Command
+namespace CommandBuild
 {
     public class CommandInvoker
     {
-        private List<ICommand> _commands = new List<ICommand>();
+        private List<Command> _commands = new List<Command>();
 
-        public void SetCommand(ICommand command)
+        public void SetCommand(Command command)
         {
             _commands.Add(command);
         }

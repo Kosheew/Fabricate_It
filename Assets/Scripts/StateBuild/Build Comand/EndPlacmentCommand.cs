@@ -1,8 +1,8 @@
 using Buildings;
 using UnityEngine;
-namespace Command.Build
+namespace CommandBuild.Build
 {
-    public class EndPlacmentCommand : ICommand
+    public class EndPlacmentCommand : Command
     {
         private BuildingContext _context;
 
@@ -11,7 +11,7 @@ namespace Command.Build
             _context = context;
         }
 
-        public void Execute()
+        public override void Execute()
         {
             _context.MoveBuildState?.Exit(_context);
             Debug.Log("Execute command Move");

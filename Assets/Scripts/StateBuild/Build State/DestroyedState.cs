@@ -1,13 +1,13 @@
 using UnityEngine;
-using Command;
-using Command.Build;
+using CommandBuild;
+using CommandBuild.Build;
 using Buildings;
 
 namespace BuildingState
 {
     public class DestroyedState : IBuildingState
     {
-        private ICommand _repairCommand;
+        private CommandBuild.Command _repairCommand;
 
         public void Enter(BuildingContext context)
         {
@@ -24,7 +24,7 @@ namespace BuildingState
 
         public void ShowPanel(BuildingContext context)
         {
-            context.RestoreBuildingView.ShowStatePanel();
+           // context.RestoreBuildingView.ShowStatePanel();
         }
 
         public void Update(BuildingContext context)

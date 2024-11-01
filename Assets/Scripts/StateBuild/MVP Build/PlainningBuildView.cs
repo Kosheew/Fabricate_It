@@ -8,11 +8,12 @@ namespace ViewBuildings
     public class PlainningBuildView : View 
     {
         [SerializeField] private Button _refuceButton;
-        public override void Init()
+        [SerializeField] private Button _buyButton;
+        public override void Init(CommandBuildFabric commandBuild)
         {
-            _presenter = new PlainningPresenter(this, GetComponent<BuildingContext>());
-            _refuceButton.onClick.AddListener(() => _presenter.ButtonPressed());
-            _buttonMove.onClick.AddListener(() => _presenter.PlainningButton());
+            _presenter = new PlanningPresenter(this, commandBuild);
+            _refuceButton.onClick.AddListener(() => _presenter.ButtonPressed1());
+            _buyButton.onClick.AddListener(() => _presenter.ButtonPressed2());
         }
     }
 }

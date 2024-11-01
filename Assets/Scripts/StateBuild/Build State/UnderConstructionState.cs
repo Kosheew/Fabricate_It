@@ -46,7 +46,7 @@ namespace BuildingState
 
         public void ShowPanel(BuildingContext context)
         {
-            context.ConstructionProgressView.ShowStatePanel();
+            
         }
 
         public void Update(BuildingContext context)

@@ -1,13 +1,13 @@
 using UnityEngine;
-using Command;
-using Command.Build;
+using CommandBuild;
+using CommandBuild.Build;
 using Buildings;
 
 namespace BuildingState
 {
     public class BuiltState : IBuildingState
     {
-        private ICommand _upgradeCommand;
+        private CommandBuild.Command _upgradeCommand;
 
         public void Enter(BuildingContext context)
         {
@@ -27,7 +27,7 @@ namespace BuildingState
 
         public void ShowPanel(BuildingContext context)
         {
-            context.UpgradeOrViewBuildingView.ShowStatePanel();
+            //context.UpgradeOrViewBuildingView.ShowStatePanel();
         }
 
         public void Update(BuildingContext context)

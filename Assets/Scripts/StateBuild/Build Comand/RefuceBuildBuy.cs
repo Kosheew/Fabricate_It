@@ -1,8 +1,8 @@
 using Buildings;
 
-namespace Command.Build
+namespace CommandBuild.Build
 {
-    public class RefuceBuildBuy : ICommand
+    public class RefuceBuildBuy : Command
     {
         private BuildingContext _context;
         
@@ -11,7 +11,7 @@ namespace Command.Build
             _context = context; 
         }
 
-        public void Execute()
+        public override void Execute()
         {
             _context.gameObject.SetActive(false);
             _context.CurrentState.Exit(_context);

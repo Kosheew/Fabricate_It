@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
-using Command;
-using Command.Build;
+using CommandBuild;
+using CommandBuild.Build;
 using BuildingState;
 using ViewBuildings;
 
@@ -22,14 +22,7 @@ namespace Buildings
         /// <summary>
         /// View Build
         /// </summary>
-        public View UpgradeOrViewBuildingView { get; private set; }
-        public View RestoreBuildingView { get; private set; }
         public ConstructionProgressView ConstructionProgressView { get; private set; }
-        public View MoveBuildView { get; private set; }
-        public View PlainningBuildView { get; private set; }
-
-        public CommandInvoker Invoker { get; private set; }
-
 
         [SerializeField] private BuildSettings _buildSettings;
 
@@ -45,10 +38,13 @@ namespace Buildings
        
         public bool IsMoving = false;
 
-        public void Init(BuildData data)
+        public CommandBuildFabric CommandBuildFabric { get; private set; }
+
+        public void Init(BuildData data, CommandBuildFabric commandBuildFabric)
         {
             MeshBuild = GetComponentInChildren<MeshFilter>();
 
+            CommandBuildFabric = commandBuildFabric;
             BuildData = data;
             TimeBuilding = data.TimeBuilding;
             EndTime = data.EndTimeBuilding;
@@ -59,20 +55,7 @@ namespace Buildings
             MoveBuildState = new MoveState();
             PlanningBuildState = new PlanningBuildState();  
 
-            UpgradeOrViewBuildingView = GetComponent<UpgradeOrViewBuildingView>();
-            UpgradeOrViewBuildingView.Init();
-
-            RestoreBuildingView = GetComponent<RestoreBuildingView>();
-            RestoreBuildingView.Init();
-
             ConstructionProgressView = GetComponent<ConstructionProgressView>();
-            ConstructionProgressView.Init();
-
-            MoveBuildView = GetComponent<MoveBuildView>();
-            MoveBuildView.Init();
-
-            PlainningBuildView = GetComponent<PlainningBuildView>();
-            PlainningBuildView.Init();
 
             if (data.Bought)
             {
@@ -120,7 +103,7 @@ namespace Buildings
             CurrentState.Enter(this);
         }
 
-        private void OnMouseDown()
+        public void ShowPanel()
         {
             if (!IsMoving)
                 CurrentState.ShowPanel(this);

@@ -1,7 +1,7 @@
 using Buildings;
 using UnityEngine;
-using Command.Build;
-using Command;
+using CommandBuild.Build;
+using CommandBuild;
 
 public class Shop : MonoBehaviour
 {
@@ -9,7 +9,7 @@ public class Shop : MonoBehaviour
 
     private CommandInvoker _invoker;
 
-    private ICommand _plainningBuilCommand;
+    private Command _plainningBuilCommand;
 
 
 

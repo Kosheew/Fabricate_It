@@ -7,11 +7,10 @@ namespace ViewBuildings
     public abstract class View : MonoBehaviour
     {
         [SerializeField] private GameObject _statePanel;
-        [SerializeField] protected Button _buttonMove;
 
         protected Presenter _presenter;
 
-        public abstract void Init();
+        public abstract void Init(CommandBuildFabric commandBuild);
 
         public void ShowStatePanel()
         {

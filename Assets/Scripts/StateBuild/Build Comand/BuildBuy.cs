@@ -1,8 +1,8 @@
 using Buildings;
 
-namespace Command.Build
+namespace CommandBuild.Build
 {
-    public class BuildBuy : ICommand
+    public class BuildBuy : Command
     {
         private BuildingContext _context;
         
@@ -11,7 +11,7 @@ namespace Command.Build
             _context = context; 
         }
 
-        public void Execute()
+        public override void Execute()
         {
             if (!_context.BuildData.Bought)
             {

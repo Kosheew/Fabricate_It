@@ -18,13 +18,18 @@ namespace BuildingState
             context.BuildView.ShowMovePanel();
             context.IsMoving = true;
 
+            _isDragging = true;
+
             ShowPanel(context);       
         }
 
         public void Exit(BuildingContext context)
-        {   
-            context.gameObject.transform.position = context.BuildData.BuildPosition.ToVector3();
+        {
+            context.BuildData.BuildPosition = new SerializableVector3(context.transform.position);
+
             context.IsMoving = false;
+            _isDragging = false;
+
             ShowPanel(context);
             context.BuildView.ShowMovePanel();
         }
@@ -37,44 +42,10 @@ namespace BuildingState
 
         public void Update(BuildingContext context)
         {
-            if (Input.touchCount > 0)
+            if(_isDragging && context.NewPosition != null)
             {
-                Touch touch = Input.GetTouch(0);
-
-                switch (touch.phase)
-                {
-                    case TouchPhase.Began:
-                        _isDragging = true;
-                        break;
-
-                    case TouchPhase.Moved:
-                        MoveBuilding(context);
-                        break;
-
-                    case TouchPhase.Ended:
-                        _isDragging = false;
-                        break;
-                }
+                context.gameObject.transform.position = context.NewPosition.position;
             }
-        }
-
-        public void MoveBuilding(BuildingContext go)
-        {
-            if (_isDragging)
-            { 
-                Ray ray = _camera.ScreenPointToRay(Input.GetTouch(0).position);
-                RaycastHit hit;
-
-                if (Physics.Raycast(ray, out hit))
-                {
-                    if (hit.collider.TryGetComponent(out HexCell hex))
-                    {
-                        go.transform.position = hex.transform.position;
-
-                        go.BuildData.BuildPosition = new SerializableVector3(hex.transform.position);
-                    }
-                }
-            }
-        }    
+        } 
     }
 }

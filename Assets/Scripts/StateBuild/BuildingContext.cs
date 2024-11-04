@@ -4,7 +4,6 @@ using CommandBuild;
 using CommandBuild.Build;
 using BuildingState;
 using ViewBuildings;
-using System.Security.Cryptography.X509Certificates;
 using System;
 
 namespace Buildings
@@ -48,6 +47,8 @@ namespace Buildings
         public DateTime EndTimeBuilding;
 
         public CommandBuildFabric CommandBuildFabric { get; private set; }
+
+        public Transform NewPosition { get; private set; }
 
         public void Init(BuildData data, CommandBuildFabric commandBuildFabric)
         {
@@ -109,6 +110,11 @@ namespace Buildings
             CurrentState?.Exit(this);
             CurrentState = newState;
             CurrentState.Enter(this);
+        }
+
+        public void SetPosition(Transform newPos)
+        {
+            NewPosition = newPos;
         }
 
         public void ShowPanel()

@@ -1,12 +1,14 @@
 using Buildings;
-using System.Collections;
-using System.Collections.Generic;
+using BuildingState;
 using UnityEngine;
 
 public class InputController : MonoBehaviour
 {
     private Camera _camera;
     private CommandBuildFabric _commandBuildFabric;
+    private bool isDragging = false; // Додаємо змінну для відстеження стану перетягування
+
+    private BuildingContext _buildingContext;
 
     public void Init(CommandBuildFabric commandBuildFabric)
     {
@@ -16,19 +18,41 @@ public class InputController : MonoBehaviour
 
     private void Update()
     {
+        if (Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
+            HandleTouchInput(touch);
+        }
+    }
+
+    private void HandleTouchInput(Touch touch)
+    {
+        Ray ray = _camera.ScreenPointToRay(touch.position);
+        if (Physics.Raycast(ray, out RaycastHit hit))
+        {
+            if (hit.collider.TryGetComponent(out BuildingContext context))
+            {
+                HandleBuildingContextTouch(context);
+                isDragging = touch.phase == TouchPhase.Ended ? false : true ;
+            }
+          
+            if (touch.phase == TouchPhase.Moved 
+                && isDragging 
+                && hit.collider.TryGetComponent(out HexCell hexCell)
+                && _buildingContext.IsMoving)
+            {
+                _buildingContext.SetPosition(hexCell.transform);
+            }
+        }
+    }
+
+    private void HandleBuildingContextTouch(BuildingContext context)
+    {
         if (Input.GetButtonDown("Fire1"))
         {
-            Ray ray = _camera.ScreenPointToRay(Input.GetTouch(0).position);
-            RaycastHit hit;
-
-            if (Physics.Raycast(ray, out hit))
-            {
-                if (hit.collider.TryGetComponent(out BuildingContext context))
-                {
-                    _commandBuildFabric.SetBuild(context);
-                    context.ShowPanel();
-                }
-            }
+            _commandBuildFabric.SetBuild(context);
+            _buildingContext = context;
+            context.ShowPanel();
         }
     }
 }

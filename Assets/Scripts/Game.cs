@@ -76,7 +76,7 @@ namespace Game
             _cameraZooming.Init();
             _cameraMovement.Init();
 
-            _shop.Init(_buildFabric);
+            _shop.Init(_buildFabric, _gameData);
 
             for(int i = 0; i < _buildingsContext.Length; i++) 
             {

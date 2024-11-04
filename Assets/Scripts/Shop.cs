@@ -8,15 +8,21 @@ public class Shop : MonoBehaviour
 
     private CommandBuildFabric _commandFabric;
 
-    public void Init(CommandBuildFabric commandFabric)
+    private GameData _gameData;
+
+    public void Init(CommandBuildFabric commandFabric, GameData gameData)
     {
         _commandFabric = commandFabric;
+        _gameData = gameData;
     }
 
     public void ChooseBuild()
     {
-        _commandFabric.SetBuild(_buildingsContext[0]);
-        _commandFabric.CreatePlanningBuildCommand(_buildingsContext[0]);
-        _panelShop.SetActive(false);
+        if (!_gameData.BuildsData[0].Bought)
+        {
+            _commandFabric.SetBuild(_buildingsContext[0]);
+            _commandFabric.CreatePlanningBuildCommand(_buildingsContext[0]);
+            _panelShop.SetActive(false);
+        }
     }  
 }

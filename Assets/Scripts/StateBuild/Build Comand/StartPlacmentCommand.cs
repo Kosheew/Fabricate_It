@@ -14,7 +14,6 @@ namespace CommandBuild.Build
         public override void Execute()
         {
             _context.MoveBuildState?.Enter(_context);
-            Debug.Log("Execute command Move");
         }
     }
 }

@@ -14,7 +14,7 @@ namespace BuildingState
         public void Enter(BuildingContext context)
         {
             context.MeshBuild.mesh = context.BuildSettings.MeshUnderConstrucrion;
-            Debug.Log("Building is now Under Construction.");
+            context.BuildData.CurrentState = nameof(BuildingContext);
 
             float buildDuration = context.TimeBuilding;
 
@@ -50,25 +50,19 @@ namespace BuildingState
 
         public void Update(BuildingContext context)
         {
-            // Логіка оновлення в стані "Будується"
+          
         }
         private void CheckElapsedTime(BuildingContext context)
         {
-            // Поточний час
             DateTime currentTime = DateTime.Now;
 
-            // Перевіряємо, скільки часу пройшло з моменту початку будівництва
             if (currentTime >= _endTime)
             {
-                // Якщо час завершено, одразу переходимо до стану завершеного будівництва
                 context.TransitionToState(context.BuiltState);
             }
             else
             {
-                // Якщо ще не завершено, продовжуємо будувати
-               // TimeSpan timeElapsed = currentTime - _startTime;
                 float remainingTime = (float)(_endTime - currentTime).TotalSeconds;
-
                 _constructionCoroutine = context.StartCoroutine(ConstructionProcess(context, remainingTime));
             }
         }
@@ -79,14 +73,12 @@ namespace BuildingState
                 timeRemaining--;
                 if (timeRemaining <= 0) timeRemaining = 0;
 
-                // Оновлюємо в'ю з прогресом
                 context.BuildView.UpdateProgress(timeRemaining);
 
                 yield return new WaitForSeconds(1);
             }
 
             context.BuildData.LevelBuild++;
-            // Будівництво завершене
             context.TransitionToState(context.BuiltState);
             _constructionCoroutine = null;
 

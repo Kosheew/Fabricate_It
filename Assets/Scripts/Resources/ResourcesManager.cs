@@ -13,7 +13,17 @@ public class ResourcesManager : MonoBehaviour
 
     public void SubCoins(int value)
     {
-        _gameResources.Coins -= value;
-        _view.UpdateResouce(_gameResources.Coins);
+        if (_gameResources.Coins >= value)
+        {
+            _gameResources.Coins -= value;
+            _view.UpdateResource(_gameResources);
+        }
     }   
+
+    private void AddCoins(int value)
+    {
+        _gameResources.Coins += value;
+        _view.UpdateResource(_gameResources);
+    }
+
 }

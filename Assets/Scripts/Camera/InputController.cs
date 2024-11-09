@@ -6,7 +6,7 @@ public class InputController : MonoBehaviour
 {
     private Camera _camera;
     private CommandBuildFabric _commandBuildFabric;
-    private bool isDragging = false; // Додаємо змінну для відстеження стану перетягування
+    private bool isDragging = false; 
 
     private BuildingContext _buildingContext;
 

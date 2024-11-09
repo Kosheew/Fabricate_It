@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Buildings;
 using ViewBuildings;
+using System;
 
 namespace Game
 {
@@ -15,11 +16,9 @@ namespace Game
         [SerializeField] private InputController _inputController;
 
         [Header("Resource View")]
-        [SerializeField] private ResourceView _coinsView;
-        [SerializeField] private ResourceView _bondsView;
-        [SerializeField] private ResourceView _oreView;
-        [SerializeField] private ResourceView _coalView;
-        [SerializeField] private ResourceView _woodView;
+        [SerializeField] private ResourceView _resourceView;
+
+        [SerializeField] private ResourcesManager _resourcesManager;
 
         [Header("Build View")]
         [SerializeField] private View StateBuildingView;
@@ -32,7 +31,7 @@ namespace Game
         [SerializeField] private BuildingContext[] _buildingsContext;
 
         [Header("Save Data")]
-        public GameData _gameData;
+        [SerializeField] private GameData _gameData;
 
         private BinarySaveSystem _saveSystem;
         private CommandBuildFabric _buildFabric;
@@ -58,11 +57,7 @@ namespace Game
 
         private void InitView()
         {
-            _bondsView.UpdateResouce(_gameData.ResorcesData.Bonds);
-            _coinsView.UpdateResouce(_gameData.ResorcesData.Coins);
-            _oreView.UpdateResouce(_gameData.ResorcesData.Ore);
-            _coalView.UpdateResouce(_gameData.ResorcesData.Coal);
-            _woodView.UpdateResouce(_gameData.ResorcesData.Wood);
+            _resourceView.UpdateResource(_gameData.ResorcesData);
 
             StateBuildingView.Init(_buildFabric);
             RepairBuildingView.Init(_buildFabric);
@@ -80,7 +75,7 @@ namespace Game
 
             for(int i = 0; i < _buildingsContext.Length; i++) 
             {
-                _buildingsContext[i].Init(_gameData.BuildsData[i], _buildFabric);
+                _buildingsContext[i].Init(_gameData.BuildsData[i]);
 
                 if (!_gameData.BuildsData[i].Bought)
                     _buildingsContext[i].gameObject.SetActive(false);

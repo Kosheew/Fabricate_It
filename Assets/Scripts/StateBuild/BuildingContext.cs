@@ -37,8 +37,6 @@ namespace Buildings
 
         public BuildData BuildData;
 
-        public bool NeedsUpgrade { get; private set; }
-        public bool NeedsRepair { get; private set; }
         public float TimeBuilding { get; private set; }
         public string EndTime { get; private set; }
        
@@ -46,15 +44,14 @@ namespace Buildings
 
         public DateTime EndTimeBuilding;
 
-        public CommandBuildFabric CommandBuildFabric { get; private set; }
+    
 
         public Transform NewPosition { get; private set; }
 
-        public void Init(BuildData data, CommandBuildFabric commandBuildFabric)
+        public void Init(BuildData data)
         {
             MeshBuild = GetComponentInChildren<MeshFilter>();
-
-            CommandBuildFabric = commandBuildFabric;
+        
             BuildData = data;
             TimeBuilding = data.TimeBuilding;
             EndTime = data.EndTimeBuilding;
@@ -93,16 +90,6 @@ namespace Buildings
             {
                 MoveBuildState?.Update(this);  
             }
-        }
-
-        public void SetUpgradeFlag(bool value)
-        {
-            NeedsUpgrade = value;
-        }
-
-        public void SetRepairFlag(bool value)
-        {
-            NeedsRepair = value;
         }
 
         public void TransitionToState(IBuildingState newState)

@@ -17,20 +17,3 @@ public class BuildSettings : ScriptableObject
     
     public UpgradeResource[] LeveResources => _leveResources;
 }
-
-[Serializable]
-public class BuildCost
-{
-    public float TimeBuild;
-    public int Coins;
-    public int Bonds;
-}
-
-[Serializable]
-public class BuildResources
-{  
-    public int Oil;
-    public int Coal;
-    public int Ore;
-    public int Tree;
-}

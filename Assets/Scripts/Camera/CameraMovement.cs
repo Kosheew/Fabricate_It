@@ -32,7 +32,7 @@ namespace Game.CameraControllers
             {
                 _touch = Input.GetTouch(0);
 
-                if (_touch.phase == TouchPhase.Moved && !_controller.isDragging)
+                if (_touch.phase == TouchPhase.Moved && !_controller.IsDragging)
                 {
                     Vector3 movePos = new Vector3(
                         transform.position.x + _touch.deltaPosition.x * _speed * -1 * Time.deltaTime,

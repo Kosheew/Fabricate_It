@@ -28,12 +28,13 @@ namespace CommandBuild.Build
 
                 float remainingTime = (float)(endTime - currentTime).TotalSeconds;
                 Debug.Log(remainingTime);
+                if (_resources.HasEnoughResource(ResourceType.Bond, (int)remainingTime))
+                {
+                    _resources.SubtractResource(ResourceType.Bond, (int)remainingTime);
 
-                _resources.SubtractResource(ResourceType.Bond, (int)remainingTime);
-
-                _context.ShowPanel();
-                _context.TransitionToState(_context.BuiltState);
-                
+                    _context.ShowPanel();
+                    _context.TransitionToState(_context.BuiltState);
+                }
 
             }
             else

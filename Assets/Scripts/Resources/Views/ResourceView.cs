@@ -24,13 +24,13 @@ public class ResourceView : MonoBehaviour
         };
     }
 
-    public void UpdateResource(Dictionary<ResourceType, IResource> resources)
+    public void UpdateResource(IEnumerable<IResource> resources)
     {
         foreach (var resource in resources)
         {
-            if (_resourceTexts.ContainsKey(resource.Key))
+            if (_resourceTexts.TryGetValue(resource.Type, out var resourceText))
             {
-                _resourceTexts[resource.Key].text = resource.Value.Amount.ToString();
+                resourceText.text = resource.Amount.ToString();
             }
         }
     }

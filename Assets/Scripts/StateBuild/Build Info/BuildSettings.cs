@@ -4,6 +4,9 @@ using UnityEngine;
 [CreateAssetMenu(fileName ="Build", menuName = "ScriptableObjects/Build")]
 public class BuildSettings : ScriptableObject
 {
+    [Header("Rtpe Build")]
+    [SerializeField] private BuildTypes _buildTypes;
+
     [Header("Mesh Building")]
     [SerializeField] private Mesh _meshUnderConstruction;
     [SerializeField] private Mesh _meshBuilding;
@@ -16,4 +19,5 @@ public class BuildSettings : ScriptableObject
     public Mesh MeshDestroyed => _meshDestroyed;
     
     public UpgradeResource[] LeveResources => _leveResources;
+    public BuildTypes BuildTypes => _buildTypes;
 }

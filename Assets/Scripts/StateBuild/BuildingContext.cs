@@ -11,7 +11,7 @@ namespace Buildings
     public class BuildingContext : MonoBehaviour
     {
         [SerializeField] private BuildSettings _buildSettings;
-
+        
         /// <summary>
         /// State Building
         /// </summary>

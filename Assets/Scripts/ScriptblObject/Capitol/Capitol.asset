@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b48bc57a18c8c5f46a5de0e478360f1d, type: 3}
   m_Name: Capitol
   m_EditorClassIdentifier: 
+  _buildTypes: 0
   _meshUnderConstruction: {fileID: 3299788846712481772, guid: 719627c1fd6ed2845b6b6c8ac11a3b81,
     type: 3}
   _meshBuilding: {fileID: -5495902117074765545, guid: 9f7aa2686a76bfa4897d433ae6724b2b,

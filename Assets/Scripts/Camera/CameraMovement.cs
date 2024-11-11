@@ -12,6 +12,8 @@ namespace Game.CameraControllers
 
         private Touch _touch;
         private Vector3 _targetPos;
+        private InputController _controller;
+
 
         public void Init()
         {
@@ -21,6 +23,7 @@ namespace Game.CameraControllers
             }
 
             _targetPos = _target.position;
+            _controller = GetComponent<InputController>();
         }
 
         private void LateUpdate()
@@ -29,7 +32,7 @@ namespace Game.CameraControllers
             {
                 _touch = Input.GetTouch(0);
 
-                if (_touch.phase == TouchPhase.Moved)
+                if (_touch.phase == TouchPhase.Moved && !_controller.isDragging)
                 {
                     Vector3 movePos = new Vector3(
                         transform.position.x + _touch.deltaPosition.x * _speed * -1 * Time.deltaTime,

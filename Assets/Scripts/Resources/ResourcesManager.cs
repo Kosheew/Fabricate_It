@@ -16,7 +16,6 @@ public class ResourcesManager : MonoBehaviour
         UpdateView();
     }
 
-    // Додавання ресурсів (окремий тип ресурсу)
     public void AddResource(ResourceType type, int amount)
     {
         if (_resources.TryGetValue(type, out var resource))
@@ -26,7 +25,6 @@ public class ResourcesManager : MonoBehaviour
         }
     }
 
-    // Додавання ресурсів (список ресурсів)
     public void AddResources(List<IResource> resources)
     {
         foreach (var resource in resources)
@@ -35,7 +33,6 @@ public class ResourcesManager : MonoBehaviour
         }
     }
 
-    // Віднімання ресурсів (окремий тип ресурсу)
     public void SubtractResource(ResourceType type, int amount)
     {
         if (_resources.TryGetValue(type, out var resource) && resource.HasEnough(amount))
@@ -49,7 +46,6 @@ public class ResourcesManager : MonoBehaviour
         }
     }
 
-    // Віднімання ресурсів (список ресурсів)
     public void SubtractResources(List<IResource> resources)
     {
         if (HasEnoughResources(resources))
@@ -66,7 +62,6 @@ public class ResourcesManager : MonoBehaviour
         }
     }
 
-    // Перевірка достатньої кількості ресурсів для списку
     public bool HasEnoughResources(List<IResource> resources)
     {
         foreach (var resource in resources)

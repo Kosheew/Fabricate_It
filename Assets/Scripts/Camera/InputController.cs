@@ -6,7 +6,7 @@ public class InputController : MonoBehaviour
 {
     private Camera _camera;
     private CommandBuildFabric _commandBuildFabric;
-    private bool isDragging = false; 
+    public bool isDragging = false; 
 
     private BuildingContext _buildingContext;
 
@@ -33,7 +33,7 @@ public class InputController : MonoBehaviour
             if (hit.collider.TryGetComponent(out BuildingContext context))
             {
                 HandleBuildingContextTouch(context);
-                isDragging = touch.phase == TouchPhase.Ended ? false : true ;
+                isDragging = touch.phase != TouchPhase.Ended;
             }
           
             if (touch.phase == TouchPhase.Moved 

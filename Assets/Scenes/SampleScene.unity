@@ -4199,7 +4199,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce43a73276c9e4f4dafde825d1a3d596, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 0.5
+  _speed: 2
   _radius: 60
   _target: {fileID: 1700051621}
 --- !u!114 &330585550
@@ -4214,7 +4214,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df81b986f4c69c646b76f9e0c134302b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 0.5
+  _speed: 2
   _radius: 25
   _target: {fileID: 1700051621}
 --- !u!114 &330585551

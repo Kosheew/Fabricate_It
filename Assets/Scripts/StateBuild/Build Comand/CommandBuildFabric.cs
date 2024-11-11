@@ -7,12 +7,12 @@ public class CommandBuildFabric
 
     private BuildingContext _buildingContext;
 
-    private GameResources _gameResources;
+    private ResourcesManager _resourcesManager;
 
-    public void Init(CommandInvoker invoker, GameResources gameResources)
+    public void Init(CommandInvoker invoker, ResourcesManager resourcesManager)
     {
         _commandInvoker = invoker;
-        _gameResources = gameResources;
+        _resourcesManager = resourcesManager;
     }
 
     public void SetBuild(BuildingContext context)
@@ -36,7 +36,7 @@ public class CommandBuildFabric
 
     public void CreateSpeedUpCommand()
     {
-        Command speedUpCommand = new SpeedUpCommand(_buildingContext, _gameResources);
+        Command speedUpCommand = new SpeedUpCommand(_buildingContext, _resourcesManager);
         _commandInvoker.SetCommand(speedUpCommand);
         _commandInvoker.ExecuteCommands();
     }

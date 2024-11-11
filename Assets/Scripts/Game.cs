@@ -17,15 +17,10 @@ namespace Game
 
         [Header("Resource View")]
         [SerializeField] private ResourceView _resourceView;
-
         [SerializeField] private ResourcesManager _resourcesManager;
 
         [Header("Build View")]
-        [SerializeField] private View StateBuildingView;
-        [SerializeField] private View RepairBuildingView;
-        [SerializeField] private View MoveBuildView;
-        [SerializeField] private View PlainningBuildView;
-        [SerializeField] private View SpeedUpView;
+        [SerializeField] private View[] _buildsView;
 
         [SerializeField] private Shop _shop;    
         [SerializeField] private BuildingContext[] _buildingsContext;
@@ -41,14 +36,17 @@ namespace Game
         {
             _saveSystem = new BinarySaveSystem();   
             _gameData = _saveSystem.Load<GameData>();
+            LoadGameData();
 
             _commandInvoker = new CommandInvoker();
             _buildFabric = new CommandBuildFabric();
-            _buildFabric.Init(_commandInvoker, _gameData.ResorcesData);
+
+            _resourceView.Init();
+            _resourcesManager.Init(_resourceView, _gameData.ResorcesData.ToResourceList());
+            _buildFabric.Init(_commandInvoker, _resourcesManager);
 
             _inputController.Init(_buildFabric);
 
-            LoadGameData();
             
             InitView();
 
@@ -57,19 +55,19 @@ namespace Game
 
         private void InitView()
         {
-            _resourceView.UpdateResource(_gameData.ResorcesData);
+            
 
-            StateBuildingView.Init(_buildFabric);
-            RepairBuildingView.Init(_buildFabric);
-            MoveBuildView.Init(_buildFabric);
-            PlainningBuildView.Init(_buildFabric);
-            SpeedUpView.Init(_buildFabric);
+            foreach (var item in _buildsView)
+            {
+                item.Init(_buildFabric);
+            }
         }
 
         private void Init()
         {
             _cameraZooming.Init();
             _cameraMovement.Init();
+
 
             _shop.Init(_buildFabric, _gameData);
 

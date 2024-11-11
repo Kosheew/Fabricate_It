@@ -19,6 +19,19 @@ public class GameResources
     public int Coal;
     public int Ore;
     public int Wood;
+
+    public List<IResource> ToResourceList()
+    {
+        return new List<IResource>
+        {
+            new BondResource(this),
+            new CoinResource(this),
+            new WoodResource(this),
+            new OreResource(this),
+            new CoalResource(this),
+            new OilResource(this)
+        };
+    }
 }
 
 [Serializable]

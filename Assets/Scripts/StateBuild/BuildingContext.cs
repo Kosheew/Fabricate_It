@@ -35,16 +35,14 @@ namespace Buildings
         public MeshFilter MeshBuild { get; private set; }
         public BuildSettings BuildSettings => _buildSettings;
 
-        public BuildData BuildData;
+        public BuildData BuildData { get; private set; }
 
         public float TimeBuilding { get; private set; }
         public string EndTime { get; private set; }
-       
-        public bool IsMoving = false;
+        public int BuildLevel { get; set; }
+        public bool IsMoving { get; set; }
 
-        public DateTime EndTimeBuilding;
-
-    
+        public DateTime EndTimeBuilding;   
 
         public Transform NewPosition { get; private set; }
 
@@ -53,8 +51,12 @@ namespace Buildings
             MeshBuild = GetComponentInChildren<MeshFilter>();
         
             BuildData = data;
-            TimeBuilding = data.TimeBuilding;
+            
             EndTime = data.EndTimeBuilding;
+            BuildLevel = data.LevelBuild;
+
+            data.TimeBuilding = _buildSettings.LeveResources[BuildLevel].TimeBuild;
+            TimeBuilding = data.TimeBuilding;
 
             BuiltState = new BuiltState();
             DestroyedState = new DestroyedState();

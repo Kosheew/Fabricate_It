@@ -22,7 +22,7 @@ public class CommandBuildFabric
 
     public void CreateBuildBuyCommand()
     {
-        Command buildBuyCommand = new BuildBuy(_buildingContext);
+        Command buildBuyCommand = new BuildBuy(_buildingContext, _resourcesManager);
         _commandInvoker.SetCommand(buildBuyCommand);
         _commandInvoker.ExecuteCommands();
     }
@@ -43,7 +43,7 @@ public class CommandBuildFabric
 
     public void CreateUpgradeCommand()
     {
-        Command upgradeCommand = new UpgradeCommand(_buildingContext);
+        Command upgradeCommand = new UpgradeCommand(_buildingContext, _resourcesManager);
         _commandInvoker.SetCommand(upgradeCommand);
         _commandInvoker.ExecuteCommands();
     }

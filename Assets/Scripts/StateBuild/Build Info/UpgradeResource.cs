@@ -4,7 +4,7 @@ using UnityEngine;
 public class UpgradeResource : ScriptableObject
 {
     [Header("Time")]
-    [SerializeField] private double _temeBuild;
+    [SerializeField] private int _temeBuild;
 
     [Header("Resources")]
     [SerializeField] private GameResources _upgradeResources;
@@ -12,7 +12,7 @@ public class UpgradeResource : ScriptableObject
     [Header("Income")]
     [SerializeField] private int _income;
 
-    public double TimeBuild => _temeBuild;
+    public int TimeBuild => _temeBuild;
     public int Income => _income;
     public GameResources UpgradeResources => _upgradeResources;
 

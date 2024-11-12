@@ -5,6 +5,7 @@ using UnityEngine;
 using Buildings;
 using ViewBuildings;
 using System;
+using Managers;
 
 namespace Game
 {
@@ -20,7 +21,7 @@ namespace Game
         [SerializeField] private ResourcesManager _resourcesManager;
 
         [Header("Build View")]
-        [SerializeField] private View[] _buildsView;
+        [SerializeField] private List<View> _buildsView;
 
         [SerializeField] private Shop _shop;    
         [SerializeField] private BuildingContext[] _buildingsContext;
@@ -31,6 +32,7 @@ namespace Game
         private BinarySaveSystem _saveSystem;
         private CommandBuildFabric _buildFabric;
         private CommandInvoker _commandInvoker;
+        private StateManager _stateManager;
 
         private void Awake()
         {
@@ -40,6 +42,7 @@ namespace Game
 
             _commandInvoker = new CommandInvoker();
             _buildFabric = new CommandBuildFabric();
+            _stateManager = new StateManager();
 
             _resourceView.Init();
             _resourcesManager.Init(_resourceView, _gameData.ResorcesData.ToResourceList());
@@ -73,7 +76,7 @@ namespace Game
 
             for(int i = 0; i < _buildingsContext.Length; i++) 
             {
-                _buildingsContext[i].Init(_gameData.BuildsData[i]);
+                _buildingsContext[i].Init(_gameData.BuildsData[i], _stateManager, _buildsView);
 
                 if (!_gameData.BuildsData[i].Bought)
                     _buildingsContext[i].gameObject.SetActive(false);

@@ -33,7 +33,7 @@ namespace CommandBuild.Build
                     _resources.SubtractResource(ResourceType.Bond, (int)remainingTime);
 
                     _context.ShowPanel();
-                    _context.TransitionToState(_context.BuiltState);
+                //    _context.TransitionToState(_context.BuiltState);
                 }
 
             }

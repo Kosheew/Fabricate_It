@@ -22,7 +22,7 @@ namespace CommandBuild.Build
             if (_context.CurrentState is DestroyedState)
             {
                 Debug.Log("Repairing the building.");
-                _context.TransitionToState(_context.UnderConstructionState);
+             //   _context.TransitionToState(_context.UnderConstructionState);
             }
             else
             {

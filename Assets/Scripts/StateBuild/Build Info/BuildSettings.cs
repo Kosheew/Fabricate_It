@@ -17,6 +17,7 @@ public class BuildSettings : ScriptableObject
     [SerializeField] private Material _buildingMaterial;
     [SerializeField] private Material _destroyedMaterial;
     [SerializeField] private Material _placmentMaterial;
+    [SerializeField] private Material _gexMaterial;
 
     [Header("Cost Building Construction")]
     [SerializeField] private UpgradeResource[] _leveResources;
@@ -28,6 +29,7 @@ public class BuildSettings : ScriptableObject
     public Material BuildingMaterial => _buildingMaterial;
     public Material DestroyedMaterial => _destroyedMaterial;
     public Material PlacmentMaterial => _placmentMaterial;
+    public Material GexMaterial => _gexMaterial;
 
     public UpgradeResource[] LeveResources => _leveResources;
     public BuildTypes BuildTypes => _buildTypes;

@@ -13,7 +13,7 @@ namespace CommandBuild.Build
 
         public override void Execute()
         {         
-            _context.PlanningBuildState.Exit(_context);
+          //  _context.PlanningBuildState.Exit(_context);
             _context.gameObject.SetActive(false);
         }
     }

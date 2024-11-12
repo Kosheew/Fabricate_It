@@ -25,7 +25,7 @@ namespace CommandBuild.Build
                 if (_resourcesManager.HasEnoughResources(resourcesInfo))
                 {
                     _resourcesManager.SubtractResources(resourcesInfo);
-                    _context.TransitionToState(_context.UnderConstructionState);
+                   // _context.TransitionToState(_context.UnderConstructionState);
                 }
             }
         }

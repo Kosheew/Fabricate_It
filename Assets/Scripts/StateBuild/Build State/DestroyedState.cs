@@ -9,8 +9,6 @@ namespace BuildingState
         {
             context.BuildData.CurrentState = nameof(DestroyedState);
 
-            context.MeshBuild.mesh = context.BuildSettings.MeshDestroyed;
-
         }
 
         public void Exit(BuildingContext context)

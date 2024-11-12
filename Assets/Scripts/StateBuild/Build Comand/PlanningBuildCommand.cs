@@ -13,7 +13,7 @@ namespace CommandBuild.Build
 
         public override void Execute()
         {
-            _context.PlanningBuildState.Enter(_context);
+        //    _context.PlanningBuildState.Enter(_context);
             Debug.Log("Execute command Move");
         }
     }

@@ -26,8 +26,8 @@ namespace CommandBuild.Build
 
 
                     _context.BuildData.Bought = true;
-                    _context.PlanningBuildState.Exit(_context);
-                    _context.TransitionToState(_context.UnderConstructionState);
+                 //   _context.PlanningBuildState.Exit(_context);
+                  //  _context.TransitionToState(_context.UnderConstructionState);
                 }
             }
         }

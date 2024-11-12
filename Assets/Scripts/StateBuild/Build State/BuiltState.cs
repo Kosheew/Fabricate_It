@@ -9,7 +9,6 @@ namespace BuildingState
     {
         public void Enter(BuildingContext context)
         {
-            context.MeshBuild.mesh = context.BuildSettings.MeshBuilding;
 
             context.BuildData.CurrentState = nameof(BuiltState);
 

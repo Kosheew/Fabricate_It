@@ -6,6 +6,8 @@ using BuildingState;
 using ViewBuildings;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using Managers;
 
 namespace Buildings
 {
@@ -17,11 +19,6 @@ namespace Buildings
         /// State Building
         /// </summary>
         public IBuildingState CurrentState { get; private set; }
-        public IBuildingState BuiltState { get; private set; }
-        public IBuildingState DestroyedState { get; private set; }
-        public IBuildingState UnderConstructionState { get; private set; }
-        public IBuildingState MoveBuildState { get; private set; }
-        public IBuildingState PlanningBuildState { get; private set; }
 
         /// <summary>
         /// View Build
@@ -34,16 +31,10 @@ namespace Buildings
         public View StateBuildView { get; private set; }
 
         [SerializeField] public MeshFilter _meshBuild;
-        [SerializeField] public MeshFilter _meshGex;
 
         [SerializeField] public MeshRenderer _materialBuild;
         [SerializeField] public MeshRenderer _materialGex;
 
-        public MeshFilter MeshBuild => _meshBuild;
-        public MeshFilter MeshGex => _meshGex;
-
-        public MeshRenderer MaterialBuild => _materialBuild;
-        public MeshRenderer MaterialGex => _materialGex;
 
         public BuildSettings BuildSettings => _buildSettings;
 
@@ -57,26 +48,28 @@ namespace Buildings
 
         public Transform NewPosition { get; private set; }
 
-        public void Init(BuildData data)
+        private StateManager _stateManager;
+
+        private BuildingVisualManager _buildingVisualManager;
+
+        public void Init(BuildData data, StateManager stateManager,  List<View> _view)
         {   
             BuildData = data;
             
             EndTime = data.EndTimeBuilding;
             BuildLevel = data.LevelBuild;
 
-            BuiltState = new BuiltState();
-            DestroyedState = new DestroyedState();
-            UnderConstructionState = new UnderConstructionState();
-            MoveBuildState = new MoveState();
-            PlanningBuildState = new PlanningBuildState();  
+            _stateManager = stateManager;
+
+            _buildingVisualManager = new BuildingVisualManager(_meshBuild, _materialBuild, _materialGex, _buildSettings);
 
             BuildView = GetComponent<BuildView>();
 
-            MoveBuildView = FindAnyObjectByType<MoveBuildView>();
-            PlanningBuildView = FindAnyObjectByType<PlanningBuildView>();
-            RepairBuildView = FindAnyObjectByType<RepairBuildingView>();
-            SpeedUpView = FindAnyObjectByType<SpeedUpView>();
-            StateBuildView = FindAnyObjectByType<StateBuildingView>();
+            MoveBuildView = _view.OfType<MoveBuildView>().FirstOrDefault();
+            PlanningBuildView = _view.OfType<PlanningBuildView>().FirstOrDefault();
+            RepairBuildView = _view.OfType<RepairBuildingView>().FirstOrDefault();
+            SpeedUpView = _view.OfType<SpeedUpView>().FirstOrDefault();
+            StateBuildView = _view.OfType<StateBuildingView>().FirstOrDefault();
 
             if (data.Bought)
             {
@@ -93,18 +86,17 @@ namespace Buildings
 
         private void Update()
         {
+            _stateManager.UpdateState(this);
             CurrentState?.Update(this);
             if (IsMoving)
             {
-                MoveBuildState?.Update(this);  
+              //  MoveBuildState?.Update(this);  
             }
         }
 
         public void TransitionToState(IBuildingState newState)
         {
-            CurrentState?.Exit(this);
-            CurrentState = newState;
-            CurrentState.Enter(this);
+            _stateManager.SetState(newState, this);
         }
 
         public void SetPosition(Transform newPos)
@@ -115,7 +107,7 @@ namespace Buildings
         public void ShowPanel()
         {
             if (!IsMoving)
-                CurrentState?.ShowPanel(this);
+                _stateManager.ShowStatePanel(this);
         }
 
         public List<IResource> GetResourcesUpgrade()

@@ -5,6 +5,7 @@ using CommandBuild.Build;
 using BuildingState;
 using ViewBuildings;
 using System;
+using System.Collections.Generic;
 
 namespace Buildings
 {
@@ -32,14 +33,24 @@ namespace Buildings
         public View SpeedUpView { get; private set; }
         public View StateBuildView { get; private set; }
 
-        public MeshFilter MeshBuild { get; private set; }
+        [SerializeField] public MeshFilter _meshBuild;
+        [SerializeField] public MeshFilter _meshGex;
+
+        [SerializeField] public MeshRenderer _materialBuild;
+        [SerializeField] public MeshRenderer _materialGex;
+
+        public MeshFilter MeshBuild => _meshBuild;
+        public MeshFilter MeshGex => _meshGex;
+
+        public MeshRenderer MaterialBuild => _materialBuild;
+        public MeshRenderer MaterialGex => _materialGex;
+
         public BuildSettings BuildSettings => _buildSettings;
 
         public BuildData BuildData { get; private set; }
 
-        public float TimeBuilding { get; private set; }
         public string EndTime { get; private set; }
-        public int BuildLevel { get; set; }
+        private int BuildLevel { get; set; }
         public bool IsMoving { get; set; }
 
         public DateTime EndTimeBuilding;   
@@ -47,16 +58,11 @@ namespace Buildings
         public Transform NewPosition { get; private set; }
 
         public void Init(BuildData data)
-        {
-            MeshBuild = GetComponentInChildren<MeshFilter>();
-        
+        {   
             BuildData = data;
             
             EndTime = data.EndTimeBuilding;
             BuildLevel = data.LevelBuild;
-
-            data.TimeBuilding = _buildSettings.LeveResources[BuildLevel].TimeBuild;
-            TimeBuilding = data.TimeBuilding;
 
             BuiltState = new BuiltState();
             DestroyedState = new DestroyedState();
@@ -110,6 +116,24 @@ namespace Buildings
         {
             if (!IsMoving)
                 CurrentState?.ShowPanel(this);
+        }
+
+        public List<IResource> GetResourcesUpgrade()
+        {
+            return _buildSettings.LeveResources[BuildLevel].UpgradeResources.ToResourceList();
+        }
+
+        public int GetTimeBuilding()
+        {
+            int timeBuilding = _buildSettings.LeveResources[BuildLevel].TimeBuild;
+            BuildData.TimeBuilding = timeBuilding;
+            return timeBuilding;
+        }
+
+        public void UpgradeLevel()
+        {
+            BuildLevel++;
+            BuildData.LevelBuild = BuildLevel;
         }
     }
 }

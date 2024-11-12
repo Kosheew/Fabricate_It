@@ -20,7 +20,7 @@ namespace CommandBuild.Build
         {
             if (_context.CurrentState is BuiltState)
             {
-                var resourcesInfo = _context.BuildSettings.LeveResources[_context.BuildLevel].UpgradeResources.ToResourceList();
+                var resourcesInfo = _context.GetResourcesUpgrade();
                 
                 if (_resourcesManager.HasEnoughResources(resourcesInfo))
                 {

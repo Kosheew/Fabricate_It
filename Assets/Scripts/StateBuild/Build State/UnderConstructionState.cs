@@ -14,9 +14,12 @@ namespace BuildingState
         public void Enter(BuildingContext context)
         {
             context.MeshBuild.mesh = context.BuildSettings.MeshUnderConstrucrion;
+            context.MaterialBuild.material = context.BuildSettings.UnderConstructionMaterial;
+            context.MaterialGex.material = context.BuildSettings.BuildingMaterial;
+
             context.BuildData.CurrentState = nameof(BuildingContext);
 
-            float buildDuration = context.BuildSettings.LeveResources[context.BuildLevel].TimeBuild;
+            float buildDuration = context.GetTimeBuilding();
 
             if (!DateTime.TryParse(context.EndTime, out _endTime))
             {
@@ -39,10 +42,7 @@ namespace BuildingState
 
         public void Exit(BuildingContext context)
         {
-            context.BuildLevel++;
-
-            context.BuildData.LevelBuild = context.BuildLevel;
-
+            context.UpgradeLevel();
             context.BuildView.EndBuilding();
         }
 

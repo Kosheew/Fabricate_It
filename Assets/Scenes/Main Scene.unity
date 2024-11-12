@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1912,6 +1912,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b38685ed6096cff41b98f3244505d28e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!23 &190174537 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -8869992175151197992, guid: 719627c1fd6ed2845b6b6c8ac11a3b81,
+    type: 3}
+  m_PrefabInstance: {fileID: 1210069690}
+  m_PrefabAsset: {fileID: 0}
+--- !u!33 &190174539 stripped
+MeshFilter:
+  m_CorrespondingSourceObject: {fileID: 961184610605345143, guid: 719627c1fd6ed2845b6b6c8ac11a3b81,
+    type: 3}
+  m_PrefabInstance: {fileID: 1210069690}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &195671747
 GameObject:
   m_ObjectHideFlags: 0
@@ -3911,6 +3923,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _buildSettings: {fileID: 11400000, guid: 3748488f7e279494fbe315ab488ae5e0, type: 2}
+  _meshBuild: {fileID: 682039282}
+  _meshGex: {fileID: 190174539}
+  _materialBuild: {fileID: 682039281}
+  _materialGex: {fileID: 190174537}
 --- !u!4 &320429495 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 719627c1fd6ed2845b6b6c8ac11a3b81,
@@ -8937,6 +8953,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!23 &682039281 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 299663757630204158, guid: 719627c1fd6ed2845b6b6c8ac11a3b81,
+    type: 3}
+  m_PrefabInstance: {fileID: 1210069690}
+  m_PrefabAsset: {fileID: 0}
+--- !u!33 &682039282 stripped
+MeshFilter:
+  m_CorrespondingSourceObject: {fileID: 3947529890203278092, guid: 719627c1fd6ed2845b6b6c8ac11a3b81,
+    type: 3}
+  m_PrefabInstance: {fileID: 1210069690}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &695122448
 GameObject:
   m_ObjectHideFlags: 0

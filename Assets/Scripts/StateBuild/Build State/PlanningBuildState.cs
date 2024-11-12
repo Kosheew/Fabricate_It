@@ -7,6 +7,10 @@ namespace BuildingState
         public void Enter(BuildingContext context)
         {
             context.MoveBuildState.Enter(context);
+
+            context.MaterialBuild.material = context.BuildSettings.PlacmentMaterial;
+            context.MaterialGex.material = context.BuildSettings.PlacmentMaterial;
+
             ShowPanel(context);
         }
 

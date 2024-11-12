@@ -18,7 +18,7 @@ namespace CommandBuild.Build
         {
             if (!_context.BuildData.Bought)
             {
-                var resourcesInfo = _context.BuildSettings.LeveResources[_context.BuildLevel].UpgradeResources.ToResourceList();
+                var resourcesInfo = _context.GetResourcesUpgrade();
 
                 if (_resourcesManager.HasEnoughResources(resourcesInfo))
                 {

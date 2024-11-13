@@ -7,7 +7,7 @@ public class GameData
     public GameResources ResorcesData;
     public ProductionResources ProductionResourcesData;
     public UniqueResources UniqueResourcesData;
-    public List<BuildData> BuildsData;
+    public BuildData[] BuildsData;
 }
 
 [Serializable] 

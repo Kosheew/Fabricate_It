@@ -1,11 +1,8 @@
 using BuildingState;
 using System;
-public interface IBuildingStateFactory
-{
-    IBuildingState CreateState(BuildingStateType stateName);
-}
 
-public class BuildingStateFactory : IBuildingStateFactory
+
+public class BuildingStateFactory
 {
     public IBuildingState CreateState(BuildingStateType stateName)
     {

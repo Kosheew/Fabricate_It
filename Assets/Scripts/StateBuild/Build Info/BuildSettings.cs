@@ -4,8 +4,11 @@ using UnityEngine;
 [CreateAssetMenu(fileName ="Build", menuName = "ScriptableObjects/Build")]
 public class BuildSettings : ScriptableObject
 {
-    [Header("Rtpe Build")]
+    [Header("Type Build")]
     [SerializeField] private BuildTypes _buildTypes;
+
+    [Header("Index Build")]
+    [SerializeField] private int _index;
 
     [Header("Mesh Building")]
     [SerializeField] private Mesh _meshUnderConstruction;
@@ -31,6 +34,7 @@ public class BuildSettings : ScriptableObject
     public Material PlacmentMaterial => _placmentMaterial;
     public Material GexMaterial => _gexMaterial;
 
+    public int Index => _index;
     public UpgradeResource[] LeveResources => _leveResources;
     public BuildTypes BuildTypes => _buildTypes;
 }

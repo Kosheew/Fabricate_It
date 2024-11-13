@@ -14,7 +14,6 @@ namespace BuildingState
 
             _camera = Camera.main;
 
-            context.ShowPanel();
             context.BuildView.ShowMovePanel();
             context.IsMoving = true;
 
@@ -33,13 +32,12 @@ namespace BuildingState
             context.IsMoving = false;
             _isDragging = false;
 
-            ShowPanel(context);
             context.BuildView.ShowMovePanel();
         }
 
         public void ShowPanel(BuildingContext context)
         {
-         //   if (context.CurrentState is not PlanningBuildState)
+            if (context.BuildData.Bought)
                 context.MoveBuildView.ShowStatePanel();   
         }
 

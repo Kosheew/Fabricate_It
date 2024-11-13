@@ -47,44 +47,47 @@ namespace Buildings
 
         private BuildingVisualManager _buildingVisualManager;
 
-        public void Init(BuildData data, List<View> _view)
-        {   
-            BuildData = data;
-            StateManager = new StateManager();
+        public void Init(DependencyContainer container)
+        {
+            int index = _buildSettings.Index;
 
+            BuildData = container.Resolve<BuildData[]>()[index];
+
+           // var stateFactory = container.Resolve<BuildingStateFactory>();
+            StateManager = container.Resolve<StateManager>();
+
+            List<View> view = container.Resolve<List<View>>();
+            
             _buildingVisualManager = new BuildingVisualManager(_meshBuild, _materialBuild, _materialGex, _buildSettings);
-
+            
             BuildView = GetComponent<BuildrocessView>();
 
-            MoveBuildView = _view.OfType<MoveBuildView>().FirstOrDefault();
-            PlanningBuildView = _view.OfType<PlanningBuildView>().FirstOrDefault();
-            RepairBuildView = _view.OfType<RepairBuildingView>().FirstOrDefault();
-            SpeedUpView = _view.OfType<SpeedUpView>().FirstOrDefault();
-            StateBuildView = _view.OfType<StateBuildingView>().FirstOrDefault();
+            MoveBuildView = view.OfType<MoveBuildView>().FirstOrDefault();
+            PlanningBuildView = view.OfType<PlanningBuildView>().FirstOrDefault();
+            RepairBuildView = view.OfType<RepairBuildingView>().FirstOrDefault();
+            SpeedUpView = view.OfType<SpeedUpView>().FirstOrDefault();
+            StateBuildView = view.OfType<StateBuildingView>().FirstOrDefault();
 
-            EndTime = data.EndTimeBuilding;
-            BuildLevel = data.LevelBuild;
 
-            if (data.Bought)
+            EndTime = BuildData.EndTimeBuilding;
+            BuildLevel = BuildData.LevelBuild;
+
+            if (BuildData.Bought)
             {
                 gameObject.SetActive(true);
-                transform.position = data.BuildPosition.ToVector3();  
+                transform.position = BuildData.BuildPosition.ToVector3();  
                 
-                Type stateType = Type.GetType("BuildingState." + data.CurrentState);
+                Type stateType = Type.GetType("BuildingState." + BuildData.CurrentState);
 
                 IBuildingState stateInstance = (IBuildingState)Activator.CreateInstance(stateType);
 
-                TransitionToState(stateInstance);
+                StateManager.SetState(stateInstance, this);
             }
         }
 
         private void Update()
         {
-            StateManager.UpdateState(this);
-            if (IsMoving)
-            {
-              //  MoveBuildState?.Update(this);  
-            }
+            StateManager?.UpdateState(this);
         }
 
         public void TransitionToState(IBuildingState newState)
@@ -99,8 +102,7 @@ namespace Buildings
 
         public void ShowPanel()
         {
-            if (!IsMoving)
-                StateManager.ShowStatePanel(this);
+            StateManager.ShowStatePanel(this);
         }
 
         public List<IResource> GetResourcesUpgrade()

@@ -6,19 +6,17 @@ namespace CommandBuild.Build
     public class StartPlacmentCommand : Command
     {
         private BuildingContext _context;
-        private IBuildingStateFactory _buildFactory;
         private StateManager _stateManager;
 
-        public StartPlacmentCommand(BuildingContext context, IBuildingStateFactory buildFactory, StateManager stateManager)
+        public StartPlacmentCommand(BuildingContext context, DependencyContainer container)
         {
             _context = context;
-            _buildFactory = buildFactory;
-            _stateManager = stateManager;
+            _stateManager = container.Resolve<StateManager>();
         }
 
         public override void Execute()
         {
-            _stateManager.SetMove(_buildFactory.CreateState(BuildingStateType.Move), _context);
+           // _stateManager.StartPurchaseWithMove(_context);
         }
     }
 }

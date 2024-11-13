@@ -6,15 +6,12 @@ namespace BuildingState
     {
         public void Enter(BuildingContext context)
         {
-      //      context.MoveBuildState.Enter(context);
-
-
+            context.gameObject.SetActive(true);
             ShowPanel(context);
         }
 
         public void Exit(BuildingContext context)
         {
-        //    context.MoveBuildState.Exit(context);
             ShowPanel(context);
         }
 

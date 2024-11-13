@@ -14,16 +14,11 @@ namespace Buildings
     public class BuildingContext : MonoBehaviour
     {
         [SerializeField] private BuildSettings _buildSettings;
-        
-        /// <summary>
-        /// State Building
-        /// </summary>
-        public IBuildingState CurrentState { get; private set; }
 
         /// <summary>
         /// View Build
         /// </summary>
-        public BuildView BuildView { get; private set; }
+        public BuildrocessView BuildView { get; private set; }
         public View MoveBuildView { get; private set; }
         public View PlanningBuildView { get; private set; }
         public View RepairBuildView { get; private set; }
@@ -48,28 +43,27 @@ namespace Buildings
 
         public Transform NewPosition { get; private set; }
 
-        private StateManager _stateManager;
+        public StateManager StateManager { get; private set; }
 
         private BuildingVisualManager _buildingVisualManager;
 
-        public void Init(BuildData data, StateManager stateManager,  List<View> _view)
+        public void Init(BuildData data, List<View> _view)
         {   
             BuildData = data;
-            
-            EndTime = data.EndTimeBuilding;
-            BuildLevel = data.LevelBuild;
-
-            _stateManager = stateManager;
+            StateManager = new StateManager();
 
             _buildingVisualManager = new BuildingVisualManager(_meshBuild, _materialBuild, _materialGex, _buildSettings);
 
-            BuildView = GetComponent<BuildView>();
+            BuildView = GetComponent<BuildrocessView>();
 
             MoveBuildView = _view.OfType<MoveBuildView>().FirstOrDefault();
             PlanningBuildView = _view.OfType<PlanningBuildView>().FirstOrDefault();
             RepairBuildView = _view.OfType<RepairBuildingView>().FirstOrDefault();
             SpeedUpView = _view.OfType<SpeedUpView>().FirstOrDefault();
             StateBuildView = _view.OfType<StateBuildingView>().FirstOrDefault();
+
+            EndTime = data.EndTimeBuilding;
+            BuildLevel = data.LevelBuild;
 
             if (data.Bought)
             {
@@ -86,8 +80,7 @@ namespace Buildings
 
         private void Update()
         {
-            _stateManager.UpdateState(this);
-            CurrentState?.Update(this);
+            StateManager.UpdateState(this);
             if (IsMoving)
             {
               //  MoveBuildState?.Update(this);  
@@ -96,7 +89,7 @@ namespace Buildings
 
         public void TransitionToState(IBuildingState newState)
         {
-            _stateManager.SetState(newState, this);
+            StateManager.SetState(newState, this);
         }
 
         public void SetPosition(Transform newPos)
@@ -107,7 +100,7 @@ namespace Buildings
         public void ShowPanel()
         {
             if (!IsMoving)
-                _stateManager.ShowStatePanel(this);
+                StateManager.ShowStatePanel(this);
         }
 
         public List<IResource> GetResourcesUpgrade()

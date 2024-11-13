@@ -18,16 +18,16 @@ namespace CommandBuild.Build
 
         public override void Execute()
         {
-            if (_context.CurrentState is BuiltState)
-            {
-                var resourcesInfo = _context.GetResourcesUpgrade();
+            //if (_context.CurrentState is BuiltState)
+            //{
+            //    var resourcesInfo = _context.GetResourcesUpgrade();
                 
-                if (_resourcesManager.HasEnoughResources(resourcesInfo))
-                {
-                    _resourcesManager.SubtractResources(resourcesInfo);
-                   // _context.TransitionToState(_context.UnderConstructionState);
-                }
-            }
+            //    if (_resourcesManager.HasEnoughResources(resourcesInfo))
+            //    {
+            //        _resourcesManager.SubtractResources(resourcesInfo);
+            //       // _context.TransitionToState(_context.UnderConstructionState);
+            //    }
+            //}
         }
     }
 }

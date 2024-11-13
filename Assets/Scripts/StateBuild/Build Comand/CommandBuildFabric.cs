@@ -1,5 +1,6 @@
 using Buildings;
 using CommandBuild.Build;
+using Managers;
 
 public class CommandBuildFabric
 {
@@ -8,11 +9,15 @@ public class CommandBuildFabric
     private BuildingContext _buildingContext;
 
     private ResourcesManager _resourcesManager;
+    private StateManager _stateManager;
+    private IBuildingStateFactory _buildingStateFactory;
 
     public void Init(CommandInvoker invoker, ResourcesManager resourcesManager)
     {
         _commandInvoker = invoker;
         _resourcesManager = resourcesManager;
+        _stateManager = new StateManager();
+        _buildingStateFactory = new BuildingStateFactory();
     }
 
     public void SetBuild(BuildingContext context)
@@ -29,7 +34,7 @@ public class CommandBuildFabric
 
     public void CreateStartPlacmentCommand()
     {
-        Command placmentBuildCommand = new StartPlacmentCommand(_buildingContext);
+        Command placmentBuildCommand = new StartPlacmentCommand(_buildingContext, _buildingStateFactory, _stateManager);
         _commandInvoker.SetCommand(placmentBuildCommand);
         _commandInvoker.ExecuteCommands();
     }

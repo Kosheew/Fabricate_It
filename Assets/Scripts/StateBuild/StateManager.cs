@@ -7,8 +7,17 @@ namespace Managers
     {
         private IBuildingState _currentState;
 
+        public IBuildingState MoveState { get; set; }
+        public IBuildingState PlacmentState { get; set; }
+
         public StateManager()
         {
+        }
+
+        public void SetMove(IBuildingState newState, BuildingContext context)
+        {
+            MoveState = newState;
+            MoveState.Enter(context);
         }
 
         public void SetState(IBuildingState newState, BuildingContext context)
@@ -21,6 +30,7 @@ namespace Managers
         public void UpdateState(BuildingContext context)
         {
             _currentState?.Update(context);
+            MoveState?.Update(context);
         }
 
         public void ShowStatePanel(BuildingContext context)

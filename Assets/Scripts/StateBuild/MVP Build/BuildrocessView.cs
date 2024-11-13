@@ -5,7 +5,7 @@ using Buildings;
 
 namespace ViewBuildings
 {
-    public class BuildView : MonoBehaviour
+    public class BuildrocessView : MonoBehaviour
     {
         [SerializeField] private GameObject _movePanel;
         [SerializeField] private GameObject _progressPanel;

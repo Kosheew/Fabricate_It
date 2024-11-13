@@ -20,7 +20,10 @@ namespace BuildingState
 
             _isDragging = true;
 
-            ShowPanel(context);       
+            ShowPanel(context);
+
+            Debug.Log("I mveble State");
+
         }
 
         public void Exit(BuildingContext context)
@@ -36,7 +39,7 @@ namespace BuildingState
 
         public void ShowPanel(BuildingContext context)
         {
-            if (context.CurrentState is not PlanningBuildState)
+         //   if (context.CurrentState is not PlanningBuildState)
                 context.MoveBuildView.ShowStatePanel();   
         }
 

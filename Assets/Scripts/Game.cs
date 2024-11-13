@@ -76,7 +76,7 @@ namespace Game
 
             for(int i = 0; i < _buildingsContext.Length; i++) 
             {
-                _buildingsContext[i].Init(_gameData.BuildsData[i], _stateManager, _buildsView);
+                _buildingsContext[i].Init(_gameData.BuildsData[i], _buildsView);
 
                 if (!_gameData.BuildsData[i].Bought)
                     _buildingsContext[i].gameObject.SetActive(false);

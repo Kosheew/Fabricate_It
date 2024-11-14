@@ -10,10 +10,10 @@ public class InputController : MonoBehaviour
 
     private BuildingContext _buildingContext;
 
-    public void Init(CommandBuildFabric commandBuildFabric)
+    public void Init(DependencyContainer container)
     {
         _camera = Camera.main;
-        _commandBuildFabric = commandBuildFabric;
+        _commandBuildFabric = container.Resolve<CommandBuildFabric>();
     }
 
     private void Update()

@@ -51,7 +51,7 @@ namespace Buildings
         {
             int index = _buildSettings.Index;
 
-            BuildData = container.Resolve<BuildData[]>()[index];
+            BuildData = container.Resolve<List<BuildData>>()[index];
 
            // var stateFactory = container.Resolve<BuildingStateFactory>();
             StateManager = container.Resolve<StateManager>();

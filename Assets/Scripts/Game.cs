@@ -42,7 +42,7 @@ namespace Game
             _container = new DependencyContainer();
 
             _saveSystem = new BinarySaveSystem();
-            _gameData =  CreateNewGameData();
+            LoadGameData();
 
             InitializeDependencies();
             Init();
@@ -57,18 +57,21 @@ namespace Game
             
             _container.Register(_gameData);
             _container.Register(_gameData.BuildsData);
+            _container.Register(_gameData.ResorcesData);
+
             _container.Register(_stateManager);
             _container.Register(_buildFabric);          
             _container.Register(_buildsView);
             _container.Register(_buildingStateFactory);
             _container.Register(_commandInvoker);
             _container.Register(_resourcesManager);
+            _container.Register(_resourceView);
 
             _resourceView.Init();
-            _resourcesManager.Init(_resourceView, _gameData.ResorcesData.ToResourceList());
+            _resourcesManager.Init(_container);
             _buildFabric.Init(_container);
 
-            _inputController.Init(_buildFabric);
+            _inputController.Init(_container);
             InitView();
         }
 
@@ -78,7 +81,7 @@ namespace Game
            
             foreach (var item in _buildsView)
             {
-                item.Init(_buildFabric);
+                item.Init(_container);
             }
         }
 
@@ -86,11 +89,11 @@ namespace Game
         {
             _cameraZooming.Init();
             _cameraMovement.Init();
-            _shop.Init(_buildFabric, _gameData);
+            _shop.Init(_container);
 
             for (int i = 0; i < _buildingsContext.Length; i++)
             {
-                if (i >= _gameData.BuildsData.Length)
+                if (i >= _gameData.BuildsData.Count)
                 {
                     Debug.LogError("Mismatch between GameData and BuildingContext");
                     continue;
@@ -127,7 +130,7 @@ namespace Game
 
         private void LoadGameData()
         {
-            _gameData = _saveSystem.Load<GameData>() ?? CreateNewGameData();
+            _gameData = _saveSystem.Load<GameData>() !?? CreateNewGameData();
         }
 
         private GameData CreateNewGameData()
@@ -144,14 +147,8 @@ namespace Game
                     Coal = 10000,
                     Oil = 10000                   
                 },
-                BuildsData = new BuildData[] { new BuildData { TimeBuilding = 200 } }
+                BuildsData = new List<BuildData> { new BuildData { TimeBuilding = 200 } }
             };
-        }
-
-
-        public T ResolveDependency<T>()
-        {
-            return _container.Resolve<T>();
         }
     }
 }

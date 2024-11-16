@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Buildings;
 using ViewBuildings;
+using Dilemmas;
 
 namespace Game
 {
@@ -20,6 +21,7 @@ namespace Game
         [SerializeField] private ResourceView _oreView;
         [SerializeField] private ResourceView _coalView;
         [SerializeField] private ResourceView _woodView;
+        [SerializeField] private ResourceView _reputationView;
 
         [Header("Build View")]
         [SerializeField] private View StateBuildingView;
@@ -27,6 +29,9 @@ namespace Game
         [SerializeField] private View MoveBuildView;
         [SerializeField] private View PlainningBuildView;
         [SerializeField] private View SpeedUpView;
+
+        [Header("Dilemmas")]
+        [SerializeField] private DilemmasOutput _dilemmasOutput;
 
         [SerializeField] private Shop _shop;    
         [SerializeField] private BuildingContext[] _buildingsContext;
@@ -63,6 +68,7 @@ namespace Game
             _oreView.UpdateResouce(_gameData.ResorcesData.Ore);
             _coalView.UpdateResouce(_gameData.ResorcesData.Coal);
             _woodView.UpdateResouce(_gameData.ResorcesData.Wood);
+            //_reputationView.UpdateResouce(_gameData.ResorcesData.Reputation);
 
             StateBuildingView.Init(_buildFabric);
             RepairBuildingView.Init(_buildFabric);
@@ -75,6 +81,8 @@ namespace Game
         {
             _cameraZooming.Init();
             _cameraMovement.Init();
+
+            //_dilemmasOutput.Init(_gameData.ResorcesData, ResourcesManager);
 
             _shop.Init(_buildFabric, _gameData);
 

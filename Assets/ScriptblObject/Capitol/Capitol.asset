@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b48bc57a18c8c5f46a5de0e478360f1d, type: 3}
+  m_Name: Capitol
+  m_EditorClassIdentifier: 
+  _buildTypes: 0
+  _meshUnderConstruction: {fileID: 3299788846712481772, guid: 719627c1fd6ed2845b6b6c8ac11a3b81,
+    type: 3}
+  _meshBuilding: {fileID: -5495902117074765545, guid: 9f7aa2686a76bfa4897d433ae6724b2b,
+    type: 3}
+  _meshDestroyed: {fileID: 4692989581047829285, guid: 8a690b64e896aba4f9b70e5fc5f85e63,
+    type: 3}
+  _underConstructionMaterial: {fileID: 2100000, guid: 4d7c682ebdfc0e34bbfa41d1f2d23e24,
+    type: 2}
+  _buildingMaterial: {fileID: 2100000, guid: 8910ce6b5fac638418356ca75e03843e, type: 2}
+  _destroyedMaterial: {fileID: 2100000, guid: 8910ce6b5fac638418356ca75e03843e, type: 2}
+  _placmentMaterial: {fileID: 2100000, guid: 872958a55bf857d4b842443966066331, type: 2}
+  _leveResources:
+  - {fileID: 11400000, guid: f7bf0dd3b0848654e840a9fbd9a2e071, type: 2}
+  - {fileID: 11400000, guid: fe6bab7e4856db84f95400f25959d885, type: 2}
+  - {fileID: 11400000, guid: d96225acc8287944f911ebcc4f3a87e3, type: 2}

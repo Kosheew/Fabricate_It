@@ -10,9 +10,9 @@ namespace CommandBuild.Build
     public class SpeedUpCommand : Command
     {
         private BuildingContext _context;
-        private GameResources _resources;
+        private ResourcesManager _resources;
 
-        public SpeedUpCommand(BuildingContext context, GameResources resources)
+        public SpeedUpCommand(BuildingContext context, ResourcesManager resources)
         {
             _context = context;
             _resources = resources;
@@ -20,31 +20,27 @@ namespace CommandBuild.Build
 
         public override void Execute()
         {
-            // Логіка для прискорення будівництва
-            if (_context.CurrentState is UnderConstructionState)
-            {
-                DateTime currentTime = DateTime.Now;
-                DateTime endTime = _context.EndTimeBuilding;
+        //    if (_context.CurrentState is UnderConstructionState)
+        //    {
+        //        DateTime currentTime = DateTime.Now;
+        //        DateTime endTime = _context.EndTimeBuilding;
 
 
-                float remainingTime = (float)(endTime - currentTime).TotalSeconds;
-                Debug.Log(remainingTime);
+        //        float remainingTime = (float)(endTime - currentTime).TotalSeconds;
+        //        Debug.Log(remainingTime);
+        //        if (_resources.HasEnoughResource(ResourceType.Bond, (int)remainingTime))
+        //        {
+        //            _resources.SubtractResource(ResourceType.Bond, (int)remainingTime);
 
-                if ((int)remainingTime <= _resources.Bonds)
-                {
-                    _resources.Bonds -= (int)remainingTime;
+        //            _context.ShowPanel();
+        //        //    _context.TransitionToState(_context.BuiltState);
+        //        }
 
-                    Debug.Log(_resources.Bonds);
-
-                    _context.ShowPanel();
-                    _context.TransitionToState(_context.BuiltState);
-                }
-
-            }
-            else
-            {
-                Debug.Log("Building cannot be sped up in the current state.");
-            }
+        //    }
+        //    else
+        //    {
+        //        Debug.Log("Building cannot be sped up in the current state.");
+        //    }
         }
     }
 }

@@ -9,7 +9,7 @@ namespace ViewBuildings
 
         protected Presenter _presenter;
 
-        public abstract void Init(CommandBuildFabric commandBuild);
+        public abstract void Init(DependencyContainer container);
 
         public void ShowStatePanel()
         {

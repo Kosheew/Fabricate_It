@@ -4,7 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using Buildings;
 using ViewBuildings;
+using System;
+using Managers;
 using Dilemmas;
+
 
 namespace Game
 {
@@ -16,19 +19,12 @@ namespace Game
         [SerializeField] private InputController _inputController;
 
         [Header("Resource View")]
-        [SerializeField] private ResourceView _coinsView;
-        [SerializeField] private ResourceView _bondsView;
-        [SerializeField] private ResourceView _oreView;
-        [SerializeField] private ResourceView _coalView;
-        [SerializeField] private ResourceView _woodView;
-        [SerializeField] private ResourceView _reputationView;
+
+        [SerializeField] private ResourceView _resourceView;
+        [SerializeField] private ResourcesManager _resourcesManager;
 
         [Header("Build View")]
-        [SerializeField] private View StateBuildingView;
-        [SerializeField] private View RepairBuildingView;
-        [SerializeField] private View MoveBuildView;
-        [SerializeField] private View PlainningBuildView;
-        [SerializeField] private View SpeedUpView;
+        [SerializeField] private List<View> _buildsView;
 
         [Header("Dilemmas")]
         [SerializeField] private DilemmasOutput _dilemmasOutput;
@@ -37,78 +33,110 @@ namespace Game
         [SerializeField] private BuildingContext[] _buildingsContext;
 
         [Header("Save Data")]
-        public GameData _gameData;
+        [SerializeField] private GameData _gameData;
+
+        private DependencyContainer _container;
 
         private BinarySaveSystem _saveSystem;
         private CommandBuildFabric _buildFabric;
         private CommandInvoker _commandInvoker;
+        private StateManager _stateManager;
+        private BuildingStateFactory _buildingStateFactory;
 
         private void Awake()
         {
-            _saveSystem = new BinarySaveSystem();   
-            _gameData = _saveSystem.Load<GameData>();
+            _container = new DependencyContainer();
 
-            _commandInvoker = new CommandInvoker();
-            _buildFabric = new CommandBuildFabric();
-            _buildFabric.Init(_commandInvoker, _gameData.ResorcesData);
-
-            _inputController.Init(_buildFabric);
-
+            _saveSystem = new BinarySaveSystem();
             LoadGameData();
-            
-            InitView();
 
+            InitializeDependencies();
             Init();
         }
 
+        private void InitializeDependencies()
+        {
+            _buildingStateFactory = new BuildingStateFactory();
+            _commandInvoker = new CommandInvoker();
+            _buildFabric = new CommandBuildFabric();
+            _stateManager = new StateManager(_buildingStateFactory);
+            
+            _container.Register(_gameData);
+            _container.Register(_gameData.BuildsData);
+            _container.Register(_gameData.ResorcesData);
+
+            _container.Register(_stateManager);
+            _container.Register(_buildFabric);          
+            _container.Register(_buildsView);
+            _container.Register(_buildingStateFactory);
+            _container.Register(_commandInvoker);
+            _container.Register(_resourcesManager);
+            _container.Register(_resourceView);
+
+            _resourceView.Init();
+            _resourcesManager.Init(_container);
+            _buildFabric.Init(_container);
+
+            _inputController.Init(_container);
+            InitView();
+        }
+
+
         private void InitView()
         {
-            _bondsView.UpdateResouce(_gameData.ResorcesData.Bonds);
-            _coinsView.UpdateResouce(_gameData.ResorcesData.Coins);
-            _oreView.UpdateResouce(_gameData.ResorcesData.Ore);
-            _coalView.UpdateResouce(_gameData.ResorcesData.Coal);
-            _woodView.UpdateResouce(_gameData.ResorcesData.Wood);
-            //_reputationView.UpdateResouce(_gameData.ResorcesData.Reputation);
-
-            StateBuildingView.Init(_buildFabric);
-            RepairBuildingView.Init(_buildFabric);
-            MoveBuildView.Init(_buildFabric);
-            PlainningBuildView.Init(_buildFabric);
-            SpeedUpView.Init(_buildFabric);
+           
+            foreach (var item in _buildsView)
+            {
+                item.Init(_container);
+            }
         }
 
         private void Init()
         {
             _cameraZooming.Init();
             _cameraMovement.Init();
+            _shop.Init(_container);
 
-            //_dilemmasOutput.Init(_gameData.ResorcesData, ResourcesManager);
-
-            _shop.Init(_buildFabric, _gameData);
-
-            for(int i = 0; i < _buildingsContext.Length; i++) 
+            for (int i = 0; i < _buildingsContext.Length; i++)
             {
-                _buildingsContext[i].Init(_gameData.BuildsData[i], _buildFabric);
+                if (i >= _gameData.BuildsData.Count)
+                {
+                    Debug.LogError("Mismatch between GameData and BuildingContext");
+                    continue;
+                }
+
+                _buildingsContext[i].Init(_container);
 
                 if (!_gameData.BuildsData[i].Bought)
                     _buildingsContext[i].gameObject.SetActive(false);
             }
         }
 
+
+        private void SaveGame()
+        {
+            //foreach (var building in _buildingsContext)
+            //{
+            //    if (building == null) continue;
+            //    building.UpdateGameData(_gameData);
+            //}
+            _saveSystem.Save(_gameData);
+        }
+
         private void OnApplicationPause(bool pause)
         {
-            Debug.Log("Save");
-            _saveSystem.Save(_gameData);
+            if (pause) SaveGame();
         }
 
         private void OnApplicationQuit()
         {
-            _saveSystem.Save(_gameData);
+            SaveGame();
         }
+
 
         private void LoadGameData()
         {
-            _gameData = _saveSystem.Load<GameData>() ?? CreateNewGameData();
+            _gameData = _saveSystem.Load<GameData>() !?? CreateNewGameData();
         }
 
         private GameData CreateNewGameData()
@@ -116,7 +144,15 @@ namespace Game
             Debug.Log("Creating new game data");
             return new GameData
             {
-                ResorcesData = new GameResources { Bonds = 100, Coins = 100 },
+                ResorcesData = new GameResources 
+                { 
+                    Bonds = 10000, 
+                    Coins = 10000,
+                    Wood = 10000,
+                    Ore = 10000,
+                    Coal = 10000,
+                    Oil = 10000                   
+                },
                 BuildsData = new List<BuildData> { new BuildData { TimeBuilding = 200 } }
             };
         }

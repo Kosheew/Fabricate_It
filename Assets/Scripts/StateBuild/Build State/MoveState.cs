@@ -14,13 +14,15 @@ namespace BuildingState
 
             _camera = Camera.main;
 
-            context.ShowPanel();
             context.BuildView.ShowMovePanel();
             context.IsMoving = true;
 
             _isDragging = true;
 
-            ShowPanel(context);       
+            ShowPanel(context);
+
+            Debug.Log("I mveble State");
+
         }
 
         public void Exit(BuildingContext context)
@@ -30,13 +32,12 @@ namespace BuildingState
             context.IsMoving = false;
             _isDragging = false;
 
-            ShowPanel(context);
             context.BuildView.ShowMovePanel();
         }
 
         public void ShowPanel(BuildingContext context)
         {
-            if (context.CurrentState is not PlanningBuildState)
+            if (context.BuildData.Bought)
                 context.MoveBuildView.ShowStatePanel();   
         }
 

@@ -1,33 +1,96 @@
+using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.Rendering.DebugUI;
 
 public class ResourcesManager : MonoBehaviour
 {
-    private GameResources _gameResources;
+    private Dictionary<ResourceType, IResource> _resources = new Dictionary<ResourceType, IResource>();
     private ResourceView _view;
 
-    public void Init(GameResources gameResources, ResourceView view)
+    public void Init(DependencyContainer container)
     {
-        _gameResources = gameResources;
-        _view = view;
+        List<IResource> resources = container.Resolve<GameResources>().ToResourceList();
+        _view = container.Resolve<ResourceView>();
+
+        foreach (var resource in resources)
+        {
+            _resources[resource.Type] = resource;
+        }
+        UpdateView();
     }
 
-    public void SubCoins(int value)
+    public void AddResource(ResourceType type, int amount)
     {
-        _gameResources.Coins -= value;
-        _view.UpdateResouce(_gameResources.Coins);
+        if (_resources.TryGetValue(type, out var resource))
+        {
+            resource.Add(amount);
+            UpdateView();
+        }
     }
 
-    public void ChangeReputation(int value)
+    public void AddResources(List<IResource> resources)
     {
-        _gameResources.Reputation += value;
+        foreach (var resource in resources)
+        {
+            AddResource(resource.Type, resource.Amount);
+        }
+    }
 
-        if(_gameResources.Reputation > 100)
-            _gameResources.Reputation = 100;
+    public void SubtractResource(ResourceType type, int amount)
+    {
+        if (_resources.TryGetValue(type, out var resource) && resource.HasEnough(amount))
+        {
+            resource.Subtract(amount);
+            UpdateView();
+        }
+        else
+        {
+            Debug.LogWarning($"����������� {type} ��� ��������� ��������.");
+        }
+    }
 
-        if (_gameResources.Reputation < -100)
-            _gameResources.Reputation = -100;
+    public void SubtractResources(List<IResource> resources)
+    {
+        if (HasEnoughResources(resources))
+        {
+            foreach (var resource in resources)
+            {
+                SubtractResource(resource.Type, resource.Amount);
+            }
+            UpdateView();
+        }
+        else
+        {
+            Debug.LogWarning("�� ������� ������� ��� ��������� ��������.");
+        }
+    }
 
-        _view.UpdateResouce(_gameResources.Reputation);
+    public bool HasEnoughResources(List<IResource> resources)
+    {
+        foreach (var resource in resources)
+        {
+            if (!_resources.TryGetValue(resource.Type, out var availableResource) || !availableResource.HasEnough(resource.Amount))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public bool HasEnoughResource(ResourceType type, int amount)
+    {
+        if (_resources.TryGetValue(type, out var resource))
+        {
+            return resource.HasEnough(amount);
+        }
+        Debug.LogWarning($"������ {type} �� ��������.");
+        return false;
+    }
+
+
+    // ��������� ���������� ���� ��� �������
+    private void UpdateView()
+    {
+        _view.UpdateResource(_resources.Values);
     }
 }

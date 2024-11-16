@@ -1,5 +1,6 @@
 using Buildings;
 using CommandBuild.Build;
+using Managers;
 
 public class CommandBuildFabric
 {
@@ -7,12 +8,15 @@ public class CommandBuildFabric
 
     private BuildingContext _buildingContext;
 
-    private GameResources _gameResources;
+    private ResourcesManager _resourcesManager;
 
-    public void Init(CommandInvoker invoker, GameResources gameResources)
+    private DependencyContainer _dependencyContainer;
+
+    public void Init(DependencyContainer container)
     {
-        _commandInvoker = invoker;
-        _gameResources = gameResources;
+        _dependencyContainer = container;
+        _commandInvoker = container.Resolve<CommandInvoker>();
+        _resourcesManager = container.Resolve<ResourcesManager>();
     }
 
     public void SetBuild(BuildingContext context)
@@ -22,28 +26,28 @@ public class CommandBuildFabric
 
     public void CreateBuildBuyCommand()
     {
-        Command buildBuyCommand = new BuildBuy(_buildingContext);
+        Command buildBuyCommand = new BuildBuy(_buildingContext, _dependencyContainer);
         _commandInvoker.SetCommand(buildBuyCommand);
         _commandInvoker.ExecuteCommands();
     }
 
     public void CreateStartPlacmentCommand()
     {
-        Command placmentBuildCommand = new StartPlacmentCommand(_buildingContext);
+        Command placmentBuildCommand = new StartPlacmentCommand(_buildingContext, _dependencyContainer);
         _commandInvoker.SetCommand(placmentBuildCommand);
         _commandInvoker.ExecuteCommands();
     }
 
     public void CreateSpeedUpCommand()
     {
-        Command speedUpCommand = new SpeedUpCommand(_buildingContext, _gameResources);
+        Command speedUpCommand = new SpeedUpCommand(_buildingContext, _resourcesManager);
         _commandInvoker.SetCommand(speedUpCommand);
         _commandInvoker.ExecuteCommands();
     }
 
     public void CreateUpgradeCommand()
     {
-        Command upgradeCommand = new UpgradeCommand(_buildingContext);
+        Command upgradeCommand = new UpgradeCommand(_buildingContext, _resourcesManager);
         _commandInvoker.SetCommand(upgradeCommand);
         _commandInvoker.ExecuteCommands();
     }
@@ -64,14 +68,14 @@ public class CommandBuildFabric
 
     public void CreateRefuceBuildCommand()
     {
-        Command moveCommand = new RefuceBuildBuy(_buildingContext);
+        Command moveCommand = new RefuceBuildBuy(_buildingContext, _dependencyContainer);
         _commandInvoker.SetCommand(moveCommand);
         _commandInvoker.ExecuteCommands();
     }
 
     public void CreatePlanningBuildCommand(BuildingContext buildingContext)
     {
-        Command planningCommand = new PlanningBuildCommand(buildingContext);
+        Command planningCommand = new PlanningBuildCommand(buildingContext, _dependencyContainer);
         _commandInvoker.SetCommand(planningCommand);
         _commandInvoker.ExecuteCommands();
     }

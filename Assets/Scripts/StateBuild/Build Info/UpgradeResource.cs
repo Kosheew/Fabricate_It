@@ -4,26 +4,16 @@ using UnityEngine;
 public class UpgradeResource : ScriptableObject
 {
     [Header("Time")]
-    [SerializeField] private double _temeBuild;
-
-    [Header("Paymant")]
-    [SerializeField] private int _coins;
-    [SerializeField] private int _bonds;
+    [SerializeField] private int _temeBuild;
 
     [Header("Resources")]
-    [SerializeField] private int _oil;
-    [SerializeField] private int _coal;
-    [SerializeField] private int _ore;
-    [SerializeField] private int _wood;
+    [SerializeField] private GameResources _upgradeResources;
 
     [Header("Income")]
     [SerializeField] private int _income;
-    public double TimeBuild => _temeBuild;
-    public int Coins => _coins;
-    public int Bonds => _bonds;
-    public int Oil => _oil;
-    public int Coal => _coal;
-    public int Ore => _ore;
-    public int Wood => _wood;
+
+    public int TimeBuild => _temeBuild;
     public int Income => _income;
+    public GameResources UpgradeResources => _upgradeResources;
+
 }

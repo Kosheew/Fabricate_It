@@ -9,25 +9,25 @@ namespace CommandBuild.Build
     public class UpgradeCommand : Command
     {
         private BuildingContext _context;
-
-        public UpgradeCommand(BuildingContext context)
+        private ResourcesManager _resourcesManager;
+        public UpgradeCommand(BuildingContext context, ResourcesManager resourcesManager)
         {
             _context = context;
+            _resourcesManager = resourcesManager;
         }
 
         public override void Execute()
         {
-            // Логіка для апгрейду будівлі
-            if (_context.CurrentState is BuiltState)
-            {
-                Debug.Log("Upgrading the building.");
-                _context.SetUpgradeFlag(true);
-                _context.TransitionToState(_context.UnderConstructionState);
-            }
-            else
-            {
-                Debug.Log("Building cannot be upgraded in the current state.");
-            }
+            //if (_context.CurrentState is BuiltState)
+            //{
+            //    var resourcesInfo = _context.GetResourcesUpgrade();
+                
+            //    if (_resourcesManager.HasEnoughResources(resourcesInfo))
+            //    {
+            //        _resourcesManager.SubtractResources(resourcesInfo);
+            //       // _context.TransitionToState(_context.UnderConstructionState);
+            //    }
+            //}
         }
     }
 }

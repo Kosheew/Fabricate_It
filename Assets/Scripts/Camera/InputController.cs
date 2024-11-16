@@ -6,14 +6,14 @@ public class InputController : MonoBehaviour
 {
     private Camera _camera;
     private CommandBuildFabric _commandBuildFabric;
-    private bool isDragging = false; // Додаємо змінну для відстеження стану перетягування
+    public bool IsDragging { get; private set; }
 
     private BuildingContext _buildingContext;
 
-    public void Init(CommandBuildFabric commandBuildFabric)
+    public void Init(DependencyContainer container)
     {
         _camera = Camera.main;
-        _commandBuildFabric = commandBuildFabric;
+        _commandBuildFabric = container.Resolve<CommandBuildFabric>();
     }
 
     private void Update()
@@ -21,38 +21,51 @@ public class InputController : MonoBehaviour
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
-            HandleTouchInput(touch);
+            ProcessTouch(touch);
         }
     }
 
-    private void HandleTouchInput(Touch touch)
+    private void ProcessTouch(Touch touch)
     {
         Ray ray = _camera.ScreenPointToRay(touch.position);
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
-            if (hit.collider.TryGetComponent(out BuildingContext context))
-            {
-                HandleBuildingContextTouch(context);
-                isDragging = touch.phase == TouchPhase.Ended ? false : true ;
-            }
-          
-            if (touch.phase == TouchPhase.Moved 
-                && isDragging 
-                && hit.collider.TryGetComponent(out HexCell hexCell)
-                && _buildingContext.IsMoving)
-            {
-                _buildingContext.SetPosition(hexCell.transform);
-            }
+            HandleHitObject(hit, touch);
         }
     }
 
-    private void HandleBuildingContextTouch(BuildingContext context)
+    private void HandleHitObject(RaycastHit hit, Touch touch)
+    {
+        if (hit.collider.TryGetComponent(out BuildingContext context))
+        {
+            HandleBuildingTouch(context, touch);
+        }
+        else if (touch.phase == TouchPhase.Moved && IsDragging)
+        {
+            HandleDrag(hit);
+        }
+    }
+
+    private void HandleBuildingTouch(BuildingContext context, Touch touch)
     {
         if (Input.GetButtonDown("Fire1"))
         {
             _commandBuildFabric.SetBuild(context);
             _buildingContext = context;
             context.ShowPanel();
+        }
+
+        if (_buildingContext?.IsMoving == true)
+        {
+            IsDragging = touch.phase != TouchPhase.Ended;
+        }
+    }
+
+    private void HandleDrag(RaycastHit hit)
+    {
+        if (hit.collider.TryGetComponent(out HexCell hexCell) && _buildingContext?.IsMoving == true)
+        {
+            _buildingContext.SetPosition(hexCell.transform);
         }
     }
 }

@@ -6,6 +6,8 @@ using Buildings;
 using ViewBuildings;
 using System;
 using Managers;
+using Dilemmas;
+
 
 namespace Game
 {
@@ -17,11 +19,15 @@ namespace Game
         [SerializeField] private InputController _inputController;
 
         [Header("Resource View")]
+
         [SerializeField] private ResourceView _resourceView;
         [SerializeField] private ResourcesManager _resourcesManager;
 
         [Header("Build View")]
         [SerializeField] private List<View> _buildsView;
+
+        [Header("Dilemmas")]
+        [SerializeField] private DilemmasOutput _dilemmasOutput;
 
         [SerializeField] private Shop _shop;    
         [SerializeField] private BuildingContext[] _buildingsContext;

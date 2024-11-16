@@ -19,6 +19,7 @@ public class GameResources
     public int Coal;
     public int Ore;
     public int Wood;
+    public int Reputation;
 
     public List<IResource> ToResourceList()
     {

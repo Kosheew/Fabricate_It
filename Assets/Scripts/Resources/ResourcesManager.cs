@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public class ResourcesManager : MonoBehaviour
 {
@@ -44,7 +45,7 @@ public class ResourcesManager : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning($"Недостатньо {type} для виконання операції.");
+            Debug.LogWarning($"пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ {type} пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.");
         }
     }
 
@@ -60,7 +61,7 @@ public class ResourcesManager : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("Не вистачає ресурсів для виконання операції.");
+            Debug.LogWarning("пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.");
         }
     }
 
@@ -82,12 +83,12 @@ public class ResourcesManager : MonoBehaviour
         {
             return resource.HasEnough(amount);
         }
-        Debug.LogWarning($"Ресурс {type} не знайдено.");
+        Debug.LogWarning($"пїЅпїЅпїЅпїЅпїЅпїЅ {type} пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.");
         return false;
     }
 
 
-    // Оновлення інтерфейсу після змін ресурсів
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     private void UpdateView()
     {
         _view.UpdateResource(_resources.Values);

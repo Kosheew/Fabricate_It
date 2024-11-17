@@ -6,7 +6,7 @@ namespace Dilemmas
     public class DilemmaOutputParametersSO : ScriptableObject
     {
         public DilemmaSO Dilemma;
-        public int OutputIndex;
+        public int ReputationOutputIndex;
         public int Reward;
         public ResourceType ResourceType;
     }

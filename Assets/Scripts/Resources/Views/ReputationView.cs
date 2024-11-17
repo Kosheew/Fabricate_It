@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ReputationView : ResourceView
+public class ReputationView : MonoBehaviour
 {
     [SerializeField] private Slider _scale;
 
@@ -11,7 +11,7 @@ public class ReputationView : ResourceView
         _scale.minValue = -100f;
     }
 
-    public override void UpdateResouce(int value)
+    public void UpdateResource(int value)
     {
         _scale.value = value;
     }

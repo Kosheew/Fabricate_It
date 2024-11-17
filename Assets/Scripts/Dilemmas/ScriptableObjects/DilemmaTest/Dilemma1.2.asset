@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Dilemma: {fileID: 11400000, guid: e51f891f88aca6c488b1bef5673d6e92, type: 2}
   OutputIndex: 1
-  RewardIndex: 1
-  RecoursesOptions: 5
+  Reward: 30
+  ResourceType: 1

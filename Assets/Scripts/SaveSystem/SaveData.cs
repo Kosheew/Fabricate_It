@@ -30,7 +30,8 @@ public class GameResources
             new WoodResource(this),
             new OreResource(this),
             new CoalResource(this),
-            new OilResource(this)
+            new OilResource(this),
+            new ReputationResource(this)
         };
     }
 }

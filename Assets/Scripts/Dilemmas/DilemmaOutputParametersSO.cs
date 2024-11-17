@@ -7,12 +7,7 @@ namespace Dilemmas
     {
         public DilemmaSO Dilemma;
         public int OutputIndex;
-        public int RewardIndex;
-        public ResourcesOptions ResourcesOptions;
-    }
-
-    public enum ResourcesOptions
-    {
-        Bonds, Coins, Oil, Coal, Ore, Wood
+        public int Reward;
+        public ResourceType ResourceType;
     }
 }

@@ -5,5 +5,6 @@ public enum ResourceType
     Ore,
     Coal,
     Bond,
-    Oil
+    Oil,
+    Reputation
 }

@@ -10,10 +10,10 @@ public class Shop : MonoBehaviour
 
     private GameData _gameData;
 
-    public void Init(CommandBuildFabric commandFabric, GameData gameData)
+    public void Init(DependencyContainer container)
     {
-        _commandFabric = commandFabric;
-        _gameData = gameData;
+        _commandFabric = container.Resolve<CommandBuildFabric>();
+        _gameData = container.Resolve<GameData>();
     }
 
     public void ChooseBuild()

@@ -13,7 +13,7 @@ namespace CommandBuild.Build
 
         public override void Execute()
         {
-            _context.MoveBuildState?.Exit(_context);
+         //   _context.MoveBuildState?.Exit(_context);
             Debug.Log("Execute command Move");
         }
     }

@@ -13,9 +13,6 @@ namespace BuildingState
 
         public void Enter(BuildingContext context)
         {
-            context.MeshBuild.mesh = context.BuildSettings.MeshUnderConstrucrion;
-            context.MaterialBuild.material = context.BuildSettings.UnderConstructionMaterial;
-            context.MaterialGex.material = context.BuildSettings.BuildingMaterial;
 
             context.BuildData.CurrentState = nameof(BuildingContext);
 
@@ -61,7 +58,7 @@ namespace BuildingState
 
             if (currentTime >= _endTime)
             {
-                context.TransitionToState(context.BuiltState);
+              //  context.TransitionToState(context.BuiltState);
             }
             else
             {
@@ -82,7 +79,7 @@ namespace BuildingState
             }
 
             context.BuildData.LevelBuild++;
-            context.TransitionToState(context.BuiltState);
+           // context.TransitionToState(context.BuiltState);
             _constructionCoroutine = null;
 
         }

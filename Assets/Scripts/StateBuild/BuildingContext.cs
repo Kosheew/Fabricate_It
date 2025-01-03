@@ -6,27 +6,19 @@ using BuildingState;
 using ViewBuildings;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using Managers;
 
 namespace Buildings
 {
     public class BuildingContext : MonoBehaviour
     {
         [SerializeField] private BuildSettings _buildSettings;
-        
-        /// <summary>
-        /// State Building
-        /// </summary>
-        public IBuildingState CurrentState { get; private set; }
-        public IBuildingState BuiltState { get; private set; }
-        public IBuildingState DestroyedState { get; private set; }
-        public IBuildingState UnderConstructionState { get; private set; }
-        public IBuildingState MoveBuildState { get; private set; }
-        public IBuildingState PlanningBuildState { get; private set; }
 
         /// <summary>
         /// View Build
         /// </summary>
-        public BuildView BuildView { get; private set; }
+        public BuildrocessView BuildView { get; private set; }
         public View MoveBuildView { get; private set; }
         public View PlanningBuildView { get; private set; }
         public View RepairBuildView { get; private set; }
@@ -34,16 +26,10 @@ namespace Buildings
         public View StateBuildView { get; private set; }
 
         [SerializeField] public MeshFilter _meshBuild;
-        [SerializeField] public MeshFilter _meshGex;
 
         [SerializeField] public MeshRenderer _materialBuild;
         [SerializeField] public MeshRenderer _materialGex;
 
-        public MeshFilter MeshBuild => _meshBuild;
-        public MeshFilter MeshGex => _meshGex;
-
-        public MeshRenderer MaterialBuild => _materialBuild;
-        public MeshRenderer MaterialGex => _materialGex;
 
         public BuildSettings BuildSettings => _buildSettings;
 
@@ -57,54 +43,56 @@ namespace Buildings
 
         public Transform NewPosition { get; private set; }
 
-        public void Init(BuildData data)
-        {   
-            BuildData = data;
+        public StateManager StateManager { get; private set; }
+
+        private BuildingVisualManager _buildingVisualManager;
+
+        public void Init(DependencyContainer container)
+        {
+            int index = _buildSettings.Index;
+
+            BuildData = container.Resolve<List<BuildData>>()[index];
+
+           // var stateFactory = container.Resolve<BuildingStateFactory>();
+            StateManager = container.Resolve<StateManager>();
+
+            List<View> view = container.Resolve<List<View>>();
             
-            EndTime = data.EndTimeBuilding;
-            BuildLevel = data.LevelBuild;
+            _buildingVisualManager = new BuildingVisualManager(_meshBuild, _materialBuild, _materialGex, _buildSettings);
+            
+            BuildView = GetComponent<BuildrocessView>();
 
-            BuiltState = new BuiltState();
-            DestroyedState = new DestroyedState();
-            UnderConstructionState = new UnderConstructionState();
-            MoveBuildState = new MoveState();
-            PlanningBuildState = new PlanningBuildState();  
+            MoveBuildView = view.OfType<MoveBuildView>().FirstOrDefault();
+            PlanningBuildView = view.OfType<PlanningBuildView>().FirstOrDefault();
+            RepairBuildView = view.OfType<RepairBuildingView>().FirstOrDefault();
+            SpeedUpView = view.OfType<SpeedUpView>().FirstOrDefault();
+            StateBuildView = view.OfType<StateBuildingView>().FirstOrDefault();
 
-            BuildView = GetComponent<BuildView>();
 
-            MoveBuildView = FindAnyObjectByType<MoveBuildView>();
-            PlanningBuildView = FindAnyObjectByType<PlanningBuildView>();
-            RepairBuildView = FindAnyObjectByType<RepairBuildingView>();
-            SpeedUpView = FindAnyObjectByType<SpeedUpView>();
-            StateBuildView = FindAnyObjectByType<StateBuildingView>();
+            EndTime = BuildData.EndTimeBuilding;
+            BuildLevel = BuildData.LevelBuild;
 
-            if (data.Bought)
+            if (BuildData.Bought)
             {
                 gameObject.SetActive(true);
-                transform.position = data.BuildPosition.ToVector3();  
+                transform.position = BuildData.BuildPosition.ToVector3();  
                 
-                Type stateType = Type.GetType("BuildingState." + data.CurrentState);
+                Type stateType = Type.GetType("BuildingState." + BuildData.CurrentState);
 
                 IBuildingState stateInstance = (IBuildingState)Activator.CreateInstance(stateType);
 
-                TransitionToState(stateInstance);
+                StateManager.SetState(stateInstance, this);
             }
         }
 
         private void Update()
         {
-            CurrentState?.Update(this);
-            if (IsMoving)
-            {
-                MoveBuildState?.Update(this);  
-            }
+            StateManager?.UpdateState(this);
         }
 
         public void TransitionToState(IBuildingState newState)
         {
-            CurrentState?.Exit(this);
-            CurrentState = newState;
-            CurrentState.Enter(this);
+            StateManager.SetState(newState, this);
         }
 
         public void SetPosition(Transform newPos)
@@ -114,8 +102,7 @@ namespace Buildings
 
         public void ShowPanel()
         {
-            if (!IsMoving)
-                CurrentState?.ShowPanel(this);
+            StateManager.ShowStatePanel(this);
         }
 
         public List<IResource> GetResourcesUpgrade()

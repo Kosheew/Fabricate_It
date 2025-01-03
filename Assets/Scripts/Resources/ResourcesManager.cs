@@ -6,9 +6,11 @@ public class ResourcesManager : MonoBehaviour
     private Dictionary<ResourceType, IResource> _resources = new Dictionary<ResourceType, IResource>();
     private ResourceView _view;
 
-    public void Init(ResourceView view, List<IResource> resources)
+    public void Init(DependencyContainer container)
     {
-        _view = view;
+        List<IResource> resources = container.Resolve<GameResources>().ToResourceList();
+        _view = container.Resolve<ResourceView>();
+
         foreach (var resource in resources)
         {
             _resources[resource.Type] = resource;
